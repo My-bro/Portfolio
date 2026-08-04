@@ -9,8 +9,12 @@
 export const LANGS = ["fr", "en"] as const;
 export type Lang = (typeof LANGS)[number];
 
-export const PROFILES = ["web", "cpp"] as const;
-/** Les deux facettes du CV : full-stack/DevOps et C/C++. */
+/**
+ * L'ordre compte : `cpp` d'abord parce que c'est le cœur du profil — le
+ * bas niveau et l'algorithmique — et parce que c'est le profil par défaut
+ * du site. `web` est la seconde corde, pas la première.
+ */
+export const PROFILES = ["cpp", "web"] as const;
 export type Profile = (typeof PROFILES)[number];
 
 /**
@@ -33,8 +37,6 @@ export interface Project {
   name: string;
   /** Profils dans lesquels le projet apparaît. */
   profiles: readonly Profile[];
-  /** Remonte le projet en tête de liste dans les profils concernés. */
-  featured?: boolean;
   period: string;
   role: Localized;
   tagline: Localized;

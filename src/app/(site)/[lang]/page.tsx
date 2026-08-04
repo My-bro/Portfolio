@@ -25,8 +25,8 @@ function structuredData(lang: Lang) {
     sameAs: [site.github],
     jobTitle:
       lang === "fr"
-        ? "Développeur full-stack / DevOps et C/C++"
-        : "Full-stack / DevOps and C/C++ engineer",
+        ? "Développeur C/C++ et algorithmique, full-stack et DevOps"
+        : "C/C++ and algorithms engineer, full-stack and DevOps",
     knowsAbout: skills.map((s) => s.label),
     alumniOf: [
       { "@type": "CollegeOrUniversity", name: "Epitech Paris" },

@@ -26,7 +26,7 @@ function Bar({ value, max }: { value: number; max: number }) {
   const pct = max > 0 ? Math.max(2, Math.round((value / max) * 100)) : 0;
   return (
     <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-      <div className="h-full rounded-full bg-olive" style={{ width: `${pct}%` }} />
+      <div className="h-full rounded-full bg-brand" style={{ width: `${pct}%` }} />
     </div>
   );
 }
@@ -108,7 +108,7 @@ export default async function AdminPage({
         ) : (
           <p className="text-sm text-muted-foreground">
             Aucune clé configurée. Définis-en une avec{" "}
-            <code className="font-mono text-olive">
+            <code className="font-mono text-brand">
               npx wrangler secret put METRICS_KEY
             </code>
             .
@@ -228,7 +228,7 @@ export default async function AdminPage({
                 href={`/admin?days=${r}`}
                 className={`rounded-md px-2.5 py-1 font-mono text-xs ${
                   r === days
-                    ? "bg-olive text-primary-foreground"
+                    ? "bg-brand text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >

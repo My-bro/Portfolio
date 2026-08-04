@@ -29,7 +29,7 @@ export function Section({
         </div>
         {action}
       </div>
-      <div aria-hidden className="rule-olive mb-8 h-px w-full" />
+      <div aria-hidden className="rule-brand mb-8 h-px w-full" />
       {children}
     </section>
   );

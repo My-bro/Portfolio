@@ -21,14 +21,13 @@ export function ProjectsSection() {
    * script de démarrage qui masque ceux du mauvais profil. React reprend
    * ensuite la main avec la vraie liste.
    */
-  const visible = useMemo(() => {
-    const list = hydrated
-      ? projects.filter((p) => p.profiles.includes(profile))
-      : [...projects];
-    return list.toSorted(
-      (a, b) => Number(b.featured ?? false) - Number(a.featured ?? false),
-    );
-  }, [profile, hydrated]);
+  const visible = useMemo(
+    () =>
+      hydrated
+        ? projects.filter((p) => p.profiles.includes(profile))
+        : [...projects],
+    [profile, hydrated],
+  );
 
   const openProject = useCallback(
     (slug: string) => {

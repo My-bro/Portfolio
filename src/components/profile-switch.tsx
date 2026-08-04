@@ -46,7 +46,7 @@ export function ProfileSwitch({ className }: { className?: string }) {
                 aria-hidden
                 layoutId="profile-switch-indicator"
                 transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                className="absolute inset-0 rounded-md bg-olive"
+                className="absolute inset-0 rounded-md bg-brand"
               />
             )}
             {/* Au-dessus de l'indicateur, qui est peint dans le même plan. */}

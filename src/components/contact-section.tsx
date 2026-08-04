@@ -35,7 +35,7 @@ export function ContactSection() {
               <Mail className="size-3.5 shrink-0" />
               <a
                 href={`mailto:${site.email}`}
-                className="transition-colors hover:text-olive"
+                className="transition-colors hover:text-brand"
               >
                 {site.email}
               </a>
@@ -45,7 +45,7 @@ export function ContactSection() {
                 <Phone className="size-3.5 shrink-0" />
                 <a
                   href={`tel:${site.phone.replace(/\s/g, "")}`}
-                  className="transition-colors hover:text-olive"
+                  className="transition-colors hover:text-brand"
                 >
                   {site.phone}
                 </a>
@@ -67,7 +67,7 @@ export function ContactSection() {
               {languagesSpoken.map((entry) => (
                 <li key={entry.level} className="flex items-baseline gap-1.5">
                   <span>{entry.label[lang]}</span>
-                  <span className="font-mono text-xs text-olive">
+                  <span className="font-mono text-xs text-brand">
                     {entry.level}
                   </span>
                 </li>

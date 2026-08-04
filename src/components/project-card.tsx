@@ -33,7 +33,7 @@ export function ProjectCard({
       className={cn(
         "group relative flex h-full w-full flex-col overflow-hidden rounded-xl border",
         "bg-card text-left transition-colors duration-200",
-        "hover:border-olive/50 focus-visible:border-olive/50",
+        "hover:border-brand/50 focus-visible:border-brand/50",
         "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
       )}
     >
@@ -82,7 +82,7 @@ export function ProjectCard({
           </div>
           <ArrowUpRight
             aria-hidden
-            className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-olive"
+            className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand"
           />
         </div>
 

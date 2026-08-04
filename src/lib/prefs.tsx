@@ -20,7 +20,7 @@ const QUERY_KEY = "p";
  * pour que le CSS masque les projets du mauvais profil dès la première image.
  * Sans lui, les cartes du profil web clignoteraient sur un lien `?p=cpp`.
  */
-export const PROFILE_BOOTSTRAP_SCRIPT = `(function(){try{var p=new URLSearchParams(location.search).get("${QUERY_KEY}");if(p!=="web"&&p!=="cpp"){p=localStorage.getItem("${STORAGE_KEY}")}if(p!=="web"&&p!=="cpp"){p="web"}document.documentElement.dataset.profile=p}catch(e){document.documentElement.dataset.profile="web"}})()`;
+export const PROFILE_BOOTSTRAP_SCRIPT = `(function(){try{var p=new URLSearchParams(location.search).get("${QUERY_KEY}");if(p!=="web"&&p!=="cpp"){p=localStorage.getItem("${STORAGE_KEY}")}if(p!=="web"&&p!=="cpp"){p="cpp"}document.documentElement.dataset.profile=p}catch(e){document.documentElement.dataset.profile="cpp"}})()`;
 
 /**
  * L'attribut `data-profile` de <html> fait autorité : c'est ce que le script
@@ -37,7 +37,7 @@ function subscribeProfile(onChange: () => void) {
 }
 
 function readProfile(): Profile {
-  return document.documentElement.dataset.profile === "cpp" ? "cpp" : "web";
+  return document.documentElement.dataset.profile === "web" ? "web" : "cpp";
 }
 
 interface PrefsValue {
@@ -62,8 +62,8 @@ export function PrefsProvider({
   const profile = useSyncExternalStore(
     subscribeProfile,
     readProfile,
-    // Le HTML statique est toujours généré pour le profil web.
-    () => "web" as const,
+    // Le HTML statique est toujours généré pour le profil C/C++.
+    () => "cpp" as const,
   );
 
   const router = useRouter();
@@ -80,8 +80,9 @@ export function PrefsProvider({
       }
 
       // L'URL reste partageable sans provoquer de navigation ni de scroll.
+      // Le profil par défaut ne s'écrit pas dans l'URL.
       const params = new URLSearchParams(searchParams.toString());
-      if (next === "web") params.delete(QUERY_KEY);
+      if (next === "cpp") params.delete(QUERY_KEY);
       else params.set(QUERY_KEY, next);
       const query = params.toString();
       router.replace(query ? `${pathname}?${query}` : pathname, {

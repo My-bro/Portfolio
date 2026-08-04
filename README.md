@@ -1,8 +1,8 @@
 # Portfolio — Axel Londas
 
-Portfolio bilingue (FR/EN) à deux profils — **web / DevOps** et **C/C++** —
-construit pour tenir dans le palier gratuit de Cloudflare malgré beaucoup de
-vidéos.
+Portfolio bilingue (FR/EN) à deux profils — **C/C++ & algorithmique** en
+premier, **full-stack / DevOps** en second — construit pour tenir dans le
+palier gratuit de Cloudflare malgré beaucoup de vidéos.
 
 Next.js 16 · React 19 · Tailwind 4 · shadcn/ui · Motion · Cloudflare Workers · D1
 
@@ -65,7 +65,7 @@ Tout le texte vit dans `src/content/`, en français et en anglais :
 | Fichier         | Contenu                                                |
 | --------------- | ------------------------------------------------------ |
 | `site.ts`       | Nom, contact, accroche, langues, centres d'intérêt      |
-| `projects.ts`   | Les cinq projets, avec `profiles: ["web"]` / `["cpp"]`  |
+| `projects.ts`   | Les cinq projets. `profiles` filtre, l'ordre du tableau range |
 | `experience.ts` | Expériences professionnelles                            |
 | `education.ts`  | Formations                                             |
 | `skills.ts`     | Compétences, groupées et rattachées à un profil        |
@@ -141,9 +141,16 @@ une copie.
 **Langues.** `/fr` et `/en` sont deux routes réellement pré-rendues :
 indexables, partageables, et `<html lang>` correct pour les lecteurs d'écran.
 
-**Couleurs.** Noir, gris et vert olive en oklch. Le mode sombre est la
-référence ; le mode clair reprend le même olive assombri sur un fond papier
-chaud, le blanc pur faisant virer l'olive au fluo.
+**Couleurs.** Noir, gris et orange `#D23600`, en oklch. Le mode clair reprend
+l'orange exactement (contraste 4,6:1 sur le fond papier) ; sur le noir il
+tomberait à 4,1:1, alors le mode sombre l'éclaircit à la même teinte pour
+repasser au-dessus. Les gris sont très légèrement chauds pour que l'orange ne
+flotte pas sur un neutre froid, et le rouge d'erreur a été décalé vers le
+carmin — à sa teinte d'origine il se confondait avec la couleur de marque.
+
+**Positionnement.** Le profil C/C++ est celui par défaut : c'est lui que sert
+le HTML statique, lui qui ouvre le sélecteur, et l'accroche annonce le bas
+niveau avant le web. Le profil web reste à un clic, sous `?p=web`.
 
 ## Commandes
 

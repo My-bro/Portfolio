@@ -21,8 +21,8 @@ export function generateStaticParams() {
 export const dynamicParams = false;
 
 const descriptions: Record<Lang, string> = {
-  fr: "Portfolio d'Axel Londas — développeur full-stack / DevOps et C/C++. Projets, expériences et démos.",
-  en: "Axel Londas' portfolio — full-stack / DevOps and C/C++ engineer. Projects, experience and demos.",
+  fr: "Portfolio d'Axel Londas — développeur C/C++ et algorithmique, également full-stack et DevOps. Projets, expériences et démos.",
+  en: "Axel Londas' portfolio — C/C++ and algorithms engineer, also full-stack and DevOps. Projects, experience and demos.",
 };
 
 export async function generateMetadata({
@@ -36,7 +36,9 @@ export async function generateMetadata({
   return {
     metadataBase: new URL(site.url),
     title: {
-      default: `${site.name} — ${l === "fr" ? "Développeur" : "Software Engineer"}`,
+      default: `${site.name} — ${
+        l === "fr" ? "Développeur C/C++ & Full-Stack" : "C/C++ & Full-Stack Engineer"
+      }`,
       template: `%s — ${site.name}`,
     },
     description: descriptions[l],
@@ -59,8 +61,8 @@ export async function generateMetadata({
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f6f1" },
-    { media: "(prefers-color-scheme: dark)", color: "#0d0f0d" },
+    { media: "(prefers-color-scheme: light)", color: "#f9f7f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#131110" },
   ],
 };
 
@@ -77,7 +79,7 @@ export default async function SiteLayout({
   return (
     <html
       lang={lang}
-      data-profile="web"
+      data-profile="cpp"
       suppressHydrationWarning
       className={cn(geist.variable, geistMono.variable)}
     >

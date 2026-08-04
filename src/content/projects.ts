@@ -2,17 +2,80 @@ import type { Project } from "./types";
 
 /**
  * Projets des deux CV. `profiles` décide de l'apparition dans le profil
- * web, C++ ou les deux ; l'ordre du tableau fixe l'ordre d'affichage.
+ * C/C++, web ou les deux.
+ *
+ * L'ordre du tableau est l'ordre d'affichage : les projets bas niveau
+ * ouvrent la liste, si bien que le profil C/C++ montre R-Type puis
+ * Ray-Tracer, et le profil web ouvre sur Samplify.
  *
  * La visibilité des médias ne se règle pas ici mais dans
  * `media/media.config.json` : voir `media/README.md`.
  */
 export const projects: readonly Project[] = [
   {
+    slug: "r-type",
+    name: "R-Type",
+    profiles: ["cpp"],
+    period: "2024",
+    role: {
+      fr: "Moteur de jeu & réseau",
+      en: "Game engine & networking",
+    },
+    tagline: {
+      fr: "Jeu multijoueur type Space Invaders en C++, compatible Windows, macOS et Linux.",
+      en: "A multiplayer Space Invaders-style game in C++, running on Windows, macOS and Linux.",
+    },
+    highlights: {
+      fr: [
+        "Protocole UDP pour minimiser la latence, combiné au TCP pour la transmission fiable des données critiques.",
+        "Moteur de jeu bâti sur une architecture ECS, pour structurer le code et réduire les temps de chargement.",
+        "Interface en pixel art accessible et intuitive, avec un design sonore cohérent à l'univers du jeu.",
+        "Écrit intégralement à la main, sans assistance d'IA.",
+      ],
+      en: [
+        "UDP to keep latency low, paired with TCP for reliable delivery of critical data.",
+        "Game engine built on an ECS architecture, which structured the codebase and cut load times.",
+        "Accessible, intuitive pixel-art interface with sound design matched to the game's universe.",
+        "Written entirely by hand, without AI assistance.",
+      ],
+    },
+    stack: ["C++", "ECS", "UDP", "TCP", "CMake", "Cross-platform"],
+  },
+
+  {
+    slug: "ray-tracer",
+    name: "Ray-Tracer",
+    profiles: ["cpp"],
+    period: "2024",
+    role: {
+      fr: "Moteur de rendu 3D from scratch",
+      en: "3D rendering engine from scratch",
+    },
+    tagline: {
+      fr: "Moteur de rendu 3D écrit intégralement en C++, sans bibliothèque graphique.",
+      en: "A 3D rendering engine written from scratch in C++, with no graphics library.",
+    },
+    highlights: {
+      fr: [
+        "Simulation mathématique précise de plus de dix solides géométriques à partir de formules analytiques.",
+        "Modélisation réaliste des réflexions lumineuses et de l'occlusion ambiante, optimisée via CUDA.",
+        "Gestion dynamique des scènes pour une meilleure modularité et extensibilité du moteur.",
+        "Écrit intégralement à la main, sans assistance d'IA.",
+      ],
+      en: [
+        "Precise mathematical simulation of more than ten geometric solids from analytic formulas.",
+        "Realistic modelling of light reflection and ambient occlusion, optimised with CUDA.",
+        "Dynamic scene management for a more modular and extensible engine.",
+        "Written entirely by hand, without AI assistance.",
+      ],
+    },
+    stack: ["C++", "CUDA", "Maths 3D", "Ray tracing"],
+  },
+
+  {
     slug: "samplify",
     name: "Samplify",
-    profiles: ["web", "cpp"],
-    featured: true,
+    profiles: ["cpp", "web"],
     period: "2024 — 2025",
     role: {
       fr: "Chef de projet · 5 développeurs",
@@ -49,7 +112,6 @@ export const projects: readonly Project[] = [
     slug: "bazarbe",
     name: "Bazarbe",
     profiles: ["web"],
-    featured: true,
     period: "2024 — 2025",
     role: {
       fr: "Développeur produit & infrastructure",
@@ -115,67 +177,6 @@ export const projects: readonly Project[] = [
       fr: "Meilleur projet de la promotion",
       en: "Best project of the year group",
     },
-  },
-
-  {
-    slug: "r-type",
-    name: "R-Type",
-    profiles: ["cpp"],
-    featured: true,
-    period: "2024",
-    role: {
-      fr: "Moteur de jeu & réseau",
-      en: "Game engine & networking",
-    },
-    tagline: {
-      fr: "Jeu multijoueur type Space Invaders en C++, compatible Windows, macOS et Linux.",
-      en: "A multiplayer Space Invaders-style game in C++, running on Windows, macOS and Linux.",
-    },
-    highlights: {
-      fr: [
-        "Protocole UDP pour minimiser la latence, combiné au TCP pour la transmission fiable des données critiques.",
-        "Moteur de jeu bâti sur une architecture ECS, pour structurer le code et réduire les temps de chargement.",
-        "Interface en pixel art accessible et intuitive, avec un design sonore cohérent à l'univers du jeu.",
-        "Écrit intégralement à la main, sans assistance d'IA.",
-      ],
-      en: [
-        "UDP to keep latency low, paired with TCP for reliable delivery of critical data.",
-        "Game engine built on an ECS architecture, which structured the codebase and cut load times.",
-        "Accessible, intuitive pixel-art interface with sound design matched to the game's universe.",
-        "Written entirely by hand, without AI assistance.",
-      ],
-    },
-    stack: ["C++", "ECS", "UDP", "TCP", "CMake", "Cross-platform"],
-  },
-
-  {
-    slug: "ray-tracer",
-    name: "Ray-Tracer",
-    profiles: ["cpp"],
-    period: "2024",
-    role: {
-      fr: "Moteur de rendu 3D from scratch",
-      en: "3D rendering engine from scratch",
-    },
-    tagline: {
-      fr: "Moteur de rendu 3D écrit intégralement en C++, sans bibliothèque graphique.",
-      en: "A 3D rendering engine written from scratch in C++, with no graphics library.",
-    },
-    highlights: {
-      fr: [
-        "Simulation mathématique précise de plus de dix solides géométriques à partir de formules analytiques.",
-        "Modélisation réaliste des réflexions lumineuses et de l'occlusion ambiante, optimisée via CUDA.",
-        "Gestion dynamique des scènes pour une meilleure modularité et extensibilité du moteur.",
-        "Écrit intégralement à la main, sans assistance d'IA.",
-      ],
-      en: [
-        "Precise mathematical simulation of more than ten geometric solids from analytic formulas.",
-        "Realistic modelling of light reflection and ambient occlusion, optimised with CUDA.",
-        "Dynamic scene management for a more modular and extensible engine.",
-        "Written entirely by hand, without AI assistance.",
-      ],
-    },
-    stack: ["C++", "CUDA", "Maths 3D", "Ray tracing"],
   },
 ] as const;
 

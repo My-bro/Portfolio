@@ -18,7 +18,7 @@ export function Footer() {
             href={`${site.github}/Portfolio`}
             target="_blank"
             rel="noreferrer noopener"
-            className="transition-colors hover:text-olive"
+            className="transition-colors hover:text-brand"
           >
             {t("footer.source")}
           </a>

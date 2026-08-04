@@ -103,7 +103,7 @@ export function MediaPlayer({ items }: { items: ResolvedMediaItem[] }) {
                 "relative shrink-0 overflow-hidden rounded-md border-2 transition-colors",
                 "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
                 i === index
-                  ? "border-olive"
+                  ? "border-brand"
                   : "border-transparent opacity-60 hover:opacity-100",
               )}
             >

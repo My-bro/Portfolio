@@ -25,10 +25,10 @@ export function SiteHeader() {
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-5 sm:px-8">
         <a
           href="#top"
-          className="font-mono text-sm font-medium tracking-tight transition-colors hover:text-olive"
+          className="font-mono text-sm font-medium tracking-tight transition-colors hover:text-brand"
         >
           {site.name.toLowerCase().replace(" ", "")}
-          <span className="text-olive">.</span>
+          <span className="text-brand">.</span>
         </a>
 
         <nav className="hidden items-center gap-1 md:flex">

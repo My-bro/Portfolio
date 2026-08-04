@@ -40,7 +40,7 @@ export function SkillsSection() {
                         className={cn(
                           "rounded-md border px-2.5 py-1 font-mono text-xs transition-colors duration-300",
                           highlighted
-                            ? "border-olive/40 bg-olive/10 text-foreground"
+                            ? "border-brand/40 bg-brand/10 text-foreground"
                             : "border-border text-muted-foreground/60",
                         )}
                       >

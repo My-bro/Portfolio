@@ -47,7 +47,7 @@ export function ProjectDialog({
                 </DialogTitle>
                 {project.profiles.length > 1 && (
                   <Badge variant="outline" className="font-mono text-[11px]">
-                    web · c++
+                    c++ · web
                   </Badge>
                 )}
               </div>
@@ -74,7 +74,7 @@ export function ProjectDialog({
                     {t("project.privateMediaHint")}{" "}
                     <a
                       href={`mailto:${site.email}`}
-                      className="text-olive underline underline-offset-2"
+                      className="text-brand underline underline-offset-2"
                     >
                       {site.email}
                     </a>
@@ -84,8 +84,8 @@ export function ProjectDialog({
             )}
 
             {project.award && (
-              <div className="flex items-center gap-2 rounded-lg border border-olive/30 bg-olive/5 px-3 py-2 text-sm">
-                <Trophy className="size-4 shrink-0 text-olive" />
+              <div className="flex items-center gap-2 rounded-lg border border-brand/30 bg-brand/5 px-3 py-2 text-sm">
+                <Trophy className="size-4 shrink-0 text-brand" />
                 <span>{project.award[lang]}</span>
               </div>
             )}
@@ -99,7 +99,7 @@ export function ProjectDialog({
                   <li key={point} className="flex gap-2.5 text-sm text-pretty">
                     <span
                       aria-hidden
-                      className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-olive"
+                      className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-brand"
                     />
                     <span className="text-muted-foreground">{point}</span>
                   </li>

@@ -53,7 +53,7 @@ export function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
               <li className="relative">
                 <span
                   aria-hidden
-                  className="absolute top-1.5 -left-[calc(1.5rem+3.5px)] size-[7px] rounded-full bg-olive ring-4 ring-background sm:-left-[calc(2rem+3.5px)]"
+                  className="absolute top-1.5 -left-[calc(1.5rem+3.5px)] size-[7px] rounded-full bg-brand ring-4 ring-background sm:-left-[calc(2rem+3.5px)]"
                 />
 
                 <div
@@ -81,7 +81,7 @@ export function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
                       {entry.period[lang]}
                     </span>
                     {playable && (
-                      <span className="inline-flex items-center gap-1 font-mono text-[11px] text-olive">
+                      <span className="inline-flex items-center gap-1 font-mono text-[11px] text-brand">
                         <Play className="size-2.5 fill-current" />
                         {t("project.open")}
                       </span>
@@ -93,7 +93,7 @@ export function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
                       {entry.title[lang]}
                     </h3>
                     {entry.org && (
-                      <p className="text-sm text-olive">{entry.org}</p>
+                      <p className="text-sm text-brand">{entry.org}</p>
                     )}
                     {entry.location && (
                       <p className="text-xs text-muted-foreground text-pretty">
@@ -166,7 +166,7 @@ export function Timeline({ entries }: { entries: readonly TimelineEntry[] }) {
                     <li key={point} className="flex gap-2.5 text-sm text-pretty">
                       <span
                         aria-hidden
-                        className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-olive"
+                        className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-brand"
                       />
                       <span className="text-muted-foreground">{point}</span>
                     </li>

@@ -23,20 +23,29 @@ export const site = {
 
 /** Intitulé de poste affiché sous le nom, selon le profil actif. */
 export const roleByProfile: Record<Profile, Localized> = {
+  cpp: {
+    fr: "Développeur C / C++ & algorithmique",
+    en: "C / C++ & algorithms engineer",
+  },
   web: {
     fr: "Développeur Full-Stack / DevOps",
-    en: "Full-Stack / DevOps Engineer",
-  },
-  cpp: {
-    fr: "Développeur C / C++",
-    en: "C / C++ Software Engineer",
+    en: "Full-Stack / DevOps engineer",
   },
 };
 
-/** Accroche de l'en-tête, reprise de celle des CV. */
+/**
+ * Accroche : elle dit dans quel ordre lire le profil — le bas niveau est
+ * le métier, le web est la seconde corde, et les deux sont revendiqués.
+ */
 export const pitch: Localized = {
-  fr: "5ᵉ année à Epitech. Je cherche un part-time de septembre à février, puis un stage de fin d'études de mars à fin août.",
-  en: "Fifth year at Epitech. Looking for a part-time role from September to February, then a final-year internship from March to the end of August.",
+  fr: "Le bas niveau d'abord : moteur de rendu et moteur de jeu écrits from scratch en C++, algorithmique, réseau UDP/TCP. Et je sais emmener un produit web jusqu'en production — microservices, Kubernetes, CI/CD.",
+  en: "Low-level first: a rendering engine and a game engine written from scratch in C++, algorithms, UDP/TCP networking. And I know how to take a web product all the way to production — microservices, Kubernetes, CI/CD.",
+};
+
+/** Recherche en cours, reprise de l'en-tête des CV. */
+export const availability: Localized = {
+  fr: "5ᵉ année à Epitech. Part-time de septembre à février, puis stage de fin d'études de mars à fin août.",
+  en: "Fifth year at Epitech. Part-time from September to February, then a final-year internship from March to the end of August.",
 };
 
 export const languagesSpoken: { label: Localized; level: string }[] = [
