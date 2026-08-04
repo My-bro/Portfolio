@@ -56,6 +56,28 @@ const dictionary = {
     "media.unmute": "Activer le son",
     "media.loading": "Chargement",
 
+    "rt.title": "Moteur compilé en WebAssembly",
+    "rt.intro":
+      "Le moteur C++ tourne ici, dans ton navigateur. Rien n'est téléchargé tant que tu n'as pas lancé le rendu.",
+    "rt.launch": "Lancer le rendu",
+    "rt.loading": "Chargement du moteur",
+    "rt.rendering": "Rendu en cours",
+    "rt.scene": "Scène",
+    "rt.quality": "Qualité",
+    "rt.qualityFast": "Rapide",
+    "rt.qualityNormal": "Normale",
+    "rt.qualityFine": "Fine",
+    "rt.camera": "Caméra",
+    "rt.left": "Gauche",
+    "rt.right": "Droite",
+    "rt.forward": "Avancer",
+    "rt.backward": "Reculer",
+    "rt.reset": "Recentrer",
+    "rt.primitives": "primitives",
+    "rt.error": "Le moteur n'a pas pu démarrer",
+    "rt.unsupported":
+      "Ton navigateur ne prend pas en charge WebAssembly dans un worker.",
+
     "contact.lead":
       "Ouvert aux opportunités de part-time et de stage de fin d'études.",
     "contact.email": "Écrire un mail",
@@ -117,6 +139,28 @@ const dictionary = {
     "media.mute": "Mute",
     "media.unmute": "Unmute",
     "media.loading": "Loading",
+
+    "rt.title": "Engine compiled to WebAssembly",
+    "rt.intro":
+      "The C++ engine runs right here, in your browser. Nothing downloads until you start the render.",
+    "rt.launch": "Run the renderer",
+    "rt.loading": "Loading the engine",
+    "rt.rendering": "Rendering",
+    "rt.scene": "Scene",
+    "rt.quality": "Quality",
+    "rt.qualityFast": "Fast",
+    "rt.qualityNormal": "Normal",
+    "rt.qualityFine": "Fine",
+    "rt.camera": "Camera",
+    "rt.left": "Left",
+    "rt.right": "Right",
+    "rt.forward": "Forward",
+    "rt.backward": "Back",
+    "rt.reset": "Recenter",
+    "rt.primitives": "primitives",
+    "rt.error": "The engine failed to start",
+    "rt.unsupported":
+      "Your browser doesn't support WebAssembly inside a worker.",
 
     "contact.lead":
       "Open to part-time roles and a final-year internship.",

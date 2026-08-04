@@ -1,0 +1,4 @@
+[submodule "vendor/raytracer"]
+	path = vendor/raytracer
+	url = https://github.com/My-bro/raytracer-axel.londas.git
+	branch = webassembly

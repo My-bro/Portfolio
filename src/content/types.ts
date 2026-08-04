@@ -44,6 +44,8 @@ export interface Project {
   stack: readonly string[];
   links?: readonly ProjectLink[];
   award?: Localized;
+  /** Démo exécutable intégrée à la fiche, en plus des médias. */
+  demo?: "raytracer";
 }
 
 export interface TimelineEntry {

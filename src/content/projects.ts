@@ -69,7 +69,14 @@ export const projects: readonly Project[] = [
         "Written entirely by hand, without AI assistance.",
       ],
     },
-    stack: ["C++", "CUDA", "Maths 3D", "Ray tracing"],
+    stack: ["C++", "CUDA", "Maths 3D", "Ray tracing", "WebAssembly"],
+    demo: "raytracer",
+    links: [
+      {
+        label: "github.com/My-bro/raytracer",
+        href: "https://github.com/My-bro/raytracer-axel.londas",
+      },
+    ],
   },
 
   {

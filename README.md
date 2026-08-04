@@ -58,6 +58,39 @@ npm run deploy:check
 Affiche exactement ce que wrangler téléverserait. Les fichiers de
 `.media-private/` n'y figurent pas.
 
+## Le raytracer en direct
+
+La fiche du projet Ray-Tracer n'affiche pas une capture : le moteur C++ y
+tourne, compilé en WebAssembly. Il vit dans un sous-module :
+
+```bash
+git submodule update --init --recursive
+```
+
+Le sous-module suit sa branche `webassembly`, qui ajoute la cible Emscripten
+sans toucher au moteur — détails dans
+[`vendor/raytracer/wasm/README.md`](vendor/raytracer/wasm/README.md).
+
+Le binaire compilé est versionné dans `public/wasm/`, donc **rien à installer
+pour déployer**. Pour le régénérer après une modification du moteur :
+
+```bash
+source ~/emsdk/emsdk_env.sh
+npm run wasm:build
+```
+
+Côté site, le calcul tourne dans un Web Worker et l'image remonte par
+tranches de lignes : la page ne se fige jamais et le rendu s'affiche à mesure.
+Rien n'est téléchargé — ni worker, ni les 260 Ko de moteur — tant que le
+visiteur n'a pas cliqué sur « Lancer le rendu ».
+
+Le sous-module est déclaré en HTTPS pour que le clone marche partout. Pour
+pousser en SSH :
+
+```bash
+git config submodule.vendor/raytracer.url git@github.com:My-bro/raytracer-axel.londas.git
+```
+
 ## Modifier le contenu
 
 Tout le texte vit dans `src/content/`, en français et en anglais :
@@ -158,6 +191,7 @@ niveau avant le web. Le profil web reste à un clic, sous `?p=web`.
 | ----------------------- | ------------------------------------------------ |
 | `npm run dev`           | Serveur de développement                         |
 | `npm run media:sync`    | Transcode et publie les médias                   |
+| `npm run wasm:build`    | Recompile le raytracer en WebAssembly            |
 | `npm run media:sync:force` | Réencode tout, sans cache                     |
 | `npm run build`         | Construction Next                                |
 | `npm run preview`       | Construit et sert le Worker en local             |

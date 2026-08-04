@@ -43,7 +43,13 @@ export function ProjectCard({
         ) : (
           <div className="flex aspect-video w-full items-center justify-center bg-muted">
             <span className="font-mono text-xs text-muted-foreground">
-              {media.withheld ? (
+              {project.demo ? (
+                // Pas de vidéo, mais mieux : le moteur tourne dans la fiche.
+                <span className="flex items-center gap-1.5 text-brand">
+                  <Play className="size-3 fill-current" />
+                  {t("rt.title")}
+                </span>
+              ) : media.withheld ? (
                 <span className="flex items-center gap-1.5">
                   <Lock className="size-3" />
                   {t("project.privateMedia")}

@@ -16,6 +16,9 @@ const eslintConfig = defineConfig([
     ".open-next/**",
     ".wrangler/**",
     ".media-private/**",
+    // Servis tels quels : glue Emscripten générée et sous-modules.
+    "public/wasm/raytracer.js",
+    "vendor/**",
   ]),
   {
     files: ["src/components/media-*.tsx"],

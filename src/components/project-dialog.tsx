@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import dynamic from "next/dynamic";
 import { ArrowLeft, ArrowRight, ExternalLink, Lock, Trophy } from "lucide-react";
 
 import {
@@ -17,6 +18,13 @@ import { getMedia } from "@/lib/media";
 import { usePrefs } from "@/lib/prefs";
 import { site } from "@/content/site";
 import type { Project } from "@/content/types";
+
+// Chargée seulement quand une fiche la réclame : le composant reste hors du
+// bundle principal, et le moteur WASM hors du réseau tant qu'on ne clique pas.
+const RaytracerDemo = dynamic(
+  () => import("@/components/raytracer-demo").then((m) => m.RaytracerDemo),
+  { ssr: false },
+);
 
 export function ProjectDialog({
   project,
@@ -59,9 +67,18 @@ export function ProjectDialog({
               </p>
             </DialogHeader>
 
+            {project.demo === "raytracer" && (
+              <div className="space-y-2">
+                <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
+                  {t("rt.title")}
+                </h4>
+                <RaytracerDemo />
+              </div>
+            )}
+
             {media && media.items.length > 0 ? (
               <MediaPlayer key={project.slug} items={media.items} />
-            ) : (
+            ) : project.demo ? null : (
               <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed py-12 text-center">
                 <Lock className="size-5 text-muted-foreground" />
                 <p className="text-sm font-medium">
