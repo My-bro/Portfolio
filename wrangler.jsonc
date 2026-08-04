@@ -1,0 +1,41 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-09-23",
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+
+  // ---------------------------------------------------------------------
+  // Metrics (optionnel) — le site fonctionne sans.
+  //
+  //   npx wrangler d1 create portfolio-metrics
+  //
+  // Décommente le bloc ci-dessous, colle l'identifiant renvoyé par la
+  // commande, puis applique la migration :
+  //
+  //   npm run db:migrate:local   (base locale, pour `next dev`)
+  //   npm run db:migrate         (base de production)
+  //
+  // Enfin, protège le tableau de bord /admin :
+  //
+  //   npx wrangler secret put METRICS_KEY
+  // ---------------------------------------------------------------------
+  //
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "portfolio-metrics",
+  //     "database_id": "colle-ici-l-identifiant",
+  //     "migrations_dir": "migrations"
+  //   }
+  // ]
+}

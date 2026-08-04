@@ -1,0 +1,35 @@
+{
+  "samplify": {
+    "visibility": "public"
+  },
+  "bazarbe": {
+    "visibility": "public"
+  },
+  "area": {
+    "visibility": "public"
+  },
+  "r-type": {
+    "visibility": "public"
+  },
+  "ray-tracer": {
+    "visibility": "public"
+  },
+  "sony-csl": {
+    "visibility": "private"
+  },
+  "devops-ia-cloud": {
+    "visibility": "private"
+  },
+  "junior-conseil-taker": {
+    "visibility": "private"
+  },
+  "etna": {
+    "visibility": "private"
+  },
+  "epitech": {
+    "visibility": "private"
+  },
+  "bjtu": {
+    "visibility": "private"
+  }
+}

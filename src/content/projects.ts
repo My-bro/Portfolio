@@ -1,0 +1,186 @@
+import type { Project } from "./types";
+
+/**
+ * Projets des deux CV. `profiles` décide de l'apparition dans le profil
+ * web, C++ ou les deux ; l'ordre du tableau fixe l'ordre d'affichage.
+ *
+ * La visibilité des médias ne se règle pas ici mais dans
+ * `media/media.config.json` : voir `media/README.md`.
+ */
+export const projects: readonly Project[] = [
+  {
+    slug: "samplify",
+    name: "Samplify",
+    profiles: ["web", "cpp"],
+    featured: true,
+    period: "2024 — 2025",
+    role: {
+      fr: "Chef de projet · 5 développeurs",
+      en: "Project lead · team of 5",
+    },
+    tagline: {
+      fr: "SaaS de recherche et de traitement audio pour producteurs de musique.",
+      en: "A SaaS for audio search and processing, built for music producers.",
+    },
+    highlights: {
+      fr: [
+        "Vision produit, organisation et répartition des tâches sur une équipe de 5 développeurs, jusqu'au démarchage d'influenceurs.",
+        "Séparation de sources audio par IA (HT-Demucs) en 4 pistes — voix, batterie, basse, autres — avec détection du BPM et extraction MIDI.",
+        "Architecture microservices (Docker Swarm, Portainer) avec worker GPU à la demande sur Vast.ai pour contenir les coûts d'inférence.",
+      ],
+      en: [
+        "Product vision, task planning and delegation across a team of 5 developers, through to influencer outreach.",
+        "AI source separation (HT-Demucs) into 4 stems — vocals, drums, bass, other — with BPM detection and MIDI extraction.",
+        "Microservice architecture (Docker Swarm, Portainer) with on-demand GPU workers on Vast.ai to keep inference costs down.",
+      ],
+    },
+    stack: [
+      "Next.js",
+      "Python",
+      "HT-Demucs",
+      "Docker Swarm",
+      "Portainer",
+      "GPU / Vast.ai",
+    ],
+    links: [{ label: "samplify.site", href: "https://samplify.site" }],
+  },
+
+  {
+    slug: "bazarbe",
+    name: "Bazarbe",
+    profiles: ["web"],
+    featured: true,
+    period: "2024 — 2025",
+    role: {
+      fr: "Développeur produit & infrastructure",
+      en: "Product & infrastructure engineer",
+    },
+    tagline: {
+      fr: "SaaS de veille d'annonces sur web, Android et iOS, avec alertes en temps réel.",
+      en: "A listings-watch SaaS on web, Android and iOS, with real-time alerts.",
+    },
+    highlights: {
+      fr: [
+        "Alertes en temps réel sur les articles publiés sur Vinted et eBay.",
+        "Infrastructure cloud-native scalable, build et déploiement automatisés via Ansible.",
+        "DevOps avancé : Docker Swarm, Portainer, monitoring backend et intégration des paiements via Stripe.",
+        "Produit orienté utilisateur : prise en compte des retours clients et animation d'une communauté.",
+      ],
+      en: [
+        "Real-time alerts on new listings published to Vinted and eBay.",
+        "Scalable cloud-native infrastructure, with build and deploy automated through Ansible.",
+        "Advanced DevOps: Docker Swarm, Portainer, backend monitoring and Stripe payment integration.",
+        "User-driven product work: acting on customer feedback and running the community.",
+      ],
+    },
+    stack: [
+      "TypeScript",
+      "Ansible",
+      "Docker Swarm",
+      "Portainer",
+      "Stripe",
+      "Android",
+      "iOS",
+    ],
+    links: [{ label: "bazarbe.live", href: "https://bazarbe.live" }],
+  },
+
+  {
+    slug: "area",
+    name: "Area",
+    profiles: ["web"],
+    period: "2024",
+    role: {
+      fr: "Développeur full-stack & architecture",
+      en: "Full-stack & architecture",
+    },
+    tagline: {
+      fr: "SaaS multiplateforme d'automatisation de workflows, comparable à n8n ou Zapier.",
+      en: "A cross-platform workflow automation SaaS, in the vein of n8n or Zapier.",
+    },
+    highlights: {
+      fr: [
+        "Plus de 289 automatisations de services majeurs : Google Drive, YouTube, Twitch, Amazon, GitHub…",
+        "Architecture microservices scalable, orchestrée via Kubernetes et hébergée sur AWS.",
+        "Latence système réduite de plus de 40 % grâce à l'optimisation de l'architecture.",
+      ],
+      en: [
+        "More than 289 automations across major services: Google Drive, YouTube, Twitch, Amazon, GitHub and more.",
+        "Scalable microservice architecture, orchestrated with Kubernetes and hosted on AWS.",
+        "System latency cut by over 40% through architectural optimisation.",
+      ],
+    },
+    stack: ["Kubernetes", "AWS", "Microservices", "Web", "Android", "iOS"],
+    award: {
+      fr: "Meilleur projet de la promotion",
+      en: "Best project of the year group",
+    },
+  },
+
+  {
+    slug: "r-type",
+    name: "R-Type",
+    profiles: ["cpp"],
+    featured: true,
+    period: "2024",
+    role: {
+      fr: "Moteur de jeu & réseau",
+      en: "Game engine & networking",
+    },
+    tagline: {
+      fr: "Jeu multijoueur type Space Invaders en C++, compatible Windows, macOS et Linux.",
+      en: "A multiplayer Space Invaders-style game in C++, running on Windows, macOS and Linux.",
+    },
+    highlights: {
+      fr: [
+        "Protocole UDP pour minimiser la latence, combiné au TCP pour la transmission fiable des données critiques.",
+        "Moteur de jeu bâti sur une architecture ECS, pour structurer le code et réduire les temps de chargement.",
+        "Interface en pixel art accessible et intuitive, avec un design sonore cohérent à l'univers du jeu.",
+        "Écrit intégralement à la main, sans assistance d'IA.",
+      ],
+      en: [
+        "UDP to keep latency low, paired with TCP for reliable delivery of critical data.",
+        "Game engine built on an ECS architecture, which structured the codebase and cut load times.",
+        "Accessible, intuitive pixel-art interface with sound design matched to the game's universe.",
+        "Written entirely by hand, without AI assistance.",
+      ],
+    },
+    stack: ["C++", "ECS", "UDP", "TCP", "CMake", "Cross-platform"],
+  },
+
+  {
+    slug: "ray-tracer",
+    name: "Ray-Tracer",
+    profiles: ["cpp"],
+    period: "2024",
+    role: {
+      fr: "Moteur de rendu 3D from scratch",
+      en: "3D rendering engine from scratch",
+    },
+    tagline: {
+      fr: "Moteur de rendu 3D écrit intégralement en C++, sans bibliothèque graphique.",
+      en: "A 3D rendering engine written from scratch in C++, with no graphics library.",
+    },
+    highlights: {
+      fr: [
+        "Simulation mathématique précise de plus de dix solides géométriques à partir de formules analytiques.",
+        "Modélisation réaliste des réflexions lumineuses et de l'occlusion ambiante, optimisée via CUDA.",
+        "Gestion dynamique des scènes pour une meilleure modularité et extensibilité du moteur.",
+        "Écrit intégralement à la main, sans assistance d'IA.",
+      ],
+      en: [
+        "Precise mathematical simulation of more than ten geometric solids from analytic formulas.",
+        "Realistic modelling of light reflection and ambient occlusion, optimised with CUDA.",
+        "Dynamic scene management for a more modular and extensible engine.",
+        "Written entirely by hand, without AI assistance.",
+      ],
+    },
+    stack: ["C++", "CUDA", "Maths 3D", "Ray tracing"],
+  },
+] as const;
+
+export const projectSlugs: readonly string[] = projects.map((p) => p.slug);
+
+export function getProject(slug: string): Project | undefined {
+  return projects.find((p) => p.slug === slug);
+}
