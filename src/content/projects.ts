@@ -112,7 +112,7 @@ export const projects: readonly Project[] = [
       "Portainer",
       "GPU / Vast.ai",
     ],
-    links: [{ label: "samplify.site", href: "https://samplify.site" }],
+    website: "https://samplify.site",
   },
 
   {

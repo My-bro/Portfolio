@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Lock, Play } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Lock, Play } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { MediaPreview } from "@/components/media-preview";
@@ -61,18 +61,26 @@ export function ProjectCard({
           </div>
         )}
 
-        {(cover?.kind === "video" || project.demo) && (
+        {(cover?.kind === "video" || project.demo || project.website) && (
           <span
             aria-hidden
             className={cn(
               "absolute bottom-3 left-3 flex items-center gap-1.5 rounded-md",
               "bg-background/85 px-2 py-1 font-mono text-[11px] backdrop-blur-sm",
               "transition-opacity duration-200 group-hover:opacity-0",
-              project.demo && "text-brand",
+              (project.demo || project.website) && "text-brand",
             )}
           >
-            <Play className="size-3 fill-current" />
-            {project.demo ? t("rt.badge") : t("project.open")}
+            {project.website ? (
+              <ExternalLink className="size-3" />
+            ) : (
+              <Play className="size-3 fill-current" />
+            )}
+            {project.website
+              ? new URL(project.website).host
+              : project.demo
+                ? t("rt.badge")
+                : t("project.open")}
           </span>
         )}
       </div>

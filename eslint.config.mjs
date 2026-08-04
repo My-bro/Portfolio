@@ -21,7 +21,7 @@ const eslintConfig = defineConfig([
     "vendor/**",
   ]),
   {
-    files: ["src/components/media-*.tsx"],
+    files: ["src/components/media-*.tsx", "src/components/project-dialog.tsx"],
     rules: {
       /**
        * `next/image` passe par l'optimiseur d'images, qui sur Cloudflare

@@ -49,6 +49,7 @@ const dictionary = {
     "project.inBoth": "Présent dans les deux profils",
     "project.prev": "Projet précédent",
     "project.next": "Projet suivant",
+    "project.visitSite": "Ouvrir le site",
 
     "media.play": "Lire",
     "media.pause": "Pause",
@@ -134,6 +135,7 @@ const dictionary = {
     "project.inBoth": "Featured in both profiles",
     "project.prev": "Previous project",
     "project.next": "Next project",
+    "project.visitSite": "Open the site",
 
     "media.play": "Play",
     "media.pause": "Pause",

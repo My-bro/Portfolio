@@ -23,5 +23,26 @@ export const generatedMedia = {
         "hasAudio": false
       }
     ]
+  },
+  "samplify": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Landing",
+        "poster": "01-landing.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-landing.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 3200,
+        "height": 1800,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
   }
 } as const satisfies GeneratedMedia;

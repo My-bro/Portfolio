@@ -46,6 +46,12 @@ export interface Project {
   award?: Localized;
   /** Démo exécutable intégrée à la fiche, en plus des médias. */
   demo?: "raytracer";
+  /**
+   * Produit en ligne. La fiche renvoie alors vers le site plutôt que de
+   * chercher à le rejouer : la capture devient cliquable et un bouton
+   * principal ouvre l'URL.
+   */
+  website?: string;
 }
 
 export interface TimelineEntry {

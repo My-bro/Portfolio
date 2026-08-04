@@ -83,6 +83,44 @@ export function ProjectDialog({
                     </h4>
                     <RaytracerDemo />
                   </>
+                ) : project.website && media?.items[0] ? (
+                  /* Produit en ligne : la capture renvoie vers le site plutôt
+                     que de prétendre le rejouer ici. */
+                  <div className="space-y-3">
+                    <a
+                      href={project.website}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="group/site relative block overflow-hidden rounded-lg border transition-colors hover:border-brand/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                    >
+                      <img
+                        src={media.items[0].poster}
+                        alt={project.name}
+                        width={media.items[0].width}
+                        height={media.items[0].height}
+                        className="w-full"
+                      />
+                      <span
+                        aria-hidden
+                        className="absolute inset-0 flex items-center justify-center bg-background/0 opacity-0 transition-all duration-200 group-hover/site:bg-background/55 group-hover/site:opacity-100"
+                      >
+                        <span className="flex items-center gap-2 rounded-md bg-brand px-3 py-2 text-sm font-medium text-primary-foreground">
+                          <ExternalLink className="size-4" />
+                          {new URL(project.website).host}
+                        </span>
+                      </span>
+                    </a>
+                    <Button asChild className="w-full">
+                      <a
+                        href={project.website}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        {t("project.visitSite")}
+                        <ExternalLink className="size-4" />
+                      </a>
+                    </Button>
+                  </div>
                 ) : media && media.items.length > 0 ? (
                   <MediaPlayer key={project.slug} items={media.items} />
                 ) : (

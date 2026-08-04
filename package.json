@@ -9,7 +9,6 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "wasm:build": "vendor/raytracer/wasm/build.sh \"$PWD/public/wasm\"",
-
     "media:sync": "node scripts/media-sync.mjs",
     "media:sync:force": "node scripts/media-sync.mjs --force",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
@@ -42,6 +41,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
+    "playwright": "^1.62.1",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.118.0"

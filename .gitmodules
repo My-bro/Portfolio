@@ -2,3 +2,6 @@
 	path = vendor/raytracer
 	url = https://github.com/My-bro/raytracer-axel.londas.git
 	branch = webassembly
+[submodule "vendor/r-type"]
+	path = vendor/r-type
+	url = https://github.com/My-bro/r-type-axel.londas.git

@@ -49,6 +49,17 @@ copiés dans `public/`.
 
 Détails et options dans [`media/README.md`](media/README.md).
 
+### Rafraîchir la capture d'un site en ligne
+
+La vignette de Samplify est une capture de sa page d'accueil. Quand le site
+change, on la refait :
+
+```bash
+npx playwright install chromium
+node scripts/site-shot.mjs https://samplify.site/ media/projects/samplify/01-landing.png
+npm run media:sync
+```
+
 ### Vérifier ce qui part en production
 
 ```bash
