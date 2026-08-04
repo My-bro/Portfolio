@@ -57,6 +57,7 @@ const dictionary = {
     "media.loading": "Chargement",
 
     "rt.title": "Moteur compilé en WebAssembly",
+    "rt.badge": "WebAssembly",
     "rt.intro":
       "Le moteur C++ tourne ici, dans ton navigateur. Rien n'est téléchargé tant que tu n'as pas lancé le rendu.",
     "rt.launch": "Lancer le rendu",
@@ -141,6 +142,7 @@ const dictionary = {
     "media.loading": "Loading",
 
     "rt.title": "Engine compiled to WebAssembly",
+    "rt.badge": "WebAssembly",
     "rt.intro":
       "The C++ engine runs right here, in your browser. Nothing downloads until you start the render.",
     "rt.launch": "Run the renderer",

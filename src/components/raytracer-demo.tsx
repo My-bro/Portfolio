@@ -27,17 +27,20 @@ import type { TranslationKey } from "@/content/i18n";
  */
 
 const SCENES: { file: string; label: string }[] = [
+  { file: "spot_light.cfg", label: "Spot" },
   { file: "example.cfg", label: "Sphères & cylindres" },
   { file: "epitech.cfg", label: "Epitech" },
   { file: "color_fade_1.cfg", label: "Dégradé" },
-  { file: "spot_light.cfg", label: "Spot" },
 ];
 
 const QUALITIES: { width: number; key: TranslationKey }[] = [
-  { width: 240, key: "rt.qualityFast" },
-  { width: 400, key: "rt.qualityNormal" },
-  { width: 640, key: "rt.qualityFine" },
+  { width: 320, key: "rt.qualityFast" },
+  { width: 480, key: "rt.qualityNormal" },
+  { width: 720, key: "rt.qualityFine" },
 ];
+
+/** La définition fine passe large : le rendu reste sous la seconde. */
+const DEFAULT_QUALITY = 2;
 
 /** Pas repris de la version SFML : 0,1 sur le plan écran, qui vaut 10 % de sa largeur. */
 const PAN_STEP = 0.1;
@@ -59,7 +62,7 @@ export function RaytracerDemo() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const [scene, setScene] = useState(SCENES[0].file);
-  const [quality, setQuality] = useState(1);
+  const [quality, setQuality] = useState(DEFAULT_QUALITY);
   const [info, setInfo] = useState<RenderInfo | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -211,7 +214,10 @@ export function RaytracerDemo() {
 
   return (
     <div className="space-y-3">
-      <div className="relative overflow-hidden rounded-lg border bg-black">
+      {/* Les scènes sont carrées. Dans un dialogue pleine largeur, on borne
+          le côté à la hauteur disponible pour que l'image reste entièrement
+          visible sans faire défiler. */}
+      <div className="relative mx-auto w-full max-w-[min(100%,68vh)] overflow-hidden rounded-lg border bg-black">
         <div className="aspect-square w-full">
           <canvas
             ref={canvasRef}
@@ -295,11 +301,13 @@ export function RaytracerDemo() {
               >
                 <ArrowRight className="size-4" />
               </Button>
+              {/* La caméra regarde vers les z négatifs : avancer, c'est
+                  retrancher de l'origine, pas y ajouter. */}
               <Button
                 variant="outline"
                 size="icon"
                 aria-label={t("rt.forward")}
-                onClick={() => nudge(0, 0, DOLLY_STEP)}
+                onClick={() => nudge(0, 0, -DOLLY_STEP)}
               >
                 <ArrowUp className="size-4" />
               </Button>
@@ -307,7 +315,7 @@ export function RaytracerDemo() {
                 variant="outline"
                 size="icon"
                 aria-label={t("rt.backward")}
-                onClick={() => nudge(0, 0, -DOLLY_STEP)}
+                onClick={() => nudge(0, 0, DOLLY_STEP)}
               >
                 <ArrowDown className="size-4" />
               </Button>

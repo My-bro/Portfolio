@@ -45,7 +45,11 @@ export function ProjectDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[92vh] max-w-3xl overflow-y-auto p-5 sm:max-w-3xl sm:p-6">
+      {/* Pleine largeur : la démo du raytracer et les vidéos ont enfin la
+          place de s'afficher en entier. Le contenu passe en deux colonnes
+          au-delà de lg, sans quoi les paragraphes s'étireraient sur toute
+          la largeur de l'écran et deviendraient illisibles. */}
+      <DialogContent className="max-h-[94vh] max-w-[96vw] overflow-y-auto p-5 sm:max-w-[96vw] sm:p-6">
         {project && (
           <>
             <DialogHeader className="pr-8">
@@ -67,77 +71,84 @@ export function ProjectDialog({
               </p>
             </DialogHeader>
 
-            {project.demo === "raytracer" && (
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
               <div className="space-y-2">
-                <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
-                  {t("rt.title")}
-                </h4>
-                <RaytracerDemo />
-              </div>
-            )}
-
-            {media && media.items.length > 0 ? (
-              <MediaPlayer key={project.slug} items={media.items} />
-            ) : project.demo ? null : (
-              <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-dashed py-12 text-center">
-                <Lock className="size-5 text-muted-foreground" />
-                <p className="text-sm font-medium">
-                  {media?.withheld
-                    ? t("project.privateMedia")
-                    : t("project.noMedia")}
-                </p>
-                {media?.withheld && (
-                  <p className="max-w-xs text-xs text-muted-foreground">
-                    {t("project.privateMediaHint")}{" "}
-                    <a
-                      href={`mailto:${site.email}`}
-                      className="text-brand underline underline-offset-2"
-                    >
-                      {site.email}
-                    </a>
-                  </p>
+                {/* Quand le projet embarque une démo exécutable, elle
+                    remplace le lecteur : les visuels ne servent alors que de
+                    miniature sur la carte. */}
+                {project.demo === "raytracer" ? (
+                  <>
+                    <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
+                      {t("rt.title")}
+                    </h4>
+                    <RaytracerDemo />
+                  </>
+                ) : media && media.items.length > 0 ? (
+                  <MediaPlayer key={project.slug} items={media.items} />
+                ) : (
+                  <div className="flex h-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed py-12 text-center">
+                    <Lock className="size-5 text-muted-foreground" />
+                    <p className="text-sm font-medium">
+                      {media?.withheld
+                        ? t("project.privateMedia")
+                        : t("project.noMedia")}
+                    </p>
+                    {media?.withheld && (
+                      <p className="max-w-xs text-xs text-muted-foreground">
+                        {t("project.privateMediaHint")}{" "}
+                        <a
+                          href={`mailto:${site.email}`}
+                          className="text-brand underline underline-offset-2"
+                        >
+                          {site.email}
+                        </a>
+                      </p>
+                    )}
+                  </div>
                 )}
               </div>
-            )}
 
-            {project.award && (
-              <div className="flex items-center gap-2 rounded-lg border border-brand/30 bg-brand/5 px-3 py-2 text-sm">
-                <Trophy className="size-4 shrink-0 text-brand" />
-                <span>{project.award[lang]}</span>
-              </div>
-            )}
+              <div className="space-y-5">
+                {project.award && (
+                  <div className="flex items-center gap-2 rounded-lg border border-brand/30 bg-brand/5 px-3 py-2 text-sm">
+                    <Trophy className="size-4 shrink-0 text-brand" />
+                    <span>{project.award[lang]}</span>
+                  </div>
+                )}
 
-            <div className="space-y-2">
-              <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
-                {t("project.highlights")}
-              </h4>
-              <ul className="space-y-2">
-                {project.highlights[lang].map((point) => (
-                  <li key={point} className="flex gap-2.5 text-sm text-pretty">
-                    <span
-                      aria-hidden
-                      className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-brand"
-                    />
-                    <span className="text-muted-foreground">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                <div className="space-y-2">
+                  <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
+                    {t("project.highlights")}
+                  </h4>
+                  <ul className="space-y-2">
+                    {project.highlights[lang].map((point) => (
+                      <li key={point} className="flex gap-2.5 text-sm text-pretty">
+                        <span
+                          aria-hidden
+                          className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-brand"
+                        />
+                        <span className="text-muted-foreground">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-            <div className="space-y-2">
-              <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
-                {t("project.stack")}
-              </h4>
-              <div className="flex flex-wrap gap-1.5">
-                {project.stack.map((tech) => (
-                  <Badge
-                    key={tech}
-                    variant="secondary"
-                    className="font-mono text-[11px]"
-                  >
-                    {tech}
-                  </Badge>
-                ))}
+                <div className="space-y-2">
+                  <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
+                    {t("project.stack")}
+                  </h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.stack.map((tech) => (
+                      <Badge
+                        key={tech}
+                        variant="secondary"
+                        className="font-mono text-[11px]"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 

@@ -48,6 +48,9 @@ next-env.d.ts
 # Sources brutes : lourdes, elles n'ont rien à faire dans l'historique Git.
 /media/projects/*
 !/media/projects/.gitkeep
+# Exception : cette miniature est un rendu du raytracer, pas un fichier
+# personnel. La versionner garde le dépôt reproductible après un clone.
+!/media/projects/ray-tracer/
 # Médias privés : ne quittent jamais cette machine.
 /.media-private/
 # Sorties publiques du transcodage. Retire cette ligne si tu veux déployer

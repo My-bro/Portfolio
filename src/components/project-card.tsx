@@ -61,17 +61,18 @@ export function ProjectCard({
           </div>
         )}
 
-        {cover?.kind === "video" && (
+        {(cover?.kind === "video" || project.demo) && (
           <span
             aria-hidden
             className={cn(
               "absolute bottom-3 left-3 flex items-center gap-1.5 rounded-md",
               "bg-background/85 px-2 py-1 font-mono text-[11px] backdrop-blur-sm",
               "transition-opacity duration-200 group-hover:opacity-0",
+              project.demo && "text-brand",
             )}
           >
             <Play className="size-3 fill-current" />
-            {t("project.open")}
+            {project.demo ? t("rt.badge") : t("project.open")}
           </span>
         )}
       </div>

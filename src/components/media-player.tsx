@@ -36,8 +36,10 @@ export function MediaPlayer({ items }: { items: ResolvedMediaItem[] }) {
   return (
     <div className="space-y-3">
       <div
-        className="relative overflow-hidden rounded-lg border bg-black"
-        style={{ aspectRatio: ratio }}
+        className="relative mx-auto w-full overflow-hidden rounded-lg border bg-black"
+        // La largeur est bornée par la hauteur disponible : dans un dialogue
+        // pleine largeur, une vidéo verticale déborderait sinon de l'écran.
+        style={{ aspectRatio: ratio, maxWidth: `calc(68vh * ${ratio})` }}
       >
         {item.kind === "video" ? (
           <>
