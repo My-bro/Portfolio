@@ -1,11 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Gamepad2, Play } from "lucide-react";
+import { Gamepad2, Globe, MonitorSmartphone, Play } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
+
+/** Les deux façons de jouer, telles que la page de jeu les comprend. */
+const MODES = ["local", "online"] as const;
+type Mode = (typeof MODES)[number];
+
+const MODE_ICON = {
+  local: MonitorSmartphone,
+  online: Globe,
+} as const;
 
 /**
  * Démo du client R-Type compilé en WebAssembly.
@@ -16,12 +25,18 @@ import { cn } from "@/lib/utils";
  * Fermer la fiche retirerait le composant React sans arrêter le jeu ; retirer
  * l'iframe, si.
  *
+ * C'est aussi ce qui rend le changement de mode simple : la clé de l'iframe
+ * porte le mode, si bien qu'en changer remonte un module neuf — le serveur
+ * embarqué et le lien vers le relais s'excluent, ils ne se démontent pas à
+ * chaud.
+ *
  * Rien n'est chargé avant le clic — le moteur et ses ressources pèsent 13 Mo,
  * ce qui n'a pas à peser sur une page qu'on ne fait que parcourir.
  */
 export function RTypeDemo() {
   const { t } = usePrefs();
   const [started, setStarted] = useState(false);
+  const [mode, setMode] = useState<Mode>("local");
 
   return (
     <div className="space-y-3">
@@ -34,7 +49,8 @@ export function RTypeDemo() {
         <div className="aspect-video w-full">
           {started ? (
             <iframe
-              src="/rtype/index.html"
+              key={mode}
+              src={`/rtype/index.html?mode=${mode}`}
               title="R-Type"
               className="size-full border-0"
               // Le jeu tourne sur nos propres fichiers : scripts et audio
@@ -54,6 +70,42 @@ export function RTypeDemo() {
             </div>
           )}
         </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+        <div
+          role="radiogroup"
+          aria-label={t("rtype.mode.label")}
+          className="inline-flex items-center rounded-lg border bg-card p-1"
+        >
+          {MODES.map((value) => {
+            const Icon = MODE_ICON[value];
+            const selected = mode === value;
+            return (
+              <button
+                key={value}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                onClick={() => setMode(value)}
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 font-mono text-xs transition-colors",
+                  "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+                  selected
+                    ? "bg-brand text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <Icon className="size-3.5" />
+                {t(`rtype.mode.${value}`)}
+              </button>
+            );
+          })}
+        </div>
+
+        <p className="text-xs text-muted-foreground">
+          {t(`rtype.mode.${mode}Hint`)}
+        </p>
       </div>
 
       {started && (

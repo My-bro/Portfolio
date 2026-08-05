@@ -64,7 +64,14 @@ const dictionary = {
     "rtype.launch": "Lancer le jeu",
     "rtype.controls": "ZQSD pour se déplacer, Espace pour tirer",
     "rtype.hint":
-      "Serveur non branché : menu, options et sélection de personnage sont navigables.",
+      "Dans les salons, clique « Refresh », choisis une session, puis ton personnage.",
+    "rtype.mode.label": "Mode de jeu",
+    "rtype.mode.local": "Local",
+    "rtype.mode.online": "En ligne",
+    "rtype.mode.localHint":
+      "Le serveur est compilé dans le module : toute la partie tient dans l'onglet.",
+    "rtype.mode.onlineHint":
+      "Le vrai serveur, joint par un relais WebSocket. À plusieurs.",
 
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
@@ -159,7 +166,14 @@ const dictionary = {
     "rtype.launch": "Run the game",
     "rtype.controls": "ZQSD to move, Space to shoot",
     "rtype.hint":
-      "No server attached: the menu, options and character select are navigable.",
+      "In the sessions screen, hit “Refresh”, pick a session, then your character.",
+    "rtype.mode.label": "Game mode",
+    "rtype.mode.local": "Local",
+    "rtype.mode.online": "Online",
+    "rtype.mode.localHint":
+      "The server is compiled into the module: the whole game fits in the tab.",
+    "rtype.mode.onlineHint":
+      "The real server, reached through a WebSocket relay. With others.",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",
