@@ -1,11 +1,21 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import staticAssetsIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/static-assets-incremental-cache";
 
 /**
- * Le site est presque entièrement pré-rendu : pas de cache incrémental à
- * configurer, le Worker ne sert que /api/track et /admin.
+ * Le site est presque entièrement pré-rendu : le Worker ne sert vraiment que
+ * /api/track et /admin.
+ *
+ * Cela ne dispense pas d'un cache incrémental, contrairement à ce qu'on
+ * pourrait croire. C'est lui qui range le HTML pré-rendu et que Next relit à
+ * la première requête : sans lui, /fr n'était nulle part, et le Worker
+ * répondait NoFallbackError sur une page pourtant générée au build.
+ *
+ * Celui-ci lit les assets statiques — donc rien à provisionner, ni R2 ni KV,
+ * ce qui convient au palier gratuit. Il ne sait pas écrire, et c'est très
+ * bien : il n'y a ici aucune revalidation à la demande.
  */
-export default {
-  ...defineCloudflareConfig({}),
+const config = {
+  ...defineCloudflareConfig({ incrementalCache: staticAssetsIncrementalCache }),
 
   /**
    * Comment OpenNext construit l'application Next avant de l'empaqueter.
@@ -20,3 +30,5 @@ export default {
    */
   buildCommand: "npx next build",
 };
+
+export default config;
