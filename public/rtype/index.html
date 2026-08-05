@@ -26,8 +26,27 @@
      les aperçus de personnage devant (z-index 2). */
   canvas { display: block; max-width: 100%; max-height: 100%; outline: none;
            background: transparent; position: relative; z-index: 1; }
+
+  /* Au-dessus de tout, y compris des cinématiques. */
+  #audio {
+    position: fixed; right: 12px; bottom: 12px; z-index: 3;
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 10px; border-radius: 8px;
+    background: rgba(0, 0, 0, .62);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, .14);
+    opacity: .45; transition: opacity .2s;
+  }
+  #audio:hover, #audio:focus-within { opacity: 1; }
+  #audio button {
+    background: none; border: 0; padding: 0; cursor: pointer;
+    color: inherit; font: inherit; line-height: 1;
+  }
+  #audio input { width: 88px; accent-color: #f8633e; cursor: pointer; }
+  #audio output { min-width: 3ch; text-align: right; color: #a1a1a1; }
+
   #boot {
-    position: absolute; inset: 0;
+    position: absolute; inset: 0; z-index: 4;
     display: grid; place-items: center; gap: 12px;
     text-align: center; padding: 24px;
     background: #000;
@@ -41,6 +60,12 @@
 <body>
 <div id="stage">
   <canvas id="canvas" width="960" height="540" tabindex="0"></canvas>
+</div>
+
+<div id="audio" hidden>
+  <button id="mute" type="button" aria-label="Couper le son" title="Couper le son">🔊</button>
+  <input id="vol" type="range" min="0" max="100" step="5" value="25" aria-label="Volume">
+  <output id="volValue">25</output>
 </div>
 
 <div id="boot">
@@ -60,6 +85,10 @@
   const msg = document.getElementById('msg');
   const fill = document.getElementById('fill');
   const err = document.getElementById('err');
+  const audio = document.getElementById('audio');
+  const slider = document.getElementById('vol');
+  const readout = document.getElementById('volValue');
+  const muteButton = document.getElementById('mute');
 
   // Le jeu se pilote aux touches : sans focus, rien ne répond.
   const focus = () => canvas.focus();
@@ -73,10 +102,46 @@
     }
   }, { passive: false });
 
+  let module = null;
+  let volume = Number(slider.value);
+  let muted = false;
+
+  /**
+   * Le son a deux origines : SDL_mixer pour la musique et les bruitages,
+   * les balises <video> pour les cinématiques. Un seul réglage gouverne
+   * les deux — le menu d'options du jeu ne pilote que la première.
+   */
+  function applyVolume() {
+    const effective = muted ? 0 : volume;
+    readout.textContent = effective;
+    muteButton.textContent = effective === 0 ? '🔇' : '🔊';
+
+    if (module) {
+      try {
+        module.ccall('rtype_set_volume', null, ['number'], [effective]);
+      } catch { /* export absent : on se rabat sur les <video> seules */ }
+      for (const el of module.__rtypeVideos || []) {
+        if (el) el.volume = effective / 100;
+      }
+    }
+  }
+
+  slider.addEventListener('input', () => {
+    volume = Number(slider.value);
+    muted = false;
+    applyVolume();
+  });
+
+  muteButton.addEventListener('click', () => {
+    muted = !muted;
+    applyVolume();
+    focus();
+  });
+
   try {
     const createRType = (await import('./rtype.js')).default;
 
-    await createRType({
+    module = await createRType({
       canvas,
       setStatus: (text) => {
         // Emscripten annonce sa progression sous la forme "(12/34)".
@@ -94,6 +159,19 @@
     });
 
     boot.remove();
+    audio.hidden = false;
+    applyVolume();
+
+    // Les cinématiques sont créées au fil du jeu : chaque nouvelle balise
+    // doit hériter du réglage courant.
+    new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of record.addedNodes) {
+          if (node.nodeName === 'VIDEO') node.volume = muted ? 0 : volume / 100;
+        }
+      }
+    }).observe(document.body, { childList: true });
+
     focus();
   } catch (error) {
     msg.textContent = 'Le jeu n’a pas pu démarrer';
