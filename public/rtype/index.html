@@ -11,6 +11,14 @@
   proprement — sa boucle principale vit dans requestAnimationFrame, ses
   éléments <video> dans le document. Retirer l'iframe emporte tout d'un coup,
   là où un démontage React laisserait la boucle tourner en fond.
+
+  Le mode se lit dans la requête :
+
+    ?mode=local     le serveur est compilé dans le module, tout tient ici
+    ?mode=online    le serveur hébergé, joint par le relais WebSocket
+
+  C'est cette page qui fixe window.RTYPE_RELAY, que le module lit au
+  démarrage — même convention que RTYPE_VIDEO_BASE pour les cinématiques.
 -->
 <style>
   :root { color-scheme: dark; }
@@ -55,6 +63,12 @@
   #bar { width: min(280px, 70vw); height: 3px; background: #2a2a2a; border-radius: 2px; overflow: hidden; }
   #fill { height: 100%; width: 0; background: #f8633e; transition: width .2s; }
   #err { color: #f8633e; max-width: 32rem; }
+  #fallback {
+    margin-top: 14px; display: none;
+    background: #f8633e; color: #0a0a0a;
+    border: 0; border-radius: 6px; padding: 7px 14px;
+    font: inherit; font-weight: 600; cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -73,12 +87,35 @@
     <p id="msg">Chargement du moteur…</p>
     <div id="bar"><div id="fill"></div></div>
     <p id="err"></p>
+    <button id="fallback" type="button">Jouer en local</button>
   </div>
 </div>
 
 <script type="module">
   // Les cinématiques sont servies à côté du module, pas embarquées.
   window.RTYPE_VIDEO_BASE = './video/';
+
+  /**
+   * Relais WebSocket devant le serveur de jeu.
+   *
+   * Une page en HTTPS ne peut pas ouvrir de WebSocket en clair : il faut du
+   * wss://, donc un nom et un certificat — l'adresse IP nue n'en aura jamais.
+   * Voir docker/README.md dans le dépôt du jeu.
+   */
+  const RELAY = 'wss://rtype.bazarbe.live';
+
+  const params = new URLSearchParams(location.search);
+  const online = params.get('mode') === 'online';
+
+  // Échappatoire de mise au point : depuis une page en http, on peut viser
+  // le relais en clair avant que le nom et le certificat ne soient posés —
+  // ?relay=ws://5.135.148.107:8099. Le schéma est vérifié, rien d'autre ne
+  // passe.
+  const override = params.get('relay');
+  const relay = override && /^wss?:\/\/[^\s]+$/.test(override) ? override : RELAY;
+
+  // Lu par le module au démarrage : vide, il monte le serveur embarqué.
+  window.RTYPE_RELAY = online ? relay : '';
 
   const canvas = document.getElementById('canvas');
   const boot = document.getElementById('boot');
@@ -89,6 +126,9 @@
   const slider = document.getElementById('vol');
   const readout = document.getElementById('volValue');
   const muteButton = document.getElementById('mute');
+  const fallback = document.getElementById('fallback');
+
+  fallback.addEventListener('click', () => location.replace('?mode=local'));
 
   // Le jeu se pilote aux touches : sans focus, rien ne répond.
   const focus = () => canvas.focus();
@@ -138,7 +178,47 @@
     focus();
   });
 
+  /**
+   * Vérifie que le relais répond, avant d'en télécharger 13 Mo pour rien.
+   *
+   * Une poignée de main WebSocket est le seul test qui prouve vraiment
+   * quelque chose : elle échoue aussi bien sur un nom inconnu qu'un port
+   * fermé ou un certificat refusé, exactement les cas où la partie ne
+   * démarrerait pas. Le lien est refermé aussitôt.
+   */
+  function reachRelay(url) {
+    return new Promise((resolve) => {
+      let socket = null;
+      const settle = (ok) => {
+        clearTimeout(timer);
+        try { socket && socket.close(); } catch { /* déjà fermé */ }
+        resolve(ok);
+      };
+      const timer = setTimeout(() => settle(false), 6000);
+      try {
+        socket = new WebSocket(url + '/?tcp=8080');
+        socket.onopen = () => settle(true);
+        socket.onerror = () => settle(false);
+        socket.onclose = () => settle(false);
+      } catch {
+        settle(false);
+      }
+    });
+  }
+
   try {
+    if (online) {
+      msg.textContent = 'Connexion au serveur…';
+      if (!await reachRelay(relay)) {
+        msg.textContent = 'Serveur injoignable';
+        err.textContent = relay + ' ne répond pas. La partie en ligne demande '
+          + 'que la pile du jeu tourne et que le relais soit exposé en wss.';
+        fallback.style.display = 'inline-block';
+        throw new Error('relais injoignable');
+      }
+      msg.textContent = 'Chargement du moteur…';
+    }
+
     const createRType = (await import('./rtype.js')).default;
 
     module = await createRType({
@@ -154,6 +234,10 @@
         }
       },
       printErr: (text) => {
+        // Tout passe par la console : cette fonction remplace celle
+        // d'Emscripten, et n'y rien renvoyer revenait à rendre le module
+        // muet — un paquet refusé en boucle ne laissait aucune trace.
+        console.error(text);
         if (/error|failed|abort/i.test(text)) err.textContent = text;
       },
     });
@@ -174,9 +258,13 @@
 
     focus();
   } catch (error) {
-    msg.textContent = 'Le jeu n’a pas pu démarrer';
-    err.textContent = error && error.message ? error.message : String(error);
     fill.style.width = '0';
+    // Le relais injoignable a déjà dit ce qu'il fallait, et propose une
+    // porte de sortie : l'écraser par un message générique la retirerait.
+    if (fallback.style.display !== 'inline-block') {
+      msg.textContent = 'Le jeu n’a pas pu démarrer';
+      err.textContent = error && error.message ? error.message : String(error);
+    }
   }
 </script>
 </body>

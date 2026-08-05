@@ -55,9 +55,14 @@ next-env.d.ts
 !/media/projects/samplify/
 # Médias privés : ne quittent jamais cette machine.
 /.media-private/
-# Sorties publiques du transcodage. Retire cette ligne si tu veux déployer
-# depuis un CI plutôt qu'avec `npm run deploy` depuis ta machine.
-/public/m/
-# Build WebAssembly de R-Type : 13 Mo, régénérés par `npm run rtype:build`.
-/public/rtype/rtype.*
-/public/rtype/video/
+
+# Ce qui suit était exclu tant que le déploiement partait de cette machine.
+# Cloudflare construisant désormais depuis le dépôt, ces fichiers doivent y
+# être : ils ne se régénèrent pas dans le CI, et sans eux le site part sans
+# sa démo ni ses médias.
+#
+#   /public/m/                sorties du transcodage — `npm run media:sync`
+#   /public/rtype/rtype.*     module WebAssembly — `npm run rtype:build`
+#   /public/rtype/video/      cinématiques — `npm run rtype:build`
+#
+# Ils sont donc versionnés, et à recommitter après chaque régénération.
