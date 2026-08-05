@@ -72,6 +72,12 @@ const dictionary = {
       "Le serveur est compilé dans le module : toute la partie tient dans l'onglet.",
     "rtype.mode.onlineHint":
       "Le vrai serveur, joint par un relais WebSocket. À plusieurs.",
+    "rtype.pad.label": "Commandes",
+    "rtype.pad.up": "Monter",
+    "rtype.pad.down": "Descendre",
+    "rtype.pad.left": "Aller à gauche",
+    "rtype.pad.right": "Aller à droite",
+    "rtype.pad.shoot": "Tirer",
 
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
@@ -174,6 +180,12 @@ const dictionary = {
       "The server is compiled into the module: the whole game fits in the tab.",
     "rtype.mode.onlineHint":
       "The real server, reached through a WebSocket relay. With others.",
+    "rtype.pad.label": "Controls",
+    "rtype.pad.up": "Move up",
+    "rtype.pad.down": "Move down",
+    "rtype.pad.left": "Move left",
+    "rtype.pad.right": "Move right",
+    "rtype.pad.shoot": "Shoot",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",
