@@ -39,7 +39,14 @@ export const projects: readonly Project[] = [
         "Written entirely by hand, without AI assistance.",
       ],
     },
-    stack: ["C++", "ECS", "UDP", "TCP", "CMake", "Cross-platform"],
+    stack: ["C++", "ECS", "UDP", "TCP", "CMake", "WebAssembly"],
+    demo: "rtype",
+    links: [
+      {
+        label: "github.com/My-bro/r-type",
+        href: "https://github.com/My-bro/r-type-axel.londas",
+      },
+    ],
   },
 
   {

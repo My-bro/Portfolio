@@ -69,7 +69,27 @@ npm run deploy:check
 Affiche exactement ce que wrangler téléverserait. Les fichiers de
 `.media-private/` n'y figurent pas.
 
-## Le raytracer en direct
+## Les deux démos exécutables
+
+Deux fiches projet ne montrent pas une capture mais font tourner le code.
+
+### R-Type
+
+Le client C++ compilé en WebAssembly, avec SFML remplacé par SDL2 —
+Emscripten livre SDL2 en port officiel, pas SFML. Menu, options et sélection
+de personnage sont navigables ; le serveur n'est pas encore branché.
+
+Le jeu vit dans une **iframe**, et c'est délibéré : un module Emscripten ne se
+démonte pas proprement — sa boucle tourne dans `requestAnimationFrame`, ses
+`<video>` vivent dans le document. Fermer la fiche retirerait le composant
+React sans arrêter le jeu ; retirer l'iframe, si.
+
+```bash
+source ~/emsdk/emsdk_env.sh
+npm run rtype:build     # 13 Mo dans public/rtype/, non versionnés
+```
+
+### Le raytracer en direct
 
 La fiche du projet Ray-Tracer n'affiche pas une capture : le moteur C++ y
 tourne, compilé en WebAssembly. Il vit dans un sous-module :
@@ -80,7 +100,8 @@ git submodule update --init --recursive
 
 Le sous-module suit sa branche `webassembly`, qui ajoute la cible Emscripten
 sans toucher au moteur — détails dans
-[`vendor/raytracer/wasm/README.md`](vendor/raytracer/wasm/README.md).
+[`vendor/raytracer/wasm/README.md`](vendor/raytracer/wasm/README.md), et
+[`vendor/r-type/wasm/README.md`](vendor/r-type/wasm/README.md) pour R-Type.
 
 Le binaire compilé est versionné dans `public/wasm/`, donc **rien à installer
 pour déployer**. Pour le régénérer après une modification du moteur :
@@ -203,6 +224,7 @@ niveau avant le web. Le profil web reste à un clic, sous `?p=web`.
 | `npm run dev`           | Serveur de développement                         |
 | `npm run media:sync`    | Transcode et publie les médias                   |
 | `npm run wasm:build`    | Recompile le raytracer en WebAssembly            |
+| `npm run rtype:build`   | Recompile R-Type et ses assets web               |
 | `npm run media:sync:force` | Réencode tout, sans cache                     |
 | `npm run build`         | Construction Next                                |
 | `npm run preview`       | Construit et sert le Worker en local             |

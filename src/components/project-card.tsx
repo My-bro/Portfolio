@@ -47,7 +47,7 @@ export function ProjectCard({
                 // Pas de vidéo, mais mieux : le moteur tourne dans la fiche.
                 <span className="flex items-center gap-1.5 text-brand">
                   <Play className="size-3 fill-current" />
-                  {t("rt.title")}
+                  {t(project.demo === "rtype" ? "rtype.title" : "rt.title")}
                 </span>
               ) : media.withheld ? (
                 <span className="flex items-center gap-1.5">

@@ -57,6 +57,15 @@ const dictionary = {
     "media.unmute": "Activer le son",
     "media.loading": "Chargement",
 
+    "rtype.title": "Client compilé en WebAssembly",
+    "rtype.badge": "WebAssembly",
+    "rtype.intro":
+      "Le client C++ tourne ici, dans ton navigateur. 13 Mo à charger — rien ne part avant ton clic.",
+    "rtype.launch": "Lancer le jeu",
+    "rtype.controls": "ZQSD pour se déplacer, Espace pour tirer",
+    "rtype.hint":
+      "Serveur non branché : menu, options et sélection de personnage sont navigables.",
+
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
     "rt.intro":
@@ -142,6 +151,15 @@ const dictionary = {
     "media.mute": "Mute",
     "media.unmute": "Unmute",
     "media.loading": "Loading",
+
+    "rtype.title": "Client compiled to WebAssembly",
+    "rtype.badge": "WebAssembly",
+    "rtype.intro":
+      "The C++ client runs right here, in your browser. 13 MB to load — nothing downloads before you click.",
+    "rtype.launch": "Run the game",
+    "rtype.controls": "ZQSD to move, Space to shoot",
+    "rtype.hint":
+      "No server attached: the menu, options and character select are navigable.",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",

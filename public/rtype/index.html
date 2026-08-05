@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R-Type</title>
+<!--
+  Page de jeu, chargée dans une iframe par la fiche projet.
+
+  L'isolation est délibérée : un module Emscripten ne se démonte pas
+  proprement — sa boucle principale vit dans requestAnimationFrame, ses
+  éléments <video> dans le document. Retirer l'iframe emporte tout d'un coup,
+  là où un démontage React laisserait la boucle tourner en fond.
+-->
+<style>
+  :root { color-scheme: dark; }
+  html, body {
+    margin: 0; height: 100%;
+    background: #000;
+    font: 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #f5f5f5;
+    overflow: hidden;
+  }
+  #stage { display: grid; place-items: center; height: 100%; }
+  /* Transparent : la vidéo de fond passe derrière le canvas (z-index 0),
+     les aperçus de personnage devant (z-index 2). */
+  canvas { display: block; max-width: 100%; max-height: 100%; outline: none;
+           background: transparent; position: relative; z-index: 1; }
+  #boot {
+    position: absolute; inset: 0;
+    display: grid; place-items: center; gap: 12px;
+    text-align: center; padding: 24px;
+    background: #000;
+  }
+  #boot p { margin: 0; color: #a1a1a1; }
+  #bar { width: min(280px, 70vw); height: 3px; background: #2a2a2a; border-radius: 2px; overflow: hidden; }
+  #fill { height: 100%; width: 0; background: #f8633e; transition: width .2s; }
+  #err { color: #f8633e; max-width: 32rem; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="canvas" width="960" height="540" tabindex="0"></canvas>
+</div>
+
+<div id="boot">
+  <div>
+    <p id="msg">Chargement du moteur…</p>
+    <div id="bar"><div id="fill"></div></div>
+    <p id="err"></p>
+  </div>
+</div>
+
+<script type="module">
+  // Les cinématiques sont servies à côté du module, pas embarquées.
+  window.RTYPE_VIDEO_BASE = './video/';
+
+  const canvas = document.getElementById('canvas');
+  const boot = document.getElementById('boot');
+  const msg = document.getElementById('msg');
+  const fill = document.getElementById('fill');
+  const err = document.getElementById('err');
+
+  // Le jeu se pilote aux touches : sans focus, rien ne répond.
+  const focus = () => canvas.focus();
+  canvas.addEventListener('mousedown', focus);
+  window.addEventListener('load', focus);
+
+  // ZQSD et espace ne doivent pas faire défiler la page hôte.
+  window.addEventListener('keydown', (event) => {
+    if ([' ', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+
+  try {
+    const createRType = (await import('./rtype.js')).default;
+
+    await createRType({
+      canvas,
+      setStatus: (text) => {
+        // Emscripten annonce sa progression sous la forme "(12/34)".
+        const match = /\((\d+)\/(\d+)\)/.exec(text || '');
+        if (match) {
+          fill.style.width = (100 * match[1] / match[2]) + '%';
+          msg.textContent = 'Chargement des ressources…';
+        } else if (text) {
+          msg.textContent = text;
+        }
+      },
+      printErr: (text) => {
+        if (/error|failed|abort/i.test(text)) err.textContent = text;
+      },
+    });
+
+    boot.remove();
+    focus();
+  } catch (error) {
+    msg.textContent = 'Le jeu n’a pas pu démarrer';
+    err.textContent = error && error.message ? error.message : String(error);
+    fill.style.width = '0';
+  }
+</script>
+</body>
+</html>

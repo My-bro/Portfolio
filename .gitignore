@@ -58,3 +58,6 @@ next-env.d.ts
 # Sorties publiques du transcodage. Retire cette ligne si tu veux déployer
 # depuis un CI plutôt qu'avec `npm run deploy` depuis ta machine.
 /public/m/
+# Build WebAssembly de R-Type : 13 Mo, régénérés par `npm run rtype:build`.
+/public/rtype/rtype.*
+/public/rtype/video/

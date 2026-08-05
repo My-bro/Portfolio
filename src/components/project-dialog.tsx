@@ -26,6 +26,11 @@ const RaytracerDemo = dynamic(
   { ssr: false },
 );
 
+const RTypeDemo = dynamic(
+  () => import("@/components/rtype-demo").then((m) => m.RTypeDemo),
+  { ssr: false },
+);
+
 export function ProjectDialog({
   project,
   open,
@@ -76,12 +81,12 @@ export function ProjectDialog({
                 {/* Quand le projet embarque une démo exécutable, elle
                     remplace le lecteur : les visuels ne servent alors que de
                     miniature sur la carte. */}
-                {project.demo === "raytracer" ? (
+                {project.demo ? (
                   <>
                     <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
-                      {t("rt.title")}
+                      {t(project.demo === "rtype" ? "rtype.title" : "rt.title")}
                     </h4>
-                    <RaytracerDemo />
+                    {project.demo === "rtype" ? <RTypeDemo /> : <RaytracerDemo />}
                   </>
                 ) : project.website && media?.items[0] ? (
                   /* Produit en ligne : la capture renvoie vers le site plutôt

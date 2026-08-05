@@ -18,6 +18,7 @@ const eslintConfig = defineConfig([
     ".media-private/**",
     // Servis tels quels : glue Emscripten générée et sous-modules.
     "public/wasm/raytracer.js",
+    "public/rtype/**",
     "vendor/**",
   ]),
   {
