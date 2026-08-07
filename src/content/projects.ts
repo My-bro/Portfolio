@@ -113,7 +113,8 @@ export const projects: readonly Project[] = [
         "Rendering and input through CSFML, SFML's C binding — with no engine layer above it.",
       ],
     },
-    stack: ["C", "CSFML", "Makefile", "Pixel art"],
+    stack: ["C", "CSFML", "Makefile", "Pixel art", "WebAssembly"],
+    demo: "myrpg",
     links: [
       {
         label: "github.com/My-bro/myrpg",

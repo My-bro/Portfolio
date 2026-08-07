@@ -8,3 +8,6 @@
 [submodule "vendor/my-hunter"]
 	path = vendor/my-hunter
 	url = https://github.com/My-bro/myhunter-axel.londas.git
+[submodule "vendor/my-rpg"]
+	path = vendor/my-rpg
+	url = https://github.com/My-bro/myrpg-axel.londas.git

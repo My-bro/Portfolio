@@ -36,6 +36,11 @@ const MyHunterDemo = dynamic(
   { ssr: false },
 );
 
+const MyRpgDemo = dynamic(
+  () => import("@/components/myrpg-demo").then((m) => m.MyRpgDemo),
+  { ssr: false },
+);
+
 export function ProjectDialog({
   project,
   open,
@@ -94,13 +99,17 @@ export function ProjectDialog({
                           ? "rtype.title"
                           : project.demo === "myhunter"
                             ? "myhunter.title"
-                            : "rt.title",
+                            : project.demo === "myrpg"
+                              ? "myrpg.title"
+                              : "rt.title",
                       )}
                     </h4>
                     {project.demo === "rtype" ? (
                       <RTypeDemo />
                     ) : project.demo === "myhunter" ? (
                       <MyHunterDemo />
+                    ) : project.demo === "myrpg" ? (
+                      <MyRpgDemo />
                     ) : (
                       <RaytracerDemo />
                     )}

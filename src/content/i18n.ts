@@ -88,6 +88,14 @@ const dictionary = {
     "myhunter.hint":
       "Chaque tour a ses propres points de vie : trois ballons manqués la détruisent.",
 
+    "myrpg.title": "Jeu compilé en WebAssembly",
+    "myrpg.badge": "WebAssembly",
+    "myrpg.intro":
+      "Le jeu en C tourne ici, dans ton navigateur. 11 Mo à charger — rien ne part avant ton clic.",
+    "myrpg.launch": "Lancer le jeu",
+    "myrpg.controls": "Flèches pour se déplacer, E pour interagir, A pour l'inventaire",
+    "myrpg.hint": "Depuis le menu, « Jouer » lance directement la partie — aucune sauvegarde n'existe encore à charger.",
+
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
     "rt.intro":
@@ -204,6 +212,15 @@ const dictionary = {
     "myhunter.controls": "Click a balloon before it reaches its tower.",
     "myhunter.hint":
       "Each tower has its own hit points: three missed balloons bring it down.",
+
+    "myrpg.title": "Game compiled to WebAssembly",
+    "myrpg.badge": "WebAssembly",
+    "myrpg.intro":
+      "The C game runs right here, in your browser. 11 MB to load — nothing downloads before you click.",
+    "myrpg.launch": "Run the game",
+    "myrpg.controls": "Arrows to move, E to interact, A for the inventory",
+    "myrpg.hint":
+      "From the menu, “Play” starts the game directly — there's no save yet to load.",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",
