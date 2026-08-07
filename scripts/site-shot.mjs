@@ -2,7 +2,7 @@
 /**
  * site-shot — capture la page d'accueil d'un site en ligne.
  *
- *   node scripts/site-shot.mjs <url> <sortie.png>
+ *   node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>]
  *
  * Sert à produire la vignette des projets qui tournent en production et que
  * le portfolio ne peut pas rejouer : mieux vaut une capture fidèle et
@@ -11,18 +11,26 @@
  * L'image sort en 1600x900 — le format des cartes — et passe ensuite par
  * `npm run media:sync` comme n'importe quel média.
  *
+ * `--scroll` descend la page avant de déclencher. Le haut d'une page
+ * d'accueil est souvent une accroche et du vide ; ce qui montre le produit
+ * — des pochettes d'album, une grille de résultats — commence en dessous de
+ * la ligne de flottaison, et une vignette prise à zéro le coupe.
+ *
  * Prérequis, à installer une fois :
  *   npx playwright install chromium
  */
 
 import process from "node:process";
 
-const [url, out] = process.argv.slice(2);
+const argv = process.argv.slice(2);
+const scrollArg = argv.find((a) => a.startsWith("--scroll="));
+const scroll = scrollArg ? Number(scrollArg.slice("--scroll=".length)) : 0;
+const [url, out] = argv.filter((a) => !a.startsWith("--"));
 
-if (!url || !out) {
+if (!url || !out || Number.isNaN(scroll)) {
   console.error(
-    "usage : node scripts/site-shot.mjs <url> <sortie.png>\n" +
-      "exemple : node scripts/site-shot.mjs https://samplify.site/ media/projects/samplify/01-landing.png",
+    "usage : node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>]\n" +
+      "exemple : node scripts/site-shot.mjs https://samplify.site/ media/projects/samplify/01-landing.png --scroll=300",
   );
   process.exit(1);
 }
@@ -75,6 +83,13 @@ try {
       if (nearCorner) el.style.display = "none";
     }
   });
+
+  if (scroll > 0) {
+    await page.evaluate((y) => window.scrollTo(0, y), scroll);
+    // Les entrées au défilement — apparitions, chargements différés — ont
+    // besoin d'un instant, sans quoi on capture des trous.
+    await page.waitForTimeout(1200);
+  }
 
   await page.waitForTimeout(400);
   await page.screenshot({ path: out });

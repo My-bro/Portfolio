@@ -3,6 +3,27 @@
 import type { GeneratedMedia } from "@/lib/media-types";
 
 export const generatedMedia = {
+  "r-type": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Niveau 3",
+        "poster": "01-niveau-3.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-niveau-3.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1060,
+        "height": 530,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
   "ray-tracer": {
     "visibility": "public",
     "items": [
