@@ -93,7 +93,7 @@ const dictionary = {
     "myrpg.intro":
       "Le jeu en C tourne ici, dans ton navigateur. 11 Mo à charger — rien ne part avant ton clic.",
     "myrpg.launch": "Lancer le jeu",
-    "myrpg.controls": "Flèches pour se déplacer, E pour interagir, A pour l'inventaire",
+    "myrpg.controls": "Flèches ou ZQSD/WASD pour se déplacer, E pour interagir, I pour l'inventaire",
     "myrpg.hint": "Depuis le menu, « Jouer » lance directement la partie — aucune sauvegarde n'existe encore à charger.",
 
     "rt.title": "Moteur compilé en WebAssembly",
@@ -218,7 +218,7 @@ const dictionary = {
     "myrpg.intro":
       "The C game runs right here, in your browser. 11 MB to load — nothing downloads before you click.",
     "myrpg.launch": "Run the game",
-    "myrpg.controls": "Arrows to move, E to interact, A for the inventory",
+    "myrpg.controls": "Arrows or WASD/ZQSD to move, E to interact, I for the inventory",
     "myrpg.hint":
       "From the menu, “Play” starts the game directly — there's no save yet to load.",
 

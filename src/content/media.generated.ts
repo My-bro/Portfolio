@@ -21,6 +21,22 @@ export const generatedMedia = {
         "height": 1800,
         "duration": null,
         "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Landing clair",
+        "poster": "02-landing-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-landing-clair.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 3200,
+        "height": 1800,
+        "duration": null,
+        "hasAudio": false
       }
     ]
   },

@@ -2,7 +2,7 @@
 /**
  * site-shot — capture la page d'accueil d'un site en ligne.
  *
- *   node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>]
+ *   node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>] [--click=<sélecteur>]
  *
  * Sert à produire la vignette des projets qui tournent en production et que
  * le portfolio ne peut pas rejouer : mieux vaut une capture fidèle et
@@ -16,6 +16,9 @@
  * — des pochettes d'album, une grille de résultats — commence en dessous de
  * la ligne de flottaison, et une vignette prise à zéro le coupe.
  *
+ * `--click` clique un élément avant la capture — le bouton clair/sombre
+ * d'un site qui en propose deux, pour prendre l'autre variante.
+ *
  * Prérequis, à installer une fois :
  *   npx playwright install chromium
  */
@@ -25,11 +28,13 @@ import process from "node:process";
 const argv = process.argv.slice(2);
 const scrollArg = argv.find((a) => a.startsWith("--scroll="));
 const scroll = scrollArg ? Number(scrollArg.slice("--scroll=".length)) : 0;
+const clickArg = argv.find((a) => a.startsWith("--click="));
+const click = clickArg ? clickArg.slice("--click=".length) : null;
 const [url, out] = argv.filter((a) => !a.startsWith("--"));
 
 if (!url || !out || Number.isNaN(scroll)) {
   console.error(
-    "usage : node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>]\n" +
+    "usage : node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>] [--click=<sélecteur>]\n" +
       "exemple : node scripts/site-shot.mjs https://samplify.site/ media/projects/samplify/01-landing.png --scroll=300",
   );
   process.exit(1);
@@ -83,6 +88,12 @@ try {
       if (nearCorner) el.style.display = "none";
     }
   });
+
+  if (click) {
+    await page.click(click);
+    // Laisse la transition claire/sombre (couleurs, parfois un fondu) se poser.
+    await page.waitForTimeout(500);
+  }
 
   if (scroll > 0) {
     await page.evaluate((y) => window.scrollTo(0, y), scroll);
