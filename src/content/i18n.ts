@@ -79,6 +79,15 @@ const dictionary = {
     "rtype.pad.right": "Aller à droite",
     "rtype.pad.shoot": "Tirer",
 
+    "myhunter.title": "Jeu compilé en WebAssembly",
+    "myhunter.badge": "WebAssembly",
+    "myhunter.intro":
+      "Le jeu en C tourne ici, dans ton navigateur. 13 Mo à charger — rien ne part avant ton clic.",
+    "myhunter.launch": "Lancer le jeu",
+    "myhunter.controls": "Clique sur un ballon avant qu'il n'atteigne sa tour.",
+    "myhunter.hint":
+      "Chaque tour a ses propres points de vie : trois ballons manqués la détruisent.",
+
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
     "rt.intro":
@@ -186,6 +195,15 @@ const dictionary = {
     "rtype.pad.left": "Move left",
     "rtype.pad.right": "Move right",
     "rtype.pad.shoot": "Shoot",
+
+    "myhunter.title": "Game compiled to WebAssembly",
+    "myhunter.badge": "WebAssembly",
+    "myhunter.intro":
+      "The C game runs right here, in your browser. 13 MB to load — nothing downloads before you click.",
+    "myhunter.launch": "Run the game",
+    "myhunter.controls": "Click a balloon before it reaches its tower.",
+    "myhunter.hint":
+      "Each tower has its own hit points: three missed balloons bring it down.",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",

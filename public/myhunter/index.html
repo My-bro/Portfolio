@@ -4,38 +4,150 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>My Hunter</title>
+<!--
+  Page de jeu, chargée dans une iframe par la fiche projet — même isolation
+  que R-Type et pour la même raison : un module Emscripten ne se démonte pas
+  proprement, sa boucle vivant dans requestAnimationFrame. Retirer l'iframe
+  l'arrête net ; démonter le composant React qui la contient ne le ferait
+  pas.
+
+  Plus simple que R-Type : un seul joueur, pas de réseau, pas de
+  cinématique. Rien à choisir avant de charger.
+-->
 <style>
   :root { color-scheme: dark; }
-  html, body { margin: 0; height: 100%; background: #000; overflow: hidden;
-    font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; color: #f5f5f5; }
+  html, body {
+    margin: 0; height: 100%;
+    background: #000;
+    font: 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #f5f5f5;
+    overflow: hidden;
+  }
   #stage { display: grid; place-items: center; height: 100%; }
-  canvas { display: block; max-width: 100%; max-height: 100%; outline: none; }
-  #boot { position: absolute; inset: 0; display: grid; place-items: center;
-    text-align: center; padding: 24px; background: #000; }
+  canvas { display: block; max-width: 100%; max-height: 100%; outline: none; cursor: crosshair; }
+
+  #audio {
+    position: fixed; right: 12px; bottom: 12px; z-index: 3;
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 10px; border-radius: 8px;
+    background: rgba(0, 0, 0, .62);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, .14);
+    opacity: .45; transition: opacity .2s;
+  }
+  #audio:hover, #audio:focus-within { opacity: 1; }
+  #audio button {
+    background: none; border: 0; padding: 0; cursor: pointer;
+    color: inherit; font: inherit; line-height: 1;
+  }
+  #audio input { width: 88px; accent-color: #f8633e; cursor: pointer; }
+  #audio output { min-width: 3ch; text-align: right; color: #a1a1a1; }
+
+  #boot {
+    position: absolute; inset: 0; z-index: 4;
+    display: grid; place-items: center; gap: 12px;
+    text-align: center; padding: 24px;
+    background: #000;
+  }
+  #boot p { margin: 0; color: #a1a1a1; }
+  #bar { width: min(280px, 70vw); height: 3px; background: #2a2a2a; border-radius: 2px; overflow: hidden; }
+  #fill { height: 100%; width: 0; background: #f8633e; transition: width .2s; }
   #err { color: #f8633e; max-width: 32rem; }
 </style>
 </head>
 <body>
-<div id="stage"><canvas id="canvas" width="900" height="900" tabindex="0"></canvas></div>
-<div id="boot"><div><p id="msg">Chargement…</p><p id="err"></p></div></div>
+<div id="stage">
+  <canvas id="canvas" width="1400" height="1430" tabindex="0"></canvas>
+</div>
+
+<div id="audio" hidden>
+  <button id="mute" type="button" aria-label="Couper le son" title="Couper le son">🔊</button>
+  <input id="vol" type="range" min="0" max="100" step="5" value="35" aria-label="Volume">
+  <output id="volValue">35</output>
+</div>
+
+<div id="boot">
+  <div>
+    <p id="msg">Chargement…</p>
+    <div id="bar"><div id="fill"></div></div>
+    <p id="err"></p>
+  </div>
+</div>
+
 <script type="module">
   const canvas = document.getElementById('canvas');
   const boot = document.getElementById('boot');
   const msg = document.getElementById('msg');
+  const fill = document.getElementById('fill');
   const err = document.getElementById('err');
-  canvas.addEventListener('mousedown', () => canvas.focus());
+  const audio = document.getElementById('audio');
+  const slider = document.getElementById('vol');
+  const readout = document.getElementById('volValue');
+  const muteButton = document.getElementById('mute');
+
+  // Le clic sur un ballon est l'unique commande : sans focus sur le canvas,
+  // SDL ne reçoit rien.
+  const focus = () => canvas.focus();
+  canvas.addEventListener('mousedown', focus);
+  window.addEventListener('load', focus);
+
+  let module = null;
+  let volume = Number(slider.value);
+  let muted = false;
+
+  function applyVolume() {
+    const effective = muted ? 0 : volume;
+    readout.textContent = effective;
+    muteButton.textContent = effective === 0 ? '🔇' : '🔊';
+
+    if (module) {
+      try {
+        module.ccall('myhunter_set_volume', null, ['number'], [effective]);
+      } catch { /* export absent : rien à faire de plus */ }
+    }
+  }
+
+  slider.addEventListener('input', () => {
+    volume = Number(slider.value);
+    muted = false;
+    applyVolume();
+  });
+
+  muteButton.addEventListener('click', () => {
+    muted = !muted;
+    applyVolume();
+    focus();
+  });
+
   try {
     const createMyHunter = (await import('./myhunter.js')).default;
-    await createMyHunter({
+
+    module = await createMyHunter({
       canvas,
-      setStatus: (t) => { if (t) msg.textContent = t; },
-      printErr: (t) => { console.error(t); if (/error|failed|abort/i.test(t)) err.textContent = t; },
+      setStatus: (text) => {
+        // Emscripten annonce sa progression sous la forme "(12/34)".
+        const match = /\((\d+)\/(\d+)\)/.exec(text || '');
+        if (match) {
+          fill.style.width = (100 * match[1] / match[2]) + '%';
+          msg.textContent = 'Chargement des ressources…';
+        } else if (text) {
+          msg.textContent = text;
+        }
+      },
+      printErr: (text) => {
+        console.error(text);
+        if (/error|failed|abort/i.test(text)) err.textContent = text;
+      },
     });
+
     boot.remove();
-    canvas.focus();
-  } catch (e) {
+    audio.hidden = false;
+    applyVolume();
+    focus();
+  } catch (error) {
+    fill.style.width = '0';
     msg.textContent = 'Le jeu n’a pas pu démarrer';
-    err.textContent = e && e.message ? e.message : String(e);
+    err.textContent = error && error.message ? error.message : String(error);
   }
 </script>
 </body>

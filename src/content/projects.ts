@@ -149,7 +149,8 @@ export const projects: readonly Project[] = [
         "Click-on-target detection, background music and sound effects, all loaded and mixed through CSFML.",
       ],
     },
-    stack: ["C", "CSFML", "Makefile"],
+    stack: ["C", "CSFML", "Makefile", "WebAssembly"],
+    demo: "myhunter",
     links: [
       {
         label: "github.com/My-bro/myhunter",

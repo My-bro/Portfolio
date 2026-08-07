@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "wasm:build": "vendor/raytracer/wasm/build.sh \"$PWD/public/wasm\"",
     "rtype:build": "vendor/r-type/wasm/pack-assets.sh && vendor/r-type/wasm/build.sh \"$PWD/public/rtype\" && rm -rf public/rtype/video && cp -R vendor/r-type/wasm/web/video public/rtype/",
+    "myhunter:build": "vendor/my-hunter/wasm/pack-assets.sh && vendor/my-hunter/wasm/build.sh \"$PWD/public/myhunter\"",
     "media:sync": "node scripts/media-sync.mjs",
     "media:sync:force": "node scripts/media-sync.mjs --force",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",

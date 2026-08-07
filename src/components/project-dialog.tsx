@@ -31,6 +31,11 @@ const RTypeDemo = dynamic(
   { ssr: false },
 );
 
+const MyHunterDemo = dynamic(
+  () => import("@/components/myhunter-demo").then((m) => m.MyHunterDemo),
+  { ssr: false },
+);
+
 export function ProjectDialog({
   project,
   open,
@@ -84,9 +89,21 @@ export function ProjectDialog({
                 {project.demo ? (
                   <>
                     <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
-                      {t(project.demo === "rtype" ? "rtype.title" : "rt.title")}
+                      {t(
+                        project.demo === "rtype"
+                          ? "rtype.title"
+                          : project.demo === "myhunter"
+                            ? "myhunter.title"
+                            : "rt.title",
+                      )}
                     </h4>
-                    {project.demo === "rtype" ? <RTypeDemo /> : <RaytracerDemo />}
+                    {project.demo === "rtype" ? (
+                      <RTypeDemo />
+                    ) : project.demo === "myhunter" ? (
+                      <MyHunterDemo />
+                    ) : (
+                      <RaytracerDemo />
+                    )}
                   </>
                 ) : project.website && media?.items[0] ? (
                   /* Produit en ligne : la capture renvoie vers le site plutôt
