@@ -53,6 +53,9 @@ next-env.d.ts
 # garde le dépôt reproductible après un clone.
 !/media/projects/ray-tracer/
 !/media/projects/samplify/
+# Capture du jeu compilé en WebAssembly : produite elle aussi, et c'est la
+# miniature de la fiche R-Type.
+!/media/projects/r-type/
 # Médias privés : ne quittent jamais cette machine.
 /.media-private/
 
