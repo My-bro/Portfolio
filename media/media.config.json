@@ -11,6 +11,12 @@
   "r-type": {
     "visibility": "public"
   },
+  "my-rpg": {
+    "visibility": "public"
+  },
+  "my-hunter": {
+    "visibility": "public"
+  },
   "ray-tracer": {
     "visibility": "public"
   },

@@ -87,6 +87,76 @@ export const projects: readonly Project[] = [
   },
 
   {
+    slug: "my-rpg",
+    name: "My RPG",
+    profiles: ["cpp"],
+    period: "2025",
+    role: {
+      fr: "Jeu 2D en C & CSFML",
+      en: "2D game in C & CSFML",
+    },
+    tagline: {
+      fr: "RPG en vue de dessus écrit en C, sans moteur : combats, inventaire, dialogues et sauvegarde.",
+      en: "A top-down RPG written in C, no engine: battles, inventory, dialogue and saved games.",
+    },
+    highlights: {
+      fr: [
+        "Système de combat complet, avec ses écrans et son enchaînement de tours.",
+        "Déplacement et animation du personnage sur une carte en pixel art, gérés image par image.",
+        "Inventaire, dialogues et sauvegarde de la partie, chacun avec son format de fichier.",
+        "Rendu et entrées via CSFML, la liaison C de SFML — aucune couche de moteur au-dessus.",
+      ],
+      en: [
+        "A full battle system, with its own screens and turn sequencing.",
+        "Character movement and animation across a pixel-art map, driven frame by frame.",
+        "Inventory, dialogue and saved games, each with its own file format.",
+        "Rendering and input through CSFML, SFML's C binding — with no engine layer above it.",
+      ],
+    },
+    stack: ["C", "CSFML", "Makefile", "Pixel art"],
+    links: [
+      {
+        label: "github.com/My-bro/myrpg",
+        href: "https://github.com/My-bro/myrpg-axel.londas",
+      },
+    ],
+  },
+
+  {
+    slug: "my-hunter",
+    name: "My Hunter",
+    profiles: ["cpp"],
+    period: "2025",
+    role: {
+      fr: "Jeu graphique en C & CSFML",
+      en: "Graphical game in C & CSFML",
+    },
+    tagline: {
+      fr: "Jeu de tir à la souris : des ballons montent à l'écran, il faut les crever avant qu'ils n'atteignent le haut.",
+      en: "A mouse shooter: balloons rise up the screen, and you pop them before they reach the top.",
+    },
+    highlights: {
+      fr: [
+        "Sprites animés par découpage d'une planche, avec une horloge propre à chaque animation.",
+        "Détection du clic sur la cible, et animation d'explosion quand un ballon échappe au joueur.",
+        "Musique de fond et bruitages, chargés et mixés par CSFML.",
+      ],
+      en: [
+        "Sprites animated by slicing a sheet, each animation running on its own clock.",
+        "Click-on-target detection, with an explosion animation when a balloon gets away.",
+        "Background music and sound effects, loaded and mixed through CSFML.",
+      ],
+    },
+    stack: ["C", "CSFML", "Makefile"],
+    links: [
+      {
+        label: "github.com/My-bro/myhunter",
+        href: "https://github.com/My-bro/myhunter-axel.londas",
+      },
+    ],
+  },
+
+  {
     slug: "samplify",
     name: "Samplify",
     profiles: ["cpp", "web"],

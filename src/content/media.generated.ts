@@ -3,6 +3,48 @@
 import type { GeneratedMedia } from "@/lib/media-types";
 
 export const generatedMedia = {
+  "my-hunter": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Jeu",
+        "poster": "01-jeu.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-jeu.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1854,
+        "height": 1924,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
+  "my-rpg": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Jeu",
+        "poster": "01-jeu.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-jeu.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1882,
+        "height": 1132,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
   "r-type": {
     "visibility": "public",
     "items": [
