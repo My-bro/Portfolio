@@ -14,9 +14,16 @@ import type { ResolvedMediaItem } from "@/lib/media";
  * une lecture automatique acceptée par les navigateurs, et la seule polie.
  * `preload="metadata"` : les vignettes non sélectionnées ne téléchargent rien.
  */
-export function MediaPlayer({ items }: { items: ResolvedMediaItem[] }) {
+export function MediaPlayer({
+  items,
+  initialIndex = 0,
+}: {
+  items: ResolvedMediaItem[];
+  /** Item ouvert par défaut — la variante qui suit le thème du portfolio. */
+  initialIndex?: number;
+}) {
   const { t } = usePrefs();
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(initialIndex);
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 

@@ -11,3 +11,7 @@
 [submodule "vendor/my-rpg"]
 	path = vendor/my-rpg
 	url = https://github.com/My-bro/myrpg-axel.londas.git
+[submodule "vendor/area"]
+	path = vendor/area
+	url = https://github.com/My-bro/area-axel-londas.git
+	branch = demo

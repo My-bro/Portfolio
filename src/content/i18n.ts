@@ -96,6 +96,17 @@ const dictionary = {
     "myrpg.controls": "Flèches ou ZQSD/WASD pour se déplacer, E pour interagir, I pour l'inventaire",
     "myrpg.hint": "Depuis le menu, « Jouer » lance directement la partie — aucune sauvegarde n'existe encore à charger.",
 
+    "area.title": "Démo statique, sans backend",
+    "area.badge": "Démo",
+    "area.intro":
+      "Le vrai front d'Area, rejoué ici en export statique — le backend n'est plus hébergé, ses données sont donc simulées.",
+    "area.launch": "Lancer la démo",
+    "area.tabLanding": "Accueil",
+    "area.tabCreate": "Créer une automatisation",
+    "area.tabMobile": "Mobile",
+    "area.hint":
+      "Certaines actions (connexion, sauvegarde) sont mimées : rien n'est vraiment persisté.",
+
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
     "rt.intro":
@@ -221,6 +232,17 @@ const dictionary = {
     "myrpg.controls": "Arrows or WASD/ZQSD to move, E to interact, I for the inventory",
     "myrpg.hint":
       "From the menu, “Play” starts the game directly — there's no save yet to load.",
+
+    "area.title": "Static demo, no backend",
+    "area.badge": "Demo",
+    "area.intro":
+      "Area's real frontend, replayed here as a static export — the backend is no longer hosted, so its data is simulated.",
+    "area.launch": "Launch the demo",
+    "area.tabLanding": "Home",
+    "area.tabCreate": "Create an automation",
+    "area.tabMobile": "Mobile",
+    "area.hint":
+      "Some actions (sign-in, saving) are mocked — nothing actually persists.",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",

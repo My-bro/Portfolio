@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useTheme } from "next-themes";
 import { ArrowUpRight, ExternalLink, Lock, Play } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { MediaPreview } from "@/components/media-preview";
-import { getMedia } from "@/lib/media";
+import { getMedia, pickByTheme } from "@/lib/media";
 import { usePrefs } from "@/lib/prefs";
+import { useHydrated } from "@/lib/use-hydrated";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/content/types";
 
@@ -20,8 +22,15 @@ export function ProjectCard({
   const { lang, t } = usePrefs();
   const [focused, setFocused] = useState(false);
 
+  // Le thème résolu dépend du système : inconnu du serveur, donc on
+  // s'aligne sur `defaultTheme="dark"` (providers.tsx) tant que le client
+  // n'a pas repris la main, pour ne pas désaccorder rendu serveur et client.
+  const { resolvedTheme } = useTheme();
+  const hydrated = useHydrated();
+  const dark = !hydrated || resolvedTheme !== "light";
+
   const media = getMedia(project.slug);
-  const cover = media.items[0];
+  const cover = pickByTheme(media.items, dark);
 
   return (
     <button
@@ -78,9 +87,17 @@ export function ProjectCard({
             )}
             {project.website
               ? new URL(project.website).host
-              : project.demo
-                ? t("rt.badge")
-                : t("project.open")}
+              : project.demo === "rtype"
+                ? t("rtype.badge")
+                : project.demo === "myhunter"
+                  ? t("myhunter.badge")
+                  : project.demo === "myrpg"
+                    ? t("myrpg.badge")
+                    : project.demo === "area"
+                      ? t("area.badge")
+                      : project.demo
+                        ? t("rt.badge")
+                        : t("project.open")}
           </span>
         )}
       </div>

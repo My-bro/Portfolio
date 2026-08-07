@@ -2,7 +2,7 @@
 /**
  * site-shot — capture la page d'accueil d'un site en ligne.
  *
- *   node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>] [--click=<sélecteur>]
+ *   node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>] [--click=<sélecteur>] [--wait=<load|networkidle>]
  *
  * Sert à produire la vignette des projets qui tournent en production et que
  * le portfolio ne peut pas rejouer : mieux vaut une capture fidèle et
@@ -19,6 +19,11 @@
  * `--click` clique un élément avant la capture — le bouton clair/sombre
  * d'un site qui en propose deux, pour prendre l'autre variante.
  *
+ * `--wait` change la condition d'attente de `page.goto` (défaut
+ * `networkidle`). Utile pour un site dont le réseau ne se tait jamais —
+ * un lien préchargé qui retente un backend absent, par exemple — auquel
+ * cas `load` évite le timeout.
+ *
  * Prérequis, à installer une fois :
  *   npx playwright install chromium
  */
@@ -30,11 +35,13 @@ const scrollArg = argv.find((a) => a.startsWith("--scroll="));
 const scroll = scrollArg ? Number(scrollArg.slice("--scroll=".length)) : 0;
 const clickArg = argv.find((a) => a.startsWith("--click="));
 const click = clickArg ? clickArg.slice("--click=".length) : null;
+const waitArg = argv.find((a) => a.startsWith("--wait="));
+const waitUntil = waitArg ? waitArg.slice("--wait=".length) : "networkidle";
 const [url, out] = argv.filter((a) => !a.startsWith("--"));
 
 if (!url || !out || Number.isNaN(scroll)) {
   console.error(
-    "usage : node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>] [--click=<sélecteur>]\n" +
+    "usage : node scripts/site-shot.mjs <url> <sortie.png> [--scroll=<px>] [--click=<sélecteur>] [--wait=<load|networkidle>]\n" +
       "exemple : node scripts/site-shot.mjs https://samplify.site/ media/projects/samplify/01-landing.png --scroll=300",
   );
   process.exit(1);
@@ -59,7 +66,7 @@ const page = await browser.newPage({
 });
 
 try {
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
+  await page.goto(url, { waitUntil, timeout: 60_000 });
   // Laisse les polices et les animations d'entrée se poser.
   await page.waitForTimeout(2500);
 

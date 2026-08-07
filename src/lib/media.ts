@@ -89,3 +89,20 @@ export function getMedia(key: string): ResolvedMedia {
 export function hasMedia(key: string): boolean {
   return getMedia(key).items.length > 0;
 }
+
+/**
+ * Certains projets ont une capture en plus de leur visuel par défaut — son
+ * nom de fichier finit alors par `-clair` (ex. `02-landing-clair.jpg`), ce
+ * qui donne un `label` finissant par « clair » une fois passé par
+ * `media:sync`. Le thème du portfolio choisit alors laquelle montrer ;
+ * les projets à capture unique ne sont pas concernés, `items[0]` sort
+ * toujours quel que soit `dark`.
+ */
+export function pickByTheme(
+  items: readonly ResolvedMediaItem[],
+  dark: boolean,
+): ResolvedMediaItem | undefined {
+  const light = items.find((item) => item.label.toLowerCase().endsWith("clair"));
+  if (!light) return items[0];
+  return dark ? (items.find((item) => item !== light) ?? items[0]) : light;
+}

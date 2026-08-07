@@ -20,6 +20,7 @@ const eslintConfig = defineConfig([
     "public/wasm/raytracer.js",
     "public/rtype/**",
     "public/myhunter/**",
+    "public/area/**",
     "vendor/**",
   ]),
   {

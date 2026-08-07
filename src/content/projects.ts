@@ -265,6 +265,7 @@ export const projects: readonly Project[] = [
       fr: "Meilleur projet de la promotion",
       en: "Best project of the year group",
     },
+    demo: "area",
   },
 ] as const;
 

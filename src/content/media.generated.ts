@@ -3,6 +3,130 @@
 import type { GeneratedMedia } from "@/lib/media-types";
 
 export const generatedMedia = {
+  "area": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Landing",
+        "poster": "01-landing.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-landing.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 3200,
+        "height": 1800,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Creation automatisation",
+        "poster": "02-creation-automatisation.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-creation-automatisation.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 3200,
+        "height": 2800,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "video",
+        "label": "Explorateur mobile",
+        "poster": "03-explorateur-mobile.poster.jpg",
+        "preview": [
+          {
+            "file": "03-explorateur-mobile.preview.webm",
+            "type": "video/webm"
+          },
+          {
+            "file": "03-explorateur-mobile.preview.mp4",
+            "type": "video/mp4"
+          }
+        ],
+        "sources": [
+          {
+            "file": "03-explorateur-mobile.webm",
+            "type": "video/webm"
+          },
+          {
+            "file": "03-explorateur-mobile.mp4",
+            "type": "video/mp4"
+          }
+        ],
+        "width": 1178,
+        "height": 2556,
+        "duration": 7.25,
+        "hasAudio": false
+      },
+      {
+        "kind": "video",
+        "label": "Creation mobile",
+        "poster": "04-creation-mobile.poster.jpg",
+        "preview": [
+          {
+            "file": "04-creation-mobile.preview.webm",
+            "type": "video/webm"
+          },
+          {
+            "file": "04-creation-mobile.preview.mp4",
+            "type": "video/mp4"
+          }
+        ],
+        "sources": [
+          {
+            "file": "04-creation-mobile.webm",
+            "type": "video/webm"
+          },
+          {
+            "file": "04-creation-mobile.mp4",
+            "type": "video/mp4"
+          }
+        ],
+        "width": 1920,
+        "height": 1080,
+        "duration": 63,
+        "hasAudio": false
+      },
+      {
+        "kind": "video",
+        "label": "Configuration mobile",
+        "poster": "05-configuration-mobile.poster.jpg",
+        "preview": [
+          {
+            "file": "05-configuration-mobile.preview.webm",
+            "type": "video/webm"
+          },
+          {
+            "file": "05-configuration-mobile.preview.mp4",
+            "type": "video/mp4"
+          }
+        ],
+        "sources": [
+          {
+            "file": "05-configuration-mobile.webm",
+            "type": "video/webm"
+          },
+          {
+            "file": "05-configuration-mobile.mp4",
+            "type": "video/mp4"
+          }
+        ],
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.1,
+        "hasAudio": false
+      }
+    ]
+  },
   "bazarbe": {
     "visibility": "public",
     "items": [
@@ -151,6 +275,22 @@ export const generatedMedia = {
         "sources": [
           {
             "file": "01-landing.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 3200,
+        "height": 1800,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Landing clair",
+        "poster": "02-landing-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-landing-clair.jpg",
             "type": "image/jpeg"
           }
         ],

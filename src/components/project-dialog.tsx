@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
+import { useTheme } from "next-themes";
 import { ArrowLeft, ArrowRight, ExternalLink, Lock, Trophy } from "lucide-react";
 
 import {
@@ -14,8 +15,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MediaPlayer } from "@/components/media-player";
-import { getMedia } from "@/lib/media";
+import { getMedia, pickByTheme } from "@/lib/media";
 import { usePrefs } from "@/lib/prefs";
+import { useHydrated } from "@/lib/use-hydrated";
 import { site } from "@/content/site";
 import type { Project } from "@/content/types";
 
@@ -41,6 +43,11 @@ const MyRpgDemo = dynamic(
   { ssr: false },
 );
 
+const AreaDemo = dynamic(
+  () => import("@/components/area-demo").then((m) => m.AreaDemo),
+  { ssr: false },
+);
+
 export function ProjectDialog({
   project,
   open,
@@ -53,10 +60,24 @@ export function ProjectDialog({
   onNavigate: (direction: -1 | 1) => void;
 }) {
   const { lang, t } = usePrefs();
+  const { resolvedTheme } = useTheme();
+  const hydrated = useHydrated();
+  const dark = !hydrated || resolvedTheme !== "light";
   const media = useMemo(
     () => (project ? getMedia(project.slug) : null),
     [project],
   );
+  // La variante qui suit le thème du portfolio — sert de couverture pour un
+  // produit en ligne, et d'onglet ouvert par défaut dans la galerie.
+  const coverItem = useMemo(
+    () => (media ? pickByTheme(media.items, dark) : undefined),
+    [media, dark],
+  );
+  const initialIndex = useMemo(() => {
+    if (!media || !coverItem) return 0;
+    const idx = media.items.indexOf(coverItem);
+    return idx === -1 ? 0 : idx;
+  }, [media, coverItem]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -101,7 +122,9 @@ export function ProjectDialog({
                             ? "myhunter.title"
                             : project.demo === "myrpg"
                               ? "myrpg.title"
-                              : "rt.title",
+                              : project.demo === "area"
+                                ? "area.title"
+                                : "rt.title",
                       )}
                     </h4>
                     {project.demo === "rtype" ? (
@@ -110,11 +133,13 @@ export function ProjectDialog({
                       <MyHunterDemo />
                     ) : project.demo === "myrpg" ? (
                       <MyRpgDemo />
+                    ) : project.demo === "area" ? (
+                      <AreaDemo />
                     ) : (
                       <RaytracerDemo />
                     )}
                   </>
-                ) : project.website && media?.items[0] ? (
+                ) : project.website && coverItem ? (
                   /* Produit en ligne : la capture renvoie vers le site plutôt
                      que de prétendre le rejouer ici. */
                   <div className="space-y-3">
@@ -125,10 +150,10 @@ export function ProjectDialog({
                       className="group/site relative block overflow-hidden rounded-lg border transition-colors hover:border-brand/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                     >
                       <img
-                        src={media.items[0].poster}
+                        src={coverItem.poster}
                         alt={project.name}
-                        width={media.items[0].width}
-                        height={media.items[0].height}
+                        width={coverItem.width}
+                        height={coverItem.height}
                         className="w-full"
                       />
                       <span
@@ -153,7 +178,11 @@ export function ProjectDialog({
                     </Button>
                   </div>
                 ) : media && media.items.length > 0 ? (
-                  <MediaPlayer key={project.slug} items={media.items} />
+                  <MediaPlayer
+                    key={project.slug}
+                    items={media.items}
+                    initialIndex={initialIndex}
+                  />
                 ) : (
                   <div className="flex h-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed py-12 text-center">
                     <Lock className="size-5 text-muted-foreground" />
