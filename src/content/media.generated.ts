@@ -21,6 +21,22 @@ export const generatedMedia = {
         "height": 1924,
         "duration": null,
         "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Duck hunt",
+        "poster": "02-duck-hunt.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-duck-hunt.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1000,
+        "height": 667,
+        "duration": null,
+        "hasAudio": false
       }
     ]
   },

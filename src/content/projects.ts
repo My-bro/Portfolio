@@ -128,23 +128,25 @@ export const projects: readonly Project[] = [
     profiles: ["cpp"],
     period: "2025",
     role: {
-      fr: "Jeu graphique en C & CSFML",
-      en: "Graphical game in C & CSFML",
+      fr: "Projet Epitech · Jeu en C & CSFML",
+      en: "Epitech project · Game in C & CSFML",
     },
     tagline: {
-      fr: "Jeu de tir à la souris : des ballons montent à l'écran, il faut les crever avant qu'ils n'atteignent le haut.",
-      en: "A mouse shooter: balloons rise up the screen, and you pop them before they reach the top.",
+      fr: "Refaire Duck Hunt en C, sans moteur : projet Epitech transposé dans l'univers de Clash Royale.",
+      en: "Duck Hunt rebuilt in C, without an engine: an Epitech project moved to the Clash Royale universe.",
     },
     highlights: {
       fr: [
+        "Exercice imposé : reproduire Duck Hunt à partir de rien, en C et sur CSFML — pas de moteur, pas de bibliothèque de jeu.",
+        "Ici les canards deviennent des ballons de Clash Royale, qu'il faut crever avant qu'ils n'atteignent les tours.",
         "Sprites animés par découpage d'une planche, avec une horloge propre à chaque animation.",
-        "Détection du clic sur la cible, et animation d'explosion quand un ballon échappe au joueur.",
-        "Musique de fond et bruitages, chargés et mixés par CSFML.",
+        "Détection du clic sur la cible, musique de fond et bruitages, le tout chargé et mixé par CSFML.",
       ],
       en: [
+        "The brief: rebuild Duck Hunt from nothing, in C on top of CSFML — no engine, no game library.",
+        "Here the ducks become Clash Royale balloons, to be popped before they reach the towers.",
         "Sprites animated by slicing a sheet, each animation running on its own clock.",
-        "Click-on-target detection, with an explosion animation when a balloon gets away.",
-        "Background music and sound effects, loaded and mixed through CSFML.",
+        "Click-on-target detection, background music and sound effects, all loaded and mixed through CSFML.",
       ],
     },
     stack: ["C", "CSFML", "Makefile"],

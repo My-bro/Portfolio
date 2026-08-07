@@ -19,6 +19,7 @@ const eslintConfig = defineConfig([
     // Servis tels quels : glue Emscripten générée et sous-modules.
     "public/wasm/raytracer.js",
     "public/rtype/**",
+    "public/myhunter/**",
     "vendor/**",
   ]),
   {
