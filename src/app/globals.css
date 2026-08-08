@@ -108,6 +108,22 @@
     --sidebar-accent-foreground: oklch(0.34 0.07 38);
     --sidebar-border: oklch(0.9 0.008 55);
     --sidebar-ring: oklch(0.569 0.199 35.2);
+
+    /* Démos C rendues sur <canvas> : les canevas ne connaissent pas les
+       classes Tailwind, ils lisent ces variables au rendu et se
+       redessinent au changement de thème (voir src/lib/demo-theme.ts).
+       Même palette que le reste du site — noir · gris · orange — au lieu
+       du bleu/vert/rouge d'origine, qui n'appartenait à rien. */
+    --demo-surface: oklch(0.996 0.003 70);
+    --demo-free: oklch(0.902 0.006 60);
+    --demo-wall: oklch(0.32 0.012 45);
+    /* Les cases sont séparées par un liseré de cette couleur : sans lui,
+       une carte dézoomée devient un aplat où le quadrillage disparaît. */
+    --demo-grid: oklch(0.978 0.005 70);
+    --demo-visited: oklch(0.885 0.042 50);
+    --demo-path: oklch(0.569 0.199 35.2);
+    --demo-start: oklch(0.205 0.008 45);
+    --demo-end: oklch(0.52 0.215 12);
 }
 
 .dark {
@@ -150,6 +166,17 @@
     --sidebar-accent-foreground: oklch(0.86 0.09 40);
     --sidebar-border: oklch(0.94 0.03 45 / 11%);
     --sidebar-ring: oklch(0.685 0.19 35.2);
+
+    /* En sombre, le rapport s'inverse : les cases libres sont le gris
+       clair, les murs se fondent dans le fond. */
+    --demo-surface: oklch(0.168 0.008 45);
+    --demo-free: oklch(0.44 0.011 50);
+    --demo-wall: oklch(0.225 0.009 45);
+    --demo-grid: oklch(0.148 0.008 45);
+    --demo-visited: oklch(0.44 0.048 42);
+    --demo-path: oklch(0.685 0.19 35.2);
+    --demo-start: oklch(0.948 0.006 70);
+    --demo-end: oklch(0.665 0.2 12);
 }
 
 @layer base {

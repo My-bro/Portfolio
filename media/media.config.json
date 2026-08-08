@@ -20,6 +20,15 @@
   "ray-tracer": {
     "visibility": "public"
   },
+  "dante": {
+    "visibility": "public"
+  },
+  "bsq": {
+    "visibility": "public"
+  },
+  "minishell": {
+    "visibility": "public"
+  },
   "sony-csl": {
     "visibility": "private"
   },

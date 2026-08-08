@@ -164,6 +164,117 @@ export const generatedMedia = {
       }
     ]
   },
+  "bsq": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Plus grand carre",
+        "poster": "01-plus-grand-carre.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-plus-grand-carre.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1990,
+        "height": 1120,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Plus grand carre clair",
+        "poster": "02-plus-grand-carre-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-plus-grand-carre-clair.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1990,
+        "height": 1120,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
+  "dante": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Labyrinthe resolu",
+        "poster": "01-labyrinthe-resolu.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-labyrinthe-resolu.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1876,
+        "height": 1056,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Labyrinthe resolu clair",
+        "poster": "02-labyrinthe-resolu-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-labyrinthe-resolu-clair.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1876,
+        "height": 1056,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
+  "minishell": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Session",
+        "poster": "01-session.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-session.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1998,
+        "height": 1124,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Session clair",
+        "poster": "02-session-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-session-clair.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1998,
+        "height": 1124,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
   "my-hunter": {
     "visibility": "public",
     "items": [

@@ -110,11 +110,11 @@ const dictionary = {
     "minishell.title": "Shell compilé en WebAssembly",
     "minishell.badge": "WebAssembly",
     "minishell.intro":
-      "Le vrai binaire tourne ici. Les commandes internes (cd, env, setenv, exit) sont du vrai code C — les commandes externes (ls, cat…) échouent pour de vraies raisons : pas de vrais binaires système dans un bac à sable WebAssembly.",
+      "Le vrai binaire tourne ici : découpage de la ligne, built-ins, environnement, tout est le code C du projet. fork() et execve() n'ayant ni processus ni binaire à atteindre sous WebAssembly, le portage fournit ses propres ls, cat, grep… et des pipes reliés par de vraies redirections dup2().",
     "minishell.launch": "Lancer le shell",
     "minishell.placeholder": "tape une commande…",
     "minishell.hint":
-      "cd et setenv gardent leur effet d'une commande à l'autre — c'est bien le même code qui rejoue tout l'historique à chaque fois.",
+      "Les pipes, le point-virgule et les enchaînements && / || fonctionnent. cd et setenv gardent leur effet d'une commande à l'autre : le même binaire rejoue tout l'historique à chaque fois.",
 
     "dante.title": "Résolveur compilé en WebAssembly",
     "dante.badge": "WebAssembly",
@@ -125,6 +125,10 @@ const dictionary = {
     "dante.replay": "Rejouer",
     "dante.solving": "Résolution en cours",
     "dante.noSolution": "Aucun chemin trouvé",
+    "dante.createLabel": "Créer",
+    "dante.perfect": "parfait",
+    "dante.imperfect": "imparfait",
+    "dante.generate": "Générer",
 
     "bsq.title": "Programme compilé en WebAssembly",
     "bsq.badge": "WebAssembly",
@@ -135,6 +139,9 @@ const dictionary = {
     "bsq.sizeLabel": "Taille",
     "bsq.resultFound": "Carré trouvé",
     "bsq.resultNone": "Aucun carré trouvé",
+    "bsq.createLabel": "Créer",
+    "bsq.densityLabel": "Obstacles",
+    "bsq.generate": "Générer",
 
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
@@ -276,11 +283,11 @@ const dictionary = {
     "minishell.title": "Shell compiled to WebAssembly",
     "minishell.badge": "WebAssembly",
     "minishell.intro":
-      "The real binary runs here. Builtins (cd, env, setenv, exit) are real C code — external commands (ls, cat…) fail for real reasons: there are no real system binaries in a WebAssembly sandbox.",
+      "The real binary runs here: line parsing, builtins, environment — all the project's C code. Since fork() and execve() have no process or binary to reach under WebAssembly, the port ships its own ls, cat, grep… and pipes wired with real dup2() redirections.",
     "minishell.launch": "Launch the shell",
     "minishell.placeholder": "type a command…",
     "minishell.hint":
-      "cd and setenv keep their effect across commands — the same code replays the whole history every time.",
+      "Pipes, semicolons and && / || chaining all work. cd and setenv keep their effect across commands: the same binary replays the whole history every time.",
 
     "dante.title": "Solver compiled to WebAssembly",
     "dante.badge": "WebAssembly",
@@ -291,6 +298,10 @@ const dictionary = {
     "dante.replay": "Replay",
     "dante.solving": "Solving",
     "dante.noSolution": "No path found",
+    "dante.createLabel": "Create",
+    "dante.perfect": "perfect",
+    "dante.imperfect": "imperfect",
+    "dante.generate": "Generate",
 
     "bsq.title": "Program compiled to WebAssembly",
     "bsq.badge": "WebAssembly",
@@ -301,6 +312,9 @@ const dictionary = {
     "bsq.sizeLabel": "Size",
     "bsq.resultFound": "Square found",
     "bsq.resultNone": "No square found",
+    "bsq.createLabel": "Create",
+    "bsq.densityLabel": "Obstacles",
+    "bsq.generate": "Generate",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",

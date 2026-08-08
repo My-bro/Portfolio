@@ -7,7 +7,20 @@ import { Button } from "@/components/ui/button";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
 
-const EXAMPLES = ["cd /tmp", "setenv NOM valeur", "env", "ls", "exit"];
+const EXAMPLES = [
+  "ls",
+  "cat README.txt",
+  "cat projets.txt | sort | head -n 3",
+  "env | grep HOME",
+  "cd projets && ls",
+  "help",
+];
+
+/** Le shell affiche un dernier prompt avant l'EOF : la ligne de saisie
+ *  en dessous en tient déjà lieu, on ne l'écrit pas deux fois. */
+function trimTrailingPrompt(output: string): string {
+  return output.replace(/\$>\s*$/, "").replace(/\s+$/, "");
+}
 
 /**
  * Démo de minishell compilé en WebAssembly.
@@ -18,10 +31,12 @@ const EXAMPLES = ["cd /tmp", "setenv NOM valeur", "env", "ls", "exit"];
  * guise de stdin. `cd`/`setenv` gardent leur effet d'une commande à l'autre
  * puisque l'historique entier se rejoue dans l'ordre à chaque fois.
  *
- * Les built-ins (cd, setenv, unsetenv, env, exit) sont le vrai code C,
- * compilé tel quel. Les commandes externes (ls, cat…) échouent pour de
- * vraies raisons : il n'existe pas de vrais binaires système dans un
- * bac à sable WebAssembly pour un fork()+execve() d'y atterrir.
+ * Les built-ins (cd, setenv, unsetenv, env, exit), le découpage de la ligne
+ * et la boucle principale sont le vrai code C du projet. Les commandes
+ * externes ne peuvent pas l'être — fork()+execve() n'a ni processus ni
+ * binaire à atteindre sous WebAssembly : le portage fournit à la place une
+ * poignée de commandes écrites en C (voir vendor/minishell/wasm/
+ * demo_commands.c), et des pipes reliés par de vraies redirections dup2().
  */
 export function MinishellDemo() {
   const { t } = usePrefs();
@@ -47,7 +62,7 @@ export function MinishellDemo() {
         return;
       }
       if (event.data.token !== tokenRef.current) return;
-      setOutput(event.data.output);
+      setOutput(trimTrailingPrompt(event.data.output));
       setRunning(false);
     };
     return () => {
@@ -80,24 +95,23 @@ export function MinishellDemo() {
 
   return (
     <div className="space-y-3">
-      <div className="relative mx-auto w-full overflow-hidden rounded-lg border bg-black">
+      <div className="relative mx-auto w-full overflow-hidden rounded-lg border bg-card">
         <div className="flex h-[60vh] max-h-[560px] min-h-[360px] w-full flex-col">
           {started ? (
             <>
               <div
                 ref={logRef}
-                className="flex-1 overflow-y-auto p-4 font-mono text-sm whitespace-pre-wrap text-green-400"
+                className="flex-1 overflow-y-auto p-4 font-mono text-sm whitespace-pre-wrap text-foreground/85"
                 onClick={() => inputRef.current?.focus()}
               >
                 {output}
-                {!running && <span className="text-green-400">$&gt; </span>}
-                {running && <span className="text-white/40">…</span>}
+                {running && <span className="text-muted-foreground">…</span>}
               </div>
               <form
                 onSubmit={handleSubmit}
-                className="flex items-center gap-2 border-t border-white/10 px-4 py-2"
+                className="flex items-center gap-2 border-t px-4 py-2"
               >
-                <span className="font-mono text-sm text-green-400">$&gt;</span>
+                <span className="font-mono text-sm text-brand">$&gt;</span>
                 <input
                   ref={inputRef}
                   value={input}
@@ -106,14 +120,14 @@ export function MinishellDemo() {
                   autoFocus
                   spellCheck={false}
                   autoComplete="off"
-                  className="flex-1 bg-transparent font-mono text-sm text-green-400 outline-none placeholder:text-white/30 disabled:opacity-50"
+                  className="flex-1 bg-transparent font-mono text-sm text-foreground outline-none placeholder:text-muted-foreground disabled:opacity-50"
                   placeholder={t("minishell.placeholder")}
                 />
               </form>
             </>
           ) : (
             <div className="flex size-full flex-col items-center justify-center gap-3 px-6 text-center">
-              <p className="max-w-sm text-sm text-balance text-white/70">
+              <p className="max-w-sm text-sm text-balance text-muted-foreground">
                 {t("minishell.intro")}
               </p>
               <Button onClick={() => setStarted(true)}>
