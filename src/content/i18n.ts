@@ -107,6 +107,35 @@ const dictionary = {
     "area.hint":
       "Certaines actions (connexion, sauvegarde) sont mimées : rien n'est vraiment persisté.",
 
+    "minishell.title": "Shell compilé en WebAssembly",
+    "minishell.badge": "WebAssembly",
+    "minishell.intro":
+      "Le vrai binaire tourne ici. Les commandes internes (cd, env, setenv, exit) sont du vrai code C — les commandes externes (ls, cat…) échouent pour de vraies raisons : pas de vrais binaires système dans un bac à sable WebAssembly.",
+    "minishell.launch": "Lancer le shell",
+    "minishell.placeholder": "tape une commande…",
+    "minishell.hint":
+      "cd et setenv gardent leur effet d'une commande à l'autre — c'est bien le même code qui rejoue tout l'historique à chaque fois.",
+
+    "dante.title": "Résolveur compilé en WebAssembly",
+    "dante.badge": "WebAssembly",
+    "dante.intro":
+      "Le vrai solveur BFS tourne ici. Chaque case explorée est tracée en direct, puis le chemin trouvé s'affiche — aucune animation refaite à la main côté navigateur.",
+    "dante.launch": "Lancer la résolution",
+    "dante.mapLabel": "Labyrinthe",
+    "dante.replay": "Rejouer",
+    "dante.solving": "Résolution en cours",
+    "dante.noSolution": "Aucun chemin trouvé",
+
+    "bsq.title": "Programme compilé en WebAssembly",
+    "bsq.badge": "WebAssembly",
+    "bsq.intro":
+      "Le vrai programme C tourne ici et cherche le plus grand carré de cases libres. Choisis une carte, navigue dedans à la souris — le carré trouvé est mis en évidence.",
+    "bsq.launch": "Chercher le plus grand carré",
+    "bsq.mapLabel": "Carte",
+    "bsq.sizeLabel": "Taille",
+    "bsq.resultFound": "Carré trouvé",
+    "bsq.resultNone": "Aucun carré trouvé",
+
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
     "rt.intro":
@@ -243,6 +272,35 @@ const dictionary = {
     "area.tabMobile": "Mobile",
     "area.hint":
       "Some actions (sign-in, saving) are mocked — nothing actually persists.",
+
+    "minishell.title": "Shell compiled to WebAssembly",
+    "minishell.badge": "WebAssembly",
+    "minishell.intro":
+      "The real binary runs here. Builtins (cd, env, setenv, exit) are real C code — external commands (ls, cat…) fail for real reasons: there are no real system binaries in a WebAssembly sandbox.",
+    "minishell.launch": "Launch the shell",
+    "minishell.placeholder": "type a command…",
+    "minishell.hint":
+      "cd and setenv keep their effect across commands — the same code replays the whole history every time.",
+
+    "dante.title": "Solver compiled to WebAssembly",
+    "dante.badge": "WebAssembly",
+    "dante.intro":
+      "The real BFS solver runs here. Every explored cell is traced live, then the found path is drawn — no animation faked in the browser.",
+    "dante.launch": "Run the solver",
+    "dante.mapLabel": "Maze",
+    "dante.replay": "Replay",
+    "dante.solving": "Solving",
+    "dante.noSolution": "No path found",
+
+    "bsq.title": "Program compiled to WebAssembly",
+    "bsq.badge": "WebAssembly",
+    "bsq.intro":
+      "The real C program runs here, searching for the biggest square of free cells. Pick a map, pan around with the mouse — the found square is highlighted.",
+    "bsq.launch": "Find the biggest square",
+    "bsq.mapLabel": "Map",
+    "bsq.sizeLabel": "Size",
+    "bsq.resultFound": "Square found",
+    "bsq.resultNone": "No square found",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",

@@ -21,6 +21,9 @@ const eslintConfig = defineConfig([
     "public/rtype/**",
     "public/myhunter/**",
     "public/area/**",
+    "public/minishell/minishell.js",
+    "public/dante/dante.js",
+    "public/bsq/bsq.js",
     "vendor/**",
   ]),
   {

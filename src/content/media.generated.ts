@@ -7,13 +7,42 @@ export const generatedMedia = {
     "visibility": "public",
     "items": [
       {
+        "kind": "video",
+        "label": "Configuration mobile",
+        "poster": "01-configuration-mobile.poster.jpg",
+        "preview": [
+          {
+            "file": "01-configuration-mobile.preview.webm",
+            "type": "video/webm"
+          },
+          {
+            "file": "01-configuration-mobile.preview.mp4",
+            "type": "video/mp4"
+          }
+        ],
+        "sources": [
+          {
+            "file": "01-configuration-mobile.webm",
+            "type": "video/webm"
+          },
+          {
+            "file": "01-configuration-mobile.mp4",
+            "type": "video/mp4"
+          }
+        ],
+        "width": 1920,
+        "height": 1080,
+        "duration": 10.1,
+        "hasAudio": false
+      },
+      {
         "kind": "image",
         "label": "Landing",
-        "poster": "01-landing.jpg",
+        "poster": "02-landing.jpg",
         "preview": [],
         "sources": [
           {
-            "file": "01-landing.jpg",
+            "file": "02-landing.jpg",
             "type": "image/jpeg"
           }
         ],
@@ -25,11 +54,11 @@ export const generatedMedia = {
       {
         "kind": "image",
         "label": "Creation automatisation",
-        "poster": "02-creation-automatisation.jpg",
+        "poster": "03-creation-automatisation.jpg",
         "preview": [],
         "sources": [
           {
-            "file": "02-creation-automatisation.jpg",
+            "file": "03-creation-automatisation.jpg",
             "type": "image/jpeg"
           }
         ],
@@ -41,24 +70,24 @@ export const generatedMedia = {
       {
         "kind": "video",
         "label": "Explorateur mobile",
-        "poster": "03-explorateur-mobile.poster.jpg",
+        "poster": "04-explorateur-mobile.poster.jpg",
         "preview": [
           {
-            "file": "03-explorateur-mobile.preview.webm",
+            "file": "04-explorateur-mobile.preview.webm",
             "type": "video/webm"
           },
           {
-            "file": "03-explorateur-mobile.preview.mp4",
+            "file": "04-explorateur-mobile.preview.mp4",
             "type": "video/mp4"
           }
         ],
         "sources": [
           {
-            "file": "03-explorateur-mobile.webm",
+            "file": "04-explorateur-mobile.webm",
             "type": "video/webm"
           },
           {
-            "file": "03-explorateur-mobile.mp4",
+            "file": "04-explorateur-mobile.mp4",
             "type": "video/mp4"
           }
         ],
@@ -70,59 +99,30 @@ export const generatedMedia = {
       {
         "kind": "video",
         "label": "Creation mobile",
-        "poster": "04-creation-mobile.poster.jpg",
+        "poster": "05-creation-mobile.poster.jpg",
         "preview": [
           {
-            "file": "04-creation-mobile.preview.webm",
+            "file": "05-creation-mobile.preview.webm",
             "type": "video/webm"
           },
           {
-            "file": "04-creation-mobile.preview.mp4",
+            "file": "05-creation-mobile.preview.mp4",
             "type": "video/mp4"
           }
         ],
         "sources": [
           {
-            "file": "04-creation-mobile.webm",
+            "file": "05-creation-mobile.webm",
             "type": "video/webm"
           },
           {
-            "file": "04-creation-mobile.mp4",
+            "file": "05-creation-mobile.mp4",
             "type": "video/mp4"
           }
         ],
         "width": 1920,
         "height": 1080,
         "duration": 63,
-        "hasAudio": false
-      },
-      {
-        "kind": "video",
-        "label": "Configuration mobile",
-        "poster": "05-configuration-mobile.poster.jpg",
-        "preview": [
-          {
-            "file": "05-configuration-mobile.preview.webm",
-            "type": "video/webm"
-          },
-          {
-            "file": "05-configuration-mobile.preview.mp4",
-            "type": "video/mp4"
-          }
-        ],
-        "sources": [
-          {
-            "file": "05-configuration-mobile.webm",
-            "type": "video/webm"
-          },
-          {
-            "file": "05-configuration-mobile.mp4",
-            "type": "video/mp4"
-          }
-        ],
-        "width": 1920,
-        "height": 1080,
-        "duration": 10.1,
         "hasAudio": false
       }
     ]

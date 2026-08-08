@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo } from "react";
-import dynamic from "next/dynamic";
 import { useTheme } from "next-themes";
 import { ArrowLeft, ArrowRight, ExternalLink, Lock, Trophy } from "lucide-react";
 
@@ -16,37 +15,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MediaPlayer } from "@/components/media-player";
 import { getMedia, pickByTheme } from "@/lib/media";
+import { DEMOS } from "@/lib/demos";
 import { usePrefs } from "@/lib/prefs";
 import { useHydrated } from "@/lib/use-hydrated";
 import { site } from "@/content/site";
 import type { Project } from "@/content/types";
-
-// Chargée seulement quand une fiche la réclame : le composant reste hors du
-// bundle principal, et le moteur WASM hors du réseau tant qu'on ne clique pas.
-const RaytracerDemo = dynamic(
-  () => import("@/components/raytracer-demo").then((m) => m.RaytracerDemo),
-  { ssr: false },
-);
-
-const RTypeDemo = dynamic(
-  () => import("@/components/rtype-demo").then((m) => m.RTypeDemo),
-  { ssr: false },
-);
-
-const MyHunterDemo = dynamic(
-  () => import("@/components/myhunter-demo").then((m) => m.MyHunterDemo),
-  { ssr: false },
-);
-
-const MyRpgDemo = dynamic(
-  () => import("@/components/myrpg-demo").then((m) => m.MyRpgDemo),
-  { ssr: false },
-);
-
-const AreaDemo = dynamic(
-  () => import("@/components/area-demo").then((m) => m.AreaDemo),
-  { ssr: false },
-);
 
 export function ProjectDialog({
   project,
@@ -115,29 +88,12 @@ export function ProjectDialog({
                 {project.demo ? (
                   <>
                     <h4 className="font-mono text-xs tracking-[0.14em] text-muted-foreground uppercase">
-                      {t(
-                        project.demo === "rtype"
-                          ? "rtype.title"
-                          : project.demo === "myhunter"
-                            ? "myhunter.title"
-                            : project.demo === "myrpg"
-                              ? "myrpg.title"
-                              : project.demo === "area"
-                                ? "area.title"
-                                : "rt.title",
-                      )}
+                      {t(DEMOS[project.demo].titleKey)}
                     </h4>
-                    {project.demo === "rtype" ? (
-                      <RTypeDemo />
-                    ) : project.demo === "myhunter" ? (
-                      <MyHunterDemo />
-                    ) : project.demo === "myrpg" ? (
-                      <MyRpgDemo />
-                    ) : project.demo === "area" ? (
-                      <AreaDemo />
-                    ) : (
-                      <RaytracerDemo />
-                    )}
+                    {(() => {
+                      const { Component } = DEMOS[project.demo];
+                      return <Component />;
+                    })()}
                   </>
                 ) : project.website && coverItem ? (
                   /* Produit en ligne : la capture renvoie vers le site plutôt

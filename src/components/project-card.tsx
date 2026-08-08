@@ -7,6 +7,7 @@ import { ArrowUpRight, ExternalLink, Lock, Play } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { MediaPreview } from "@/components/media-preview";
 import { getMedia, pickByTheme } from "@/lib/media";
+import { DEMOS } from "@/lib/demos";
 import { usePrefs } from "@/lib/prefs";
 import { useHydrated } from "@/lib/use-hydrated";
 import { cn } from "@/lib/utils";
@@ -56,7 +57,7 @@ export function ProjectCard({
                 // Pas de vidéo, mais mieux : le moteur tourne dans la fiche.
                 <span className="flex items-center gap-1.5 text-brand">
                   <Play className="size-3 fill-current" />
-                  {t(project.demo === "rtype" ? "rtype.title" : "rt.title")}
+                  {t(DEMOS[project.demo].titleKey)}
                 </span>
               ) : media.withheld ? (
                 <span className="flex items-center gap-1.5">
@@ -87,17 +88,9 @@ export function ProjectCard({
             )}
             {project.website
               ? new URL(project.website).host
-              : project.demo === "rtype"
-                ? t("rtype.badge")
-                : project.demo === "myhunter"
-                  ? t("myhunter.badge")
-                  : project.demo === "myrpg"
-                    ? t("myrpg.badge")
-                    : project.demo === "area"
-                      ? t("area.badge")
-                      : project.demo
-                        ? t("rt.badge")
-                        : t("project.open")}
+              : project.demo
+                ? t(DEMOS[project.demo].badgeKey)
+                : t("project.open")}
           </span>
         )}
       </div>

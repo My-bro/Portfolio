@@ -15,3 +15,15 @@
 	path = vendor/area
 	url = https://github.com/My-bro/area-axel-londas.git
 	branch = demo
+[submodule "vendor/minishell"]
+	path = vendor/minishell
+	url = https://github.com/My-bro/Minishell2.Axel-Londas.git
+	branch = webassembly
+[submodule "vendor/dante"]
+	path = vendor/dante
+	url = https://github.com/My-bro/Dante.axel-londas.git
+	branch = webassembly
+[submodule "vendor/bsq"]
+	path = vendor/bsq
+	url = https://github.com/My-bro/BSQ.axel-londas.git
+	branch = webassembly

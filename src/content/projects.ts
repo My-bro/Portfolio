@@ -267,6 +267,111 @@ export const projects: readonly Project[] = [
     },
     demo: "area",
   },
+
+  {
+    slug: "minishell",
+    name: "Minishell",
+    profiles: ["cpp"],
+    period: "2023",
+    role: {
+      fr: "Projet Epitech · Shell en C",
+      en: "Epitech project · Shell in C",
+    },
+    tagline: {
+      fr: "Ré-implémentation d'un shell Unix en C, sans bibliothèque externe.",
+      en: "A from-scratch reimplementation of a Unix shell in C, no external library.",
+    },
+    highlights: {
+      fr: [
+        "Parsing de la ligne de commande, pipes et point-virgule, sans lexer/parser généré.",
+        "Built-ins internes (cd, env, setenv, unsetenv, exit) et commandes externes via fork/execve.",
+        "Environnement géré par liste chaînée, propagé aux processus enfants.",
+      ],
+      en: [
+        "Command-line parsing, pipes and semicolons, no generated lexer/parser.",
+        "Internal builtins (cd, env, setenv, unsetenv, exit) and external commands via fork/execve.",
+        "Linked-list-backed environment, propagated to child processes.",
+      ],
+    },
+    stack: ["C", "Makefile", "POSIX", "WebAssembly"],
+    demo: "minishell",
+    links: [
+      {
+        label: "github.com/My-bro/minishell",
+        href: "https://github.com/My-bro/Minishell2.Axel-Londas",
+      },
+    ],
+  },
+
+  {
+    slug: "dante",
+    name: "Dante",
+    profiles: ["cpp"],
+    period: "2023",
+    role: {
+      fr: "Projet Epitech · Génération & résolution de labyrinthe",
+      en: "Epitech project · Maze generation & solving",
+    },
+    tagline: {
+      fr: "Génère des labyrinthes imparfaits et les résout par parcours en largeur.",
+      en: "Generates imperfect mazes and solves them with a breadth-first search.",
+    },
+    highlights: {
+      fr: [
+        "Générateur de labyrinthe « imparfait » : arbre couvrant percé de boucles additionnelles.",
+        "Résolveur en C, BFS from scratch avec sa propre file et sa reconstruction de chemin.",
+        "Aucune bibliothèque graphique : tout l'affichage passe par l'écriture brute du plan résolu.",
+      ],
+      en: [
+        "\"Imperfect\" maze generator: a spanning tree with extra loops carved in.",
+        "From-scratch BFS solver in C, with its own queue and path reconstruction.",
+        "No graphics library: the solved layout is written out as plain text.",
+      ],
+    },
+    stack: ["C", "Makefile", "BFS", "WebAssembly"],
+    demo: "dante",
+    links: [
+      {
+        label: "github.com/My-bro/dante",
+        href: "https://github.com/My-bro/Dante.axel-londas",
+      },
+    ],
+  },
+
+  {
+    slug: "bsq",
+    name: "BSQ",
+    profiles: ["cpp"],
+    period: "2022",
+    role: {
+      fr: "Projet Epitech · Algorithmique",
+      en: "Epitech project · Algorithms",
+    },
+    tagline: {
+      fr: "Trouve le plus grand carré de cases libres dans une carte, par programmation dynamique.",
+      en: "Finds the biggest square of free cells in a map, via dynamic programming.",
+    },
+    highlights: {
+      fr: [
+        "Programmation dynamique classique du « plus grand carré », en C, sans dépendance.",
+        "Conçu pour des cartes jusqu'à 10 000 × 10 000 cases, allouées ligne par ligne.",
+        "Deux modes : carte fournie en fichier, ou générée depuis un motif répété.",
+      ],
+      en: [
+        "Classic \"biggest square\" dynamic programming, in C, no dependencies.",
+        "Built for maps up to 10,000 × 10,000 cells, allocated row by row.",
+        "Two modes: a map read from a file, or generated from a repeating pattern.",
+      ],
+    },
+    stack: ["C", "Makefile", "Dynamic programming", "WebAssembly"],
+    demo: "bsq",
+    links: [
+      {
+        label: "github.com/My-bro/bsq",
+        href: "https://github.com/My-bro/BSQ.axel-londas",
+      },
+    ],
+  },
 ] as const;
 
 export const projectSlugs: readonly string[] = projects.map((p) => p.slug);
