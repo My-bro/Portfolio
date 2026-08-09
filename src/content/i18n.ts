@@ -143,6 +143,31 @@ const dictionary = {
     "bsq.densityLabel": "Obstacles",
     "bsq.generate": "Générer",
 
+    "sokoban.title": "Jeu compilé en WebAssembly",
+    "sokoban.badge": "WebAssembly",
+    "sokoban.intro":
+      "Le vrai jeu tourne ici. Sa boucle bloquante autour de getch() a été découpée en un appel par touche : chaque flèche envoie son code ncurses au binaire, qui renvoie l'écran qu'il aurait dessiné dans un terminal.",
+    "sokoban.launch": "Lancer la partie",
+    "sokoban.mapLabel": "Carte",
+    "sokoban.restart": "Recommencer",
+    "sokoban.keysLabel": "Flèches ou ZQSD",
+    "sokoban.moves": "Coups",
+    "sokoban.won": "Caisses rangées",
+    "sokoban.lost": "Caisse bloquée — recommence",
+
+    "pushswap.title": "Tri compilé en WebAssembly",
+    "pushswap.badge": "WebAssembly",
+    "pushswap.intro":
+      "Le binaire C ne dessine rien : il reçoit les entiers en argv et écrit sa suite d'opérations sur la sortie standard. La démo la rejoue sur les deux piles — ce qui bouge est le vrai tri, pas une reconstitution en JavaScript.",
+    "pushswap.launch": "Lancer le tri",
+    "pushswap.stackLabel": "Pile",
+    "pushswap.createLabel": "Créer",
+    "pushswap.sizeLabel": "Taille",
+    "pushswap.generate": "Mélanger",
+    "pushswap.opsLabel": "Opérations",
+    "pushswap.sorted": "pile triée",
+    "pushswap.already": "Pile déjà triée : aucune opération",
+
     "rt.title": "Moteur compilé en WebAssembly",
     "rt.badge": "WebAssembly",
     "rt.intro":
@@ -315,6 +340,31 @@ const dictionary = {
     "bsq.createLabel": "Create",
     "bsq.densityLabel": "Obstacles",
     "bsq.generate": "Generate",
+
+    "sokoban.title": "Game compiled to WebAssembly",
+    "sokoban.badge": "WebAssembly",
+    "sokoban.intro":
+      "The real game runs here. Its blocking loop around getch() was cut into one call per keypress: each arrow sends its ncurses code to the binary, which returns the screen it would have drawn in a terminal.",
+    "sokoban.launch": "Start the game",
+    "sokoban.mapLabel": "Map",
+    "sokoban.restart": "Restart",
+    "sokoban.keysLabel": "Arrows or WASD",
+    "sokoban.moves": "Moves",
+    "sokoban.won": "All crates stored",
+    "sokoban.lost": "Crate stuck — start over",
+
+    "pushswap.title": "Sort compiled to WebAssembly",
+    "pushswap.badge": "WebAssembly",
+    "pushswap.intro":
+      "The C binary draws nothing: it takes the integers from argv and writes its sequence of operations to standard output. The demo replays that on the two stacks — what moves is the real sort, not a JavaScript rerun.",
+    "pushswap.launch": "Run the sort",
+    "pushswap.stackLabel": "Stack",
+    "pushswap.createLabel": "Create",
+    "pushswap.sizeLabel": "Size",
+    "pushswap.generate": "Shuffle",
+    "pushswap.opsLabel": "Operations",
+    "pushswap.sorted": "stack sorted",
+    "pushswap.already": "Stack already sorted: no operations",
 
     "rt.title": "Engine compiled to WebAssembly",
     "rt.badge": "WebAssembly",

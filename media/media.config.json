@@ -26,6 +26,12 @@
   "bsq": {
     "visibility": "public"
   },
+  "sokoban": {
+    "visibility": "public"
+  },
+  "push-swap": {
+    "visibility": "public"
+  },
   "minishell": {
     "visibility": "public"
   },

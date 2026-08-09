@@ -54,4 +54,14 @@ export const DEMOS: Record<
     titleKey: "bsq.title",
     badgeKey: "bsq.badge",
   },
+  sokoban: {
+    Component: dynamic(() => import("@/components/sokoban-demo").then((m) => m.SokobanDemo), { ssr: false }),
+    titleKey: "sokoban.title",
+    badgeKey: "sokoban.badge",
+  },
+  pushswap: {
+    Component: dynamic(() => import("@/components/pushswap-demo").then((m) => m.PushSwapDemo), { ssr: false }),
+    titleKey: "pushswap.title",
+    badgeKey: "pushswap.badge",
+  },
 };

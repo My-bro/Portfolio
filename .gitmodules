@@ -27,3 +27,11 @@
 	path = vendor/bsq
 	url = https://github.com/My-bro/BSQ.axel-londas.git
 	branch = webassembly
+[submodule "vendor/sokoban"]
+	path = vendor/sokoban
+	url = https://github.com/My-bro/Sokoban.axel-londas.git
+	branch = webassembly
+[submodule "vendor/push-swap"]
+	path = vendor/push-swap
+	url = https://github.com/My-bro/Push-swap.axel-londas.git
+	branch = webassembly

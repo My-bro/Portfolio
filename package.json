@@ -16,6 +16,8 @@
     "minishell:build": "vendor/minishell/wasm/build.sh \"$PWD/public/minishell\"",
     "dante:build": "vendor/dante/solver/wasm/build.sh \"$PWD/public/dante\"",
     "bsq:build": "vendor/bsq/wasm/build.sh \"$PWD/public/bsq\"",
+    "sokoban:build": "vendor/sokoban/wasm/build.sh \"$PWD/public/sokoban\"",
+    "pushswap:build": "vendor/push-swap/wasm/build.sh \"$PWD/public/pushswap\"",
     "media:sync": "node scripts/media-sync.mjs",
     "media:sync:force": "node scripts/media-sync.mjs --force",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",

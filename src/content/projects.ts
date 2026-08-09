@@ -339,6 +339,80 @@ export const projects: readonly Project[] = [
   },
 
   {
+    slug: "sokoban",
+    name: "Sokoban",
+    profiles: ["cpp"],
+    period: "2023",
+    role: {
+      fr: "Projet Epitech · Jeu en C & ncurses",
+      en: "Epitech project · Game in C & ncurses",
+    },
+    tagline: {
+      fr: "Sokoban en C dans le terminal : ranger les caisses sur leurs emplacements.",
+      en: "Sokoban in C, in the terminal: push every crate onto its storage spot.",
+    },
+    highlights: {
+      fr: [
+        "Carte lue depuis un fichier et validée avant la partie : murs, caisses, emplacements, un seul joueur.",
+        "Déplacements et poussées écrits case par case, avec les collisions contre les murs et les caisses.",
+        "Détection de la victoire et des caisses définitivement bloquées dans un angle.",
+        "Affichage et lecture des touches via ncurses, sans autre bibliothèque.",
+      ],
+      en: [
+        "Map read from a file and validated before play: walls, crates, storage spots, exactly one player.",
+        "Moves and pushes written cell by cell, with collisions against walls and crates.",
+        "Detection of a win, and of crates wedged for good into a corner.",
+        "Display and key reading through ncurses, with no other library.",
+      ],
+    },
+    stack: ["C", "ncurses", "Makefile", "WebAssembly"],
+    demo: "sokoban",
+    links: [
+      {
+        label: "github.com/My-bro/Sokoban",
+        href: "https://github.com/My-bro/Sokoban.axel-londas",
+      },
+    ],
+  },
+
+  {
+    slug: "push-swap",
+    name: "Push-swap",
+    profiles: ["cpp"],
+    period: "2023",
+    role: {
+      fr: "Projet Epitech · Algorithmique & listes chaînées",
+      en: "Epitech project · Algorithms & linked lists",
+    },
+    tagline: {
+      fr: "Trier une pile d'entiers avec deux piles et un jeu d'opérations imposé.",
+      en: "Sorting a stack of integers with two stacks and a fixed set of operations.",
+    },
+    highlights: {
+      fr: [
+        "Deux piles en listes chaînées, écrites à la main : rotation, transfert, comptage de nœuds.",
+        "Le programme n'affiche pas le résultat mais la suite d'opérations qui y mène — c'est elle qui est évaluée.",
+        "Tri par passes successives : rotation tant que le sommet est plus grand que son suivant, transfert sinon.",
+        "Validation des arguments avant tout traitement, sans bibliothèque externe.",
+      ],
+      en: [
+        "Two stacks as hand-written linked lists: rotation, transfer, node counting.",
+        "The program prints not the result but the sequence of operations that gets there — that is what is graded.",
+        "Sorting in successive passes: rotate while the top is greater than the next, transfer otherwise.",
+        "Arguments validated before any processing, with no external library.",
+      ],
+    },
+    stack: ["C", "Makefile", "Listes chaînées", "WebAssembly"],
+    demo: "pushswap",
+    links: [
+      {
+        label: "github.com/My-bro/Push-swap",
+        href: "https://github.com/My-bro/Push-swap.axel-londas",
+      },
+    ],
+  },
+
+  {
     slug: "bsq",
     name: "BSQ",
     profiles: ["cpp"],

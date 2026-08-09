@@ -333,6 +333,43 @@ export const generatedMedia = {
       }
     ]
   },
+  "push-swap": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Tri en cours",
+        "poster": "01-tri-en-cours.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-tri-en-cours.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1990,
+        "height": 1120,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Tri en cours clair",
+        "poster": "02-tri-en-cours-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-tri-en-cours-clair.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1990,
+        "height": 1120,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
   "r-type": {
     "visibility": "public",
     "items": [
@@ -407,6 +444,43 @@ export const generatedMedia = {
         ],
         "width": 3200,
         "height": 1800,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
+  "sokoban": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Entrepot",
+        "poster": "01-entrepot.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-entrepot.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1990,
+        "height": 1120,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Entrepot clair",
+        "poster": "02-entrepot-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-entrepot-clair.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 1990,
+        "height": 1120,
         "duration": null,
         "hasAudio": false
       }

@@ -45,7 +45,17 @@ export interface Project {
   links?: readonly ProjectLink[];
   award?: Localized;
   /** Démo exécutable intégrée à la fiche, en plus des médias. */
-  demo?: "raytracer" | "rtype" | "myhunter" | "myrpg" | "area" | "minishell" | "dante" | "bsq";
+  demo?:
+    | "raytracer"
+    | "rtype"
+    | "myhunter"
+    | "myrpg"
+    | "area"
+    | "minishell"
+    | "dante"
+    | "bsq"
+    | "sokoban"
+    | "pushswap";
   /**
    * Produit en ligne. La fiche renvoie alors vers le site plutôt que de
    * chercher à le rejouer : la capture devient cliquable et un bouton

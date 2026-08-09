@@ -56,6 +56,33 @@ const SCENARIOS = {
       await page.waitForTimeout(400);
     },
   },
+  sokoban: {
+    card: "Sokoban",
+    launch: "Lancer la partie",
+    // Le canevas occupe tout le panneau mais la carte est centrée dedans :
+    // rogner depuis son bord gauche couperait la moitié de l'entrepôt.
+    align: "center",
+    async play(page) {
+      // Une partie entamée : le joueur a quitté sa position de départ et
+      // pousse une caisse. Les touches partent sur la fenêtre, comme
+      // depuis un vrai clavier.
+      for (const key of ["ArrowRight", "ArrowRight", "ArrowDown", "ArrowRight"]) {
+        await page.keyboard.press(key);
+        await page.waitForTimeout(250);
+      }
+      await page.waitForTimeout(400);
+    },
+  },
+  pushswap: {
+    card: "Push-swap",
+    launch: "Lancer le tri",
+    async play(page) {
+      await page.getByRole("button", { name: /Inversé/ }).click();
+      // Au milieu du tri : les deux piles portent des barres, ce que ni le
+      // départ ni l'arrivée ne montrent.
+      await page.waitForTimeout(5000);
+    },
+  },
   minishell: {
     card: "Minishell",
     launch: "Lancer le shell",
@@ -142,7 +169,7 @@ try {
   // c'est là qu'est le texte. Plus étroit (un canevas carré) : on centre et
   // le vide se répartit des deux côtés.
   const x =
-    target.width >= width
+    target.width >= width && scenario.align !== "center"
       ? target.x
       : Math.max(0, Math.min(1600 - width, target.x + target.width / 2 - width / 2));
   const clip = { x, y: target.y, width, height };
