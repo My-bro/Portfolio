@@ -15,12 +15,17 @@ export interface TimelineStep {
 }
 
 /**
- * Frise des années d'études, collée en haut de la section des projets.
+ * Frise des années d'études, posée le long des projets.
  *
- * Elle sert de repère pendant qu'on descend : la barre se remplit à mesure
- * que la section défile, et l'année en cours s'allume. L'avancement est lu
+ * Elle sert de repère pendant qu'on descend : le trait se remplit à mesure
+ * que la liste défile, et l'année en cours s'allume. L'avancement est lu
  * sur le conteneur des projets plutôt que sur la fenêtre — c'est le
  * parcours de la liste qui compte, pas celui de la page.
+ *
+ * Sur grand écran elle est verticale, dans la marge : une frise qui
+ * descend comme le regard, et qui ne mange pas la hauteur utile. En
+ * dessous de `lg` il n'y a pas de marge à occuper, elle repasse en barre
+ * collée en haut.
  */
 export function ProjectsTimeline({
   steps,
@@ -36,61 +41,104 @@ export function ProjectsTimeline({
   const { scrollYProgress } = useScroll({
     target,
     // De l'instant où la liste touche le bas de l'écran à celui où son bas
-    // le quitte : la barre est pleine quand le dernier projet est passé.
+    // le quitte : le trait est plein quand le dernier projet est passé.
     offset: ["start 0.75", "end 0.35"],
   });
 
-  // Un ressort évite que la barre saute à chaque cran de molette.
+  // Un ressort évite que le trait saute à chaque cran de molette.
   const progress = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 26,
     restDelta: 0.001,
   });
-  const width = useTransform(progress, (value) => `${Math.min(1, Math.max(0, value)) * 100}%`);
+  const filled = useTransform(
+    progress,
+    (value) => `${Math.min(1, Math.max(0, value)) * 100}%`,
+  );
+
+  const step = (item: TimelineStep, vertical: boolean) => {
+    const active = item.tek === activeTek;
+    return (
+      <button
+        key={item.tek}
+        type="button"
+        onClick={() => onSelect(item.tek)}
+        className={cn(
+          "group flex min-w-0 flex-col rounded px-1 py-0.5 text-left transition-colors",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+          vertical ? "items-start" : "items-start",
+          active ? "text-brand" : "text-muted-foreground hover:text-foreground",
+        )}
+      >
+        <span className="font-mono text-xs whitespace-nowrap">{item.label}</span>
+        <span className="font-mono text-[10px] whitespace-nowrap opacity-70">
+          {item.years}
+        </span>
+      </button>
+    );
+  };
 
   return (
-    <div
-      data-projects-timeline
-      className="sticky top-16 z-20 -mx-2 mb-6 rounded-lg border bg-background/85 px-3 py-2 backdrop-blur-sm"
-    >
-      <div className="relative h-0.5 w-full rounded-full bg-border">
-        <motion.div
-          aria-hidden
-          style={{ width }}
-          className="absolute inset-y-0 left-0 rounded-full bg-brand"
-        />
-      </div>
+    <>
+      {/* Grand écran : rail vertical dans la marge. */}
+      <nav
+        data-projects-timeline
+        aria-label="Années d'études"
+        className="sticky top-24 hidden self-start lg:block"
+      >
+        <div className="flex gap-3">
+          <div className="relative w-0.5 shrink-0 rounded-full bg-border">
+            <motion.div
+              aria-hidden
+              style={{ height: filled }}
+              className="absolute inset-x-0 top-0 rounded-full bg-brand"
+            />
+          </div>
+          <div className="flex flex-col gap-6">
+            {steps.map((item) => (
+              <div key={item.tek} className="relative">
+                {/* Le point d'ancrage, aligné sur la première ligne. */}
+                <span
+                  aria-hidden
+                  className={cn(
+                    "absolute top-1.5 -left-[1.05rem] size-1.5 rounded-full transition-colors",
+                    item.tek === activeTek ? "bg-brand" : "bg-border",
+                  )}
+                />
+                {step(item, true)}
+              </div>
+            ))}
+          </div>
+        </div>
+      </nav>
 
-      <div className="mt-2 flex items-end justify-between gap-1">
-        {steps.map((step) => {
-          const active = step.tek === activeTek;
-          return (
-            <button
-              key={step.tek}
-              type="button"
-              onClick={() => onSelect(step.tek)}
-              className={cn(
-                "group flex min-w-0 flex-col items-start rounded px-1 py-0.5 text-left transition-colors",
-                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
-                active ? "text-brand" : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              <span className="font-mono text-xs whitespace-nowrap">{step.label}</span>
-              <span className="font-mono text-[10px] whitespace-nowrap opacity-70">
-                {step.years}
-              </span>
-            </button>
-          );
-        })}
+      {/* Petit écran : la même frise, couchée en haut de la liste. */}
+      <div
+        data-projects-timeline
+        className={cn(
+          "sticky top-16 z-20 -mx-2 mb-6 rounded-lg border bg-background/85",
+          "px-3 py-2 backdrop-blur-sm lg:hidden",
+        )}
+      >
+        <div className="relative h-0.5 w-full rounded-full bg-border">
+          <motion.div
+            aria-hidden
+            style={{ width: filled }}
+            className="absolute inset-y-0 left-0 rounded-full bg-brand"
+          />
+        </div>
+        <div className="mt-2 flex items-end justify-between gap-1">
+          {steps.map((item) => step(item, false))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 /**
- * Le groupe visible : le dernier dont le titre est passé sous la frise.
- * Un IntersectionObserver suffirait pour savoir « est-ce à l'écran », mais
- * pas pour départager deux groupes visibles à la fois.
+ * Le groupe en cours de lecture. Un IntersectionObserver suffirait pour
+ * savoir « est-ce à l'écran », mais pas pour départager deux groupes
+ * visibles à la fois.
  */
 export function useActiveTek(tekList: number[]): number | null {
   const [active, setActive] = useState<number | null>(null);

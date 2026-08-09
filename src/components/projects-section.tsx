@@ -40,15 +40,16 @@ export function ProjectsSection() {
    * script de démarrage qui masque ceux du mauvais profil. React reprend
    * ensuite la main avec la vraie liste.
    *
-   * L'ordre, lui, ne dépend pas du profil : les projets se lisent dans
-   * l'ordre où ils ont été faits, de la première à la dernière année.
+   * L'ordre, lui, ne dépend pas du profil : la dernière année d'abord,
+   * puis en remontant le temps — ce qu'on sait faire aujourd'hui se lit
+   * avant ce par quoi on a commencé.
    */
   const visible = useMemo(() => {
     const filtered =
       hydrated && profile !== "all"
         ? projects.filter((p) => p.profiles.includes(profile))
         : [...projects];
-    return filtered.sort((a, b) => a.tek - b.tek);
+    return filtered.sort((a, b) => b.tek - a.tek);
   }, [profile, hydrated]);
 
   /** Un groupe par année d'études, dans l'ordre de la frise. */
@@ -60,7 +61,7 @@ export function ProjectsSection() {
       else byTek.set(project.tek, [project]);
     }
     return [...byTek.entries()]
-      .sort(([a], [b]) => a - b)
+      .sort(([a], [b]) => b - a)
       .map(([tek, items]) => ({ tek, items }));
   }, [visible]);
 
@@ -105,50 +106,52 @@ export function ProjectsSection() {
       lead={t("section.projects.lead")}
       action={<ProfileSwitch />}
     >
-      <ProjectsTimeline
-        steps={steps}
-        target={listRef}
-        activeTek={activeTek}
-        onSelect={(tek) =>
-          document.getElementById(`tek-${tek}`)?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          })
-        }
-      />
+      <div className="lg:grid lg:grid-cols-[max-content_minmax(0,1fr)] lg:gap-8">
+        <ProjectsTimeline
+          steps={steps}
+          target={listRef}
+          activeTek={activeTek}
+          onSelect={(tek) =>
+            document.getElementById(`tek-${tek}`)?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            })
+          }
+        />
 
-      <div ref={listRef} className="space-y-8">
-        {groups.map(({ tek, items }) => (
-          <div key={tek} className="scroll-mt-40 space-y-4" id={`tek-${tek}`}>
-            <div className="flex items-baseline gap-3">
-              <h3 className="font-mono text-sm text-brand">{tekLabel(items[0])}</h3>
-              <span className="h-px flex-1 bg-border" />
-              <span className="font-mono text-xs text-muted-foreground">
-                {years(items)}
-              </span>
-            </div>
+        <div ref={listRef} className="space-y-8">
+          {groups.map(({ tek, items }) => (
+            <div key={tek} className="scroll-mt-40 space-y-4" id={`tek-${tek}`}>
+              <div className="flex items-baseline gap-3">
+                <h3 className="font-mono text-sm text-brand">{tekLabel(items[0])}</h3>
+                <span className="h-px flex-1 bg-border" />
+                <span className="font-mono text-xs text-muted-foreground">
+                  {years(items)}
+                </span>
+              </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <AnimatePresence mode="popLayout" initial={false}>
-                {items.map((project) => (
-                  <motion.div
-                    key={project.slug}
-                    layout
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.97 }}
-                    transition={{ duration: 0.24, ease: [0.22, 0.61, 0.36, 1] }}
-                    // Lu par le CSS avant hydratation pour masquer l'autre profil.
-                    data-profile-web={project.profiles.includes("web")}
-                    data-profile-cpp={project.profiles.includes("cpp")}
-                  >
-                    <ProjectCard project={project} onOpen={openProject} />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {items.map((project) => (
+                    <motion.div
+                      key={project.slug}
+                      layout
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.97 }}
+                      transition={{ duration: 0.24, ease: [0.22, 0.61, 0.36, 1] }}
+                      // Lu par le CSS avant hydratation pour masquer l'autre profil.
+                      data-profile-web={project.profiles.includes("web")}
+                      data-profile-cpp={project.profiles.includes("cpp")}
+                    >
+                      <ProjectCard project={project} onOpen={openProject} />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <ProjectDialog
