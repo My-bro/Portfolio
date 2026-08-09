@@ -1,4 +1,4 @@
-import type { Localized, Profile } from "./types";
+import type { Localized, ProfileFilter } from "./types";
 
 export const site = {
   name: "Axel Londas",
@@ -16,13 +16,17 @@ export const site = {
   phone: "+33 7 67 17 68 94",
 
   location: {
-    fr: "Paris · Pékin",
-    en: "Paris · Beijing",
+    fr: "Paris",
+    en: "Paris",
   } satisfies Localized,
 } as const;
 
 /** Intitulé de poste affiché sous le nom, selon le profil actif. */
-export const roleByProfile: Record<Profile, Localized> = {
+export const roleByProfile: Record<ProfileFilter, Localized> = {
+  all: {
+    fr: "Développeur C / C++ & Full-Stack",
+    en: "C / C++ & full-stack engineer",
+  },
   cpp: {
     fr: "Développeur C / C++ & algorithmique",
     en: "C / C++ & algorithms engineer",

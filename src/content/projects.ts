@@ -17,6 +17,8 @@ export const projects: readonly Project[] = [
     name: "R-Type",
     profiles: ["cpp"],
     period: "2024",
+    tek: 3,
+    language: "C++",
     role: {
       fr: "Moteur de jeu & réseau",
       en: "Game engine & networking",
@@ -54,6 +56,8 @@ export const projects: readonly Project[] = [
     name: "Ray-Tracer",
     profiles: ["cpp"],
     period: "2024",
+    tek: 2,
+    language: "C++",
     role: {
       fr: "Moteur de rendu 3D from scratch",
       en: "3D rendering engine from scratch",
@@ -91,6 +95,8 @@ export const projects: readonly Project[] = [
     name: "My RPG",
     profiles: ["cpp"],
     period: "2025",
+    tek: 1,
+    language: "C",
     role: {
       fr: "Jeu 2D en C & CSFML",
       en: "2D game in C & CSFML",
@@ -128,6 +134,8 @@ export const projects: readonly Project[] = [
     name: "My Hunter",
     profiles: ["cpp"],
     period: "2025",
+    tek: 1,
+    language: "C",
     role: {
       fr: "Projet Epitech · Jeu en C & CSFML",
       en: "Epitech project · Game in C & CSFML",
@@ -165,6 +173,8 @@ export const projects: readonly Project[] = [
     name: "My radar",
     profiles: ["cpp"],
     period: "2023",
+    tek: 1,
+    language: "C",
     role: {
       fr: "Projet Epitech · Simulation graphique en C & CSFML",
       en: "Epitech project · Graphics simulation in C & CSFML",
@@ -204,6 +214,9 @@ export const projects: readonly Project[] = [
     name: "Samplify",
     profiles: ["cpp", "web"],
     period: "2024 — 2025",
+    tek: 4,
+    tekEnd: 5,
+    language: "TypeScript",
     role: {
       fr: "Chef de projet · 5 développeurs",
       en: "Project lead · team of 5",
@@ -240,6 +253,9 @@ export const projects: readonly Project[] = [
     name: "Bazarbe",
     profiles: ["web"],
     period: "2024 — 2025",
+    tek: 4,
+    tekEnd: 5,
+    language: "TypeScript",
     role: {
       fr: "Développeur produit & infrastructure",
       en: "Product & infrastructure engineer",
@@ -279,6 +295,8 @@ export const projects: readonly Project[] = [
     name: "Area",
     profiles: ["web"],
     period: "2024",
+    tek: 3,
+    language: "TypeScript",
     role: {
       fr: "Développeur full-stack & architecture",
       en: "Full-stack & architecture",
@@ -312,6 +330,8 @@ export const projects: readonly Project[] = [
     name: "Minishell",
     profiles: ["cpp"],
     period: "2023",
+    tek: 1,
+    language: "C",
     role: {
       fr: "Projet Epitech · Shell en C",
       en: "Epitech project · Shell in C",
@@ -347,6 +367,8 @@ export const projects: readonly Project[] = [
     name: "Dante",
     profiles: ["cpp"],
     period: "2023",
+    tek: 2,
+    language: "C",
     role: {
       fr: "Projet Epitech · Génération & résolution de labyrinthe",
       en: "Epitech project · Maze generation & solving",
@@ -382,6 +404,8 @@ export const projects: readonly Project[] = [
     name: "minilibC",
     profiles: ["cpp"],
     period: "2024",
+    tek: 2,
+    language: "Assembleur x86-64",
     role: {
       fr: "Projet Epitech · Assembleur x86-64",
       en: "Epitech project · x86-64 assembly",
@@ -419,6 +443,8 @@ export const projects: readonly Project[] = [
     name: "My navy",
     profiles: ["cpp"],
     period: "2023",
+    tek: 1,
+    language: "C",
     role: {
       fr: "Projet Epitech · Bataille navale entre deux processus",
       en: "Epitech project · Battleship between two processes",
@@ -456,6 +482,8 @@ export const projects: readonly Project[] = [
     name: "Sokoban",
     profiles: ["cpp"],
     period: "2023",
+    tek: 1,
+    language: "C",
     role: {
       fr: "Projet Epitech · Jeu en C & ncurses",
       en: "Epitech project · Game in C & ncurses",
@@ -493,6 +521,8 @@ export const projects: readonly Project[] = [
     name: "Push-swap",
     profiles: ["cpp"],
     period: "2023",
+    tek: 1,
+    language: "C",
     role: {
       fr: "Projet Epitech · Algorithmique & listes chaînées",
       en: "Epitech project · Algorithms & linked lists",
@@ -530,6 +560,8 @@ export const projects: readonly Project[] = [
     name: "BSQ",
     profiles: ["cpp"],
     period: "2022",
+    tek: 1,
+    language: "C",
     role: {
       fr: "Projet Epitech · Algorithmique",
       en: "Epitech project · Algorithms",

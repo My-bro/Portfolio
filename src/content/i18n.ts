@@ -17,6 +17,7 @@ const dictionary = {
     "hero.contactMe": "Me contacter",
 
     "profile.label": "Profil",
+    "profile.all": "Tout",
     "profile.web": "Web",
     "profile.cpp": "C / C++",
     "profile.hint": "Change les projets et les compétences mis en avant.",
@@ -50,6 +51,7 @@ const dictionary = {
     "project.prev": "Projet précédent",
     "project.next": "Projet suivant",
     "project.visitSite": "Ouvrir le site",
+    "project.translatedToWasm": "traduit en WebAssembly",
 
     "media.play": "Lire",
     "media.pause": "Pause",
@@ -277,6 +279,7 @@ const dictionary = {
     "hero.contactMe": "Get in touch",
 
     "profile.label": "Profile",
+    "profile.all": "Tout",
     "profile.web": "Web",
     "profile.cpp": "C / C++",
     "profile.hint": "Switches which projects and skills are highlighted.",
@@ -310,6 +313,7 @@ const dictionary = {
     "project.prev": "Previous project",
     "project.next": "Next project",
     "project.visitSite": "Open the site",
+    "project.translatedToWasm": "translated to WebAssembly",
 
     "media.play": "Play",
     "media.pause": "Pause",

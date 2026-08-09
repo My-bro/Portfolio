@@ -18,6 +18,14 @@ export const PROFILES = ["cpp", "web"] as const;
 export type Profile = (typeof PROFILES)[number];
 
 /**
+ * Ce que propose la bascule au-dessus des projets. `all` n'est pas un
+ * profil : c'est l'absence de filtre, et c'est ce qu'on montre d'abord —
+ * un visiteur qui arrive n'a pas encore de raison de choisir un camp.
+ */
+export const PROFILE_FILTERS = ["all", "cpp", "web"] as const;
+export type ProfileFilter = (typeof PROFILE_FILTERS)[number];
+
+/**
  * `private` = les médias du projet ne sont jamais copiés dans `public/`.
  * Ils restent sur la machine et ne partent pas en production.
  */
@@ -38,6 +46,19 @@ export interface Project {
   /** Profils dans lesquels le projet apparaît. */
   profiles: readonly Profile[];
   period: string;
+  /**
+   * Année d'études Epitech. C'est elle qui ordonne la liste et qui découpe
+   * la frise : les projets se lisent dans l'ordre où ils ont été faits.
+   * `tekEnd` couvre ceux qui ont duré deux ans.
+   */
+  tek: number;
+  tekEnd?: number;
+  /**
+   * Le langage principal, affiché sur la vignette. Il ne se déduit pas de
+   * `stack`, qui commence parfois par un outil (Kubernetes, Next.js) plutôt
+   * que par un langage.
+   */
+  language: string;
   role: Localized;
   tagline: Localized;
   highlights: LocalizedList;

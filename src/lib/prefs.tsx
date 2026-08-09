@@ -8,7 +8,7 @@ import {
   useSyncExternalStore,
 } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { Lang, Profile } from "@/content/types";
+import type { Lang, ProfileFilter } from "@/content/types";
 import { translator, type TranslationKey } from "@/content/i18n";
 import { useHydrated } from "./use-hydrated";
 
@@ -20,7 +20,7 @@ const QUERY_KEY = "p";
  * pour que le CSS masque les projets du mauvais profil dès la première image.
  * Sans lui, les cartes du profil web clignoteraient sur un lien `?p=cpp`.
  */
-export const PROFILE_BOOTSTRAP_SCRIPT = `(function(){try{var p=new URLSearchParams(location.search).get("${QUERY_KEY}");if(p!=="web"&&p!=="cpp"){p=localStorage.getItem("${STORAGE_KEY}")}if(p!=="web"&&p!=="cpp"){p="cpp"}document.documentElement.dataset.profile=p}catch(e){document.documentElement.dataset.profile="cpp"}})()`;
+export const PROFILE_BOOTSTRAP_SCRIPT = `(function(){function ok(p){return p==="web"||p==="cpp"||p==="all"}try{var p=new URLSearchParams(location.search).get("${QUERY_KEY}");if(!ok(p)){p=localStorage.getItem("${STORAGE_KEY}")}if(!ok(p)){p="all"}document.documentElement.dataset.profile=p}catch(e){document.documentElement.dataset.profile="all"}})()`;
 
 /**
  * L'attribut `data-profile` de <html> fait autorité : c'est ce que le script
@@ -36,14 +36,15 @@ function subscribeProfile(onChange: () => void) {
   return () => observer.disconnect();
 }
 
-function readProfile(): Profile {
-  return document.documentElement.dataset.profile === "web" ? "web" : "cpp";
+function readProfile(): ProfileFilter {
+  const value = document.documentElement.dataset.profile;
+  return value === "web" || value === "cpp" ? value : "all";
 }
 
 interface PrefsValue {
   lang: Lang;
-  profile: Profile;
-  setProfile: (profile: Profile) => void;
+  profile: ProfileFilter;
+  setProfile: (profile: ProfileFilter) => void;
   t: (key: TranslationKey) => string;
   /** Faux tant que React n'a pas repris la main après le script ci-dessus. */
   hydrated: boolean;
@@ -62,8 +63,8 @@ export function PrefsProvider({
   const profile = useSyncExternalStore(
     subscribeProfile,
     readProfile,
-    // Le HTML statique est toujours généré pour le profil C/C++.
-    () => "cpp" as const,
+    // Le HTML statique est toujours généré sans filtre.
+    () => "all" as const,
   );
 
   const router = useRouter();
@@ -71,7 +72,7 @@ export function PrefsProvider({
   const searchParams = useSearchParams();
 
   const setProfile = useCallback(
-    (next: Profile) => {
+    (next: ProfileFilter) => {
       document.documentElement.dataset.profile = next;
       try {
         localStorage.setItem(STORAGE_KEY, next);
@@ -82,7 +83,7 @@ export function PrefsProvider({
       // L'URL reste partageable sans provoquer de navigation ni de scroll.
       // Le profil par défaut ne s'écrit pas dans l'URL.
       const params = new URLSearchParams(searchParams.toString());
-      if (next === "cpp") params.delete(QUERY_KEY);
+      if (next === "all") params.delete(QUERY_KEY);
       else params.set(QUERY_KEY, next);
       const query = params.toString();
       router.replace(query ? `${pathname}?${query}` : pathname, {

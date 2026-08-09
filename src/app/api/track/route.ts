@@ -2,7 +2,7 @@ import { getDb } from "@/lib/d1";
 import { projects } from "@/content/projects";
 import { experience } from "@/content/experience";
 import { education } from "@/content/education";
-import { LANGS, PROFILES } from "@/content/types";
+import { LANGS, PROFILE_FILTERS } from "@/content/types";
 
 /**
  * Réception des évènements d'audience.
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
       : null;
   if (kind === "project" && !slug) return new Response("Bad request", { status: 400 });
 
-  const profile = (PROFILES as readonly string[]).includes(String(raw.profile))
+  const profile = (PROFILE_FILTERS as readonly string[]).includes(String(raw.profile))
     ? String(raw.profile)
     : null;
 

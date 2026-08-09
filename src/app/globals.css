@@ -245,7 +245,8 @@
     /* Filtre de profil appliqué avant hydratation.
        Le script de démarrage pose `data-profile` sur <html> ; sans ces
        règles, un lien `?p=web` afficherait brièvement les projets C/C++
-       présents dans le HTML statique. React reprend ensuite la main. */
+       présents dans le HTML statique. React reprend ensuite la main.
+       `all` étant le défaut, il n'a rien à masquer. */
     html[data-profile="web"] [data-profile-web="false"],
     html[data-profile="cpp"] [data-profile-cpp="false"] {
         display: none;

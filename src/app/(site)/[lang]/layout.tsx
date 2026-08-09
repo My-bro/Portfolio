@@ -79,7 +79,7 @@ export default async function SiteLayout({
   return (
     <html
       lang={lang}
-      data-profile="cpp"
+      data-profile="all"
       suppressHydrationWarning
       className={cn(geist.variable, geistMono.variable)}
     >

@@ -1,6 +1,6 @@
 "use client";
 
-import type { Lang, Profile } from "@/content/types";
+import type { Lang, ProfileFilter } from "@/content/types";
 
 /**
  * Mesure d'audience minimale : aucun cookie, aucune adresse IP, aucun
@@ -16,7 +16,7 @@ type Kind = "visit" | "project";
 interface Payload {
   kind: Kind;
   slug?: string;
-  profile?: Profile;
+  profile?: ProfileFilter;
   lang: Lang;
   /** Rang d'ouverture dans la visite : 1 = premier projet consulté. */
   rank?: number;
@@ -71,7 +71,7 @@ export function trackVisit(lang: Lang) {
   remember("", seen);
 }
 
-export function trackProjectOpen(slug: string, profile: Profile, lang: Lang) {
+export function trackProjectOpen(slug: string, profile: ProfileFilter, lang: Lang) {
   const seen = seenThisSession();
   if (seen.includes(slug)) return; // Un projet ne compte qu'une fois par visite.
 

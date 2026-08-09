@@ -74,9 +74,11 @@ const SCENARIOS = {
     card: "My navy",
     launch: "Lancer la partie",
     // Deux camps côte à côte : le cadre se prend sur la largeur. Le panneau
-    // étant plus plat qu'un 16/9, la hauteur manquante est prise au-dessus,
-    // sur le titre de la fiche, plutôt qu'en dessous où commence la page.
+    // étant plus plat qu'un 16/9, la fenêtre est haute pour que la fiche
+    // dépasse en dessous — le cadre y prend la hauteur qui lui manque,
+    // sur le journal des salves plutôt que sur le titre.
     frame: "width",
+    viewport: { width: 1600, height: 1400 },
     async play(page) {
       // Quelques échanges pour que les deux grilles portent des touches et
       // que le journal des salves ne soit pas vide.
@@ -209,12 +211,15 @@ try {
       ? (Math.min(viewportWidth, target.width) * 9) / 16
       : target.height;
   const width = Math.min(viewportWidth, (height * 16) / 9);
-  // La hauteur manquante est prise au-dessus du panneau, sans jamais
-  // déborder de la fiche : au-delà, c'est la page qui apparaîtrait.
+  // La hauteur manquante est prise sous le panneau, sans jamais déborder
+  // de la fiche : au-delà, c'est la page qui apparaîtrait.
   const dialog = await page.locator("[role=dialog]").first().boundingBox();
   const y =
     scenario.frame === "width"
-      ? Math.max(dialog.y, target.y + target.height - height)
+      ? Math.max(
+          dialog.y,
+          Math.min(target.y, dialog.y + dialog.height - height),
+        )
       : target.y;
   // Plus large que le cadre voulu (un terminal) : on garde son bord gauche,
   // c'est là qu'est le texte. Plus étroit (un canevas carré) : on centre et

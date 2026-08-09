@@ -32,6 +32,9 @@ export function ProjectCard({
 
   const media = getMedia(project.slug);
   const cover = pickByTheme(media.items, dark);
+  // Le portage n'est pas un langage : il est annoncé par la pile, et
+  // s'affiche sous le nom du langage plutôt qu'à sa place.
+  const translated = project.stack.includes("WebAssembly");
 
   return (
     <button
@@ -86,11 +89,19 @@ export function ProjectCard({
             ) : (
               <Play className="size-3 fill-current" />
             )}
-            {project.website
-              ? new URL(project.website).host
-              : project.demo
-                ? t(DEMOS[project.demo].badgeKey)
-                : t("project.open")}
+            {/* Le langage plutôt que la technique de portage : ce qui dit
+                quelque chose du projet, c'est ce dans quoi il est écrit.
+                Le passage par WebAssembly se lit en dessous, en petit. */}
+            <span className="flex flex-col leading-tight">
+              <span>
+                {project.website ? new URL(project.website).host : project.language}
+              </span>
+              {translated && (
+                <span className="text-[9px] text-muted-foreground">
+                  {t("project.translatedToWasm")}
+                </span>
+              )}
+            </span>
           </span>
         )}
       </div>

@@ -4,10 +4,18 @@ import { motion } from "motion/react";
 
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
-import { PROFILES, type Profile } from "@/content/types";
+import { PROFILE_FILTERS, type ProfileFilter } from "@/content/types";
+
+const LABEL: Record<ProfileFilter, "profile.all" | "profile.cpp" | "profile.web"> = {
+  all: "profile.all",
+  cpp: "profile.cpp",
+  web: "profile.web",
+};
 
 /**
- * Bascule entre les deux facettes du CV.
+ * Bascule entre les deux facettes du CV — et « tout », qui est l'état de
+ * départ : rien n'oblige un visiteur à choisir un camp avant d'avoir vu
+ * quoi que ce soit.
  *
  * L'indicateur glisse d'un onglet à l'autre via `layoutId` : une seule
  * animation partagée, plutôt qu'une transition sur chaque bouton.
@@ -24,7 +32,7 @@ export function ProfileSwitch({ className }: { className?: string }) {
         className,
       )}
     >
-      {PROFILES.map((value: Profile) => {
+      {PROFILE_FILTERS.map((value: ProfileFilter) => {
         const selected = profile === value;
         return (
           <button
@@ -50,9 +58,7 @@ export function ProfileSwitch({ className }: { className?: string }) {
               />
             )}
             {/* Au-dessus de l'indicateur, qui est peint dans le même plan. */}
-            <span className="relative">
-              {t(value === "web" ? "profile.web" : "profile.cpp")}
-            </span>
+            <span className="relative">{t(LABEL[value])}</span>
           </button>
         );
       })}

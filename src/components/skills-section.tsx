@@ -33,7 +33,10 @@ export function SkillsSection() {
                 </h3>
                 <div className="flex flex-wrap gap-1.5">
                   {groupSkills.map((skill) => {
-                    const highlighted = skill.profiles.includes(profile);
+                    // Sans filtre, rien n'est estompé : il n'y a pas de
+                    // camp à mettre en avant plutôt qu'un autre.
+                    const highlighted =
+                      profile === "all" || skill.profiles.includes(profile);
                     return (
                       <span
                         key={skill.label}
