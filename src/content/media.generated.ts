@@ -238,6 +238,43 @@ export const generatedMedia = {
       }
     ]
   },
+  "minilibc": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Registres",
+        "poster": "01-registres.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-registres.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 2096,
+        "height": 1178,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Registres clair",
+        "poster": "02-registres-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-registres-clair.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 2096,
+        "height": 1178,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
   "minishell": {
     "visibility": "public",
     "items": [

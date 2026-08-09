@@ -57,7 +57,8 @@ export interface Project {
     | "sokoban"
     | "pushswap"
     | "radar"
-    | "navy";
+    | "navy"
+    | "minilibc";
   /**
    * Produit en ligne. La fiche renvoie alors vers le site plutôt que de
    * chercher à le rejouer : la capture devient cliquable et un bouton

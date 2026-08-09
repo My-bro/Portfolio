@@ -43,3 +43,6 @@
 	path = vendor/my-navy
 	url = https://github.com/My-bro/My-navy.Axel-londas.git
 	branch = webassembly
+[submodule "vendor/minilibc"]
+	path = vendor/minilibc
+	url = https://github.com/My-bro/Assembly-minilibC-axel-londas.git

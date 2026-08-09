@@ -56,6 +56,20 @@ const SCENARIOS = {
       await page.waitForTimeout(400);
     },
   },
+  minilibc: {
+    card: "minilibC",
+    launch: "Exécuter",
+    frame: "width",
+    async play(page) {
+      // Au milieu d'un strstr : les deux pointeurs sont posés sur leurs
+      // chaînes, une instruction est surlignée, les registres ont bougé.
+      await page.getByRole("button", { name: "strstr", exact: true }).click();
+      await page.waitForTimeout(400);
+      const stepButton = page.getByRole("button", { name: "Pas à pas" });
+      for (let i = 0; i < 26; i++) await stepButton.click();
+      await page.waitForTimeout(300);
+    },
+  },
   navy: {
     card: "My navy",
     launch: "Lancer la partie",

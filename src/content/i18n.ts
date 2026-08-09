@@ -143,6 +143,24 @@ const dictionary = {
     "bsq.densityLabel": "Obstacles",
     "bsq.generate": "Générer",
 
+    "minilibc.title": "Assembleur exécuté dans la page",
+    "minilibc.badge": "x86-64",
+    "minilibc.intro":
+      "Les fichiers .asm du projet sont chargés tels quels et exécutés ici, instruction par instruction. On y voit ce qui se joue à chaque appel depuis le C : quel registre porte quel argument, et lequel rapporte le résultat.",
+    "minilibc.launch": "Exécuter",
+    "minilibc.functionLabel": "Fonction",
+    "minilibc.step": "Pas à pas",
+    "minilibc.run": "Dérouler",
+    "minilibc.pause": "Pause",
+    "minilibc.reset": "Remettre à zéro",
+    "minilibc.steps": "Instructions",
+    "minilibc.memory": "mémoire",
+    "minilibc.result": "Résultat",
+    "minilibc.libc": "la libc dit",
+    "minilibc.scratch": "registre de travail",
+    "minilibc.hint":
+      "Convention System V : les arguments arrivent dans rdi, rsi puis rdx, le retour repart dans rax. Les registres surlignés sont ceux que l'instruction en cours touche.",
+
     "navy.title": "Jeu compilé en WebAssembly",
     "navy.badge": "WebAssembly",
     "navy.intro":
@@ -385,6 +403,24 @@ const dictionary = {
     "bsq.createLabel": "Create",
     "bsq.densityLabel": "Obstacles",
     "bsq.generate": "Generate",
+
+    "minilibc.title": "Assembly run inside the page",
+    "minilibc.badge": "x86-64",
+    "minilibc.intro":
+      "The project's .asm files are loaded as they are and executed here, one instruction at a time. You get to see what every call from C actually does: which register carries which argument, and which one brings the result back.",
+    "minilibc.launch": "Run it",
+    "minilibc.functionLabel": "Function",
+    "minilibc.step": "Step",
+    "minilibc.run": "Play",
+    "minilibc.pause": "Pause",
+    "minilibc.reset": "Reset",
+    "minilibc.steps": "Instructions",
+    "minilibc.memory": "memory",
+    "minilibc.result": "Result",
+    "minilibc.libc": "libc says",
+    "minilibc.scratch": "scratch register",
+    "minilibc.hint":
+      "System V convention: arguments arrive in rdi, rsi then rdx, the result goes back in rax. Highlighted registers are the ones the current instruction touches.",
 
     "navy.title": "Game compiled to WebAssembly",
     "navy.badge": "WebAssembly",

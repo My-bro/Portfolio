@@ -23,6 +23,9 @@
   "my-navy": {
     "visibility": "public"
   },
+  "minilibc": {
+    "visibility": "public"
+  },
   "ray-tracer": {
     "visibility": "public"
   },

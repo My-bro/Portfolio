@@ -59,6 +59,11 @@ export const DEMOS: Record<
     titleKey: "sokoban.title",
     badgeKey: "sokoban.badge",
   },
+  minilibc: {
+    Component: dynamic(() => import("@/components/minilibc-demo").then((m) => m.MinilibcDemo), { ssr: false }),
+    titleKey: "minilibc.title",
+    badgeKey: "minilibc.badge",
+  },
   navy: {
     Component: dynamic(() => import("@/components/navy-demo").then((m) => m.NavyDemo), { ssr: false }),
     titleKey: "navy.title",

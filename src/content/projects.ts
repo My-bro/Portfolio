@@ -378,6 +378,43 @@ export const projects: readonly Project[] = [
   },
 
   {
+    slug: "minilibc",
+    name: "minilibC",
+    profiles: ["cpp"],
+    period: "2024",
+    role: {
+      fr: "Projet Epitech · Assembleur x86-64",
+      en: "Epitech project · x86-64 assembly",
+    },
+    tagline: {
+      fr: "Une douzaine de fonctions de la libc réécrites en assembleur, chargées depuis du C.",
+      en: "A dozen libc functions rewritten in assembly, loaded from C.",
+    },
+    highlights: {
+      fr: [
+        "strlen, strcmp, strstr, memset, memcpy… écrites en x86-64 NASM, sans une ligne de C.",
+        "Compilées en bibliothèque partagée et appelées depuis un programme C par dlopen / dlsym, résultat comparé à celui de la libc.",
+        "Convention d'appel System V respectée à la main : arguments dans rdi, rsi, rdx, retour dans rax.",
+        "La démo exécute ces fichiers .asm dans la page, instruction par instruction, registres affichés.",
+      ],
+      en: [
+        "strlen, strcmp, strstr, memset, memcpy… written in x86-64 NASM, without a line of C.",
+        "Built as a shared library and called from a C program through dlopen/dlsym, results checked against the libc.",
+        "System V calling convention honoured by hand: arguments in rdi, rsi, rdx, return value in rax.",
+        "The demo runs those very .asm files in the page, one instruction at a time, registers on show.",
+      ],
+    },
+    stack: ["Assembleur x86-64", "NASM", "C", "dlopen", "Makefile"],
+    demo: "minilibc",
+    links: [
+      {
+        label: "github.com/My-bro/Assembly-minilibC",
+        href: "https://github.com/My-bro/Assembly-minilibC-axel-londas",
+      },
+    ],
+  },
+
+  {
     slug: "my-navy",
     name: "My navy",
     profiles: ["cpp"],

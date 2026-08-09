@@ -60,6 +60,7 @@ next-env.d.ts
 !/media/projects/my-hunter/
 !/media/projects/my-radar/
 !/media/projects/my-navy/
+!/media/projects/minilibc/
 # Médias privés : ne quittent jamais cette machine.
 /.media-private/
 
