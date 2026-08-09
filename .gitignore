@@ -58,6 +58,7 @@ next-env.d.ts
 !/media/projects/r-type/
 !/media/projects/my-rpg/
 !/media/projects/my-hunter/
+!/media/projects/my-radar/
 # Médias privés : ne quittent jamais cette machine.
 /.media-private/
 

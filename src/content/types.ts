@@ -55,7 +55,8 @@ export interface Project {
     | "dante"
     | "bsq"
     | "sokoban"
-    | "pushswap";
+    | "pushswap"
+    | "radar";
   /**
    * Produit en ligne. La fiche renvoie alors vers le site plutôt que de
    * chercher à le rejouer : la capture devient cliquable et un bouton

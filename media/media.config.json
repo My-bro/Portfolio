@@ -17,6 +17,9 @@
   "my-hunter": {
     "visibility": "public"
   },
+  "my-radar": {
+    "visibility": "public"
+  },
   "ray-tracer": {
     "visibility": "public"
   },

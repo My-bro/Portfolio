@@ -35,3 +35,7 @@
 	path = vendor/push-swap
 	url = https://github.com/My-bro/Push-swap.axel-londas.git
 	branch = webassembly
+[submodule "vendor/my-radar"]
+	path = vendor/my-radar
+	url = https://github.com/My-bro/My-radar.axel-londas.git
+	branch = webassembly

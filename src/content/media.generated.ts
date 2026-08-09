@@ -312,6 +312,27 @@ export const generatedMedia = {
       }
     ]
   },
+  "my-radar": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Trafic",
+        "poster": "01-trafic.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-trafic.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 3200,
+        "height": 1800,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
   "my-rpg": {
     "visibility": "public",
     "items": [

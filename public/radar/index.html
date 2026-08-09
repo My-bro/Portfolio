@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My radar</title>
+<!--
+  Page de jeu, chargée dans une iframe par la fiche projet — même isolation
+  que R-Type et My Hunter, et pour la même raison : un module Emscripten ne
+  se démonte pas proprement, sa boucle vivant dans requestAnimationFrame.
+  Retirer l'iframe l'arrête net ; démonter le composant React qui la
+  contient ne le ferait pas.
+
+  Le radar n'a ni son ni commandes : il déroule le script de vol qu'on lui
+  donne. La page n'affiche donc que la simulation.
+-->
+<style>
+  :root { color-scheme: dark; }
+  html, body {
+    margin: 0; height: 100%;
+    background: #000;
+    font: 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #f5f5f5;
+    overflow: hidden;
+  }
+  #stage { display: grid; place-items: center; height: 100%; }
+  canvas { display: block; max-width: 100%; max-height: 100%; outline: none; }
+
+  #boot {
+    position: absolute; inset: 0; z-index: 4;
+    display: grid; place-items: center; gap: 12px;
+    text-align: center; padding: 24px;
+    background: #000;
+  }
+  #boot p { margin: 0; color: #a1a1a1; }
+  #bar { width: min(280px, 70vw); height: 3px; background: #2a2a2a; border-radius: 2px; overflow: hidden; }
+  #fill { height: 100%; width: 0; background: #f8633e; transition: width .2s; }
+  #err { color: #f8633e; max-width: 32rem; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="canvas" width="1920" height="1080" tabindex="0"></canvas>
+</div>
+
+<div id="boot">
+  <div>
+    <p id="msg">Chargement…</p>
+    <div id="bar"><div id="fill"></div></div>
+    <p id="err"></p>
+  </div>
+</div>
+
+<script type="module">
+  const canvas = document.getElementById('canvas');
+  const boot = document.getElementById('boot');
+  const msg = document.getElementById('msg');
+  const fill = document.getElementById('fill');
+  const err = document.getElementById('err');
+
+  // Le clavier et la souris pilotent le jeu ; sans focus sur le canvas,
+  // SDL ne reçoit ni l'un ni l'autre.
+  const focus = () => canvas.focus();
+  canvas.addEventListener('mousedown', focus);
+  window.addEventListener('load', focus);
+
+  try {
+    const createMyRadar = (await import('./radar.js')).default;
+
+    await createMyRadar({
+      canvas,
+      setStatus: (text) => {
+        // Emscripten annonce sa progression sous la forme "(12/34)".
+        const match = /\((\d+)\/(\d+)\)/.exec(text || '');
+        if (match) {
+          fill.style.width = (100 * match[1] / match[2]) + '%';
+          msg.textContent = 'Chargement des ressources…';
+        } else if (text) {
+          msg.textContent = text;
+        }
+      },
+      printErr: (text) => {
+        console.error(text);
+        if (/error|failed|abort/i.test(text)) err.textContent = text;
+      },
+    });
+
+    boot.remove();
+    focus();
+  } catch (error) {
+    fill.style.width = '0';
+    msg.textContent = 'La démo n’a pas pu démarrer';
+    err.textContent = error && error.message ? error.message : String(error);
+  }
+</script>
+</body>
+</html>

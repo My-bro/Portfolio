@@ -59,6 +59,11 @@ export const DEMOS: Record<
     titleKey: "sokoban.title",
     badgeKey: "sokoban.badge",
   },
+  radar: {
+    Component: dynamic(() => import("@/components/radar-demo").then((m) => m.RadarDemo), { ssr: false }),
+    titleKey: "radar.title",
+    badgeKey: "radar.badge",
+  },
   pushswap: {
     Component: dynamic(() => import("@/components/pushswap-demo").then((m) => m.PushSwapDemo), { ssr: false }),
     titleKey: "pushswap.title",

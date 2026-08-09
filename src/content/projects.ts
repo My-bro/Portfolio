@@ -161,6 +161,43 @@ export const projects: readonly Project[] = [
   },
 
   {
+    slug: "my-radar",
+    name: "My radar",
+    profiles: ["cpp"],
+    period: "2023",
+    role: {
+      fr: "Projet Epitech · Simulation graphique en C & CSFML",
+      en: "Epitech project · Graphics simulation in C & CSFML",
+    },
+    tagline: {
+      fr: "Contrôle aérien en C : des avions suivent un plan de vol, les tours surveillent leur portée.",
+      en: "Air traffic control in C: aircraft follow a flight plan, towers watch their range.",
+    },
+    highlights: {
+      fr: [
+        "Le décor entier est décrit par un fichier de script : une ligne par avion (départ, arrivée, vitesse) ou par tour (position, portée).",
+        "Chaque avion avance vers sa destination le long du vecteur qui l'en sépare, orienté par l'angle de sa trajectoire.",
+        "Portées des tours et boîtes de détection dessinées par-dessus la carte, en formes CSFML.",
+        "Porté en WebAssembly sur un shim qui redirige CSFML vers SDL2 — le code du radar n'a pas été réécrit.",
+      ],
+      en: [
+        "The whole scene comes from a script file: one line per aircraft (origin, destination, speed) or per tower (position, range).",
+        "Each aircraft advances toward its destination along the vector separating them, rotated to its heading.",
+        "Tower ranges and detection boxes drawn over the map as CSFML shapes.",
+        "Ported to WebAssembly on a shim redirecting CSFML onto SDL2 — the radar's own code was not rewritten.",
+      ],
+    },
+    stack: ["C", "CSFML", "SDL2", "Makefile", "WebAssembly"],
+    demo: "radar",
+    links: [
+      {
+        label: "github.com/My-bro/My-radar",
+        href: "https://github.com/My-bro/My-radar.axel-londas",
+      },
+    ],
+  },
+
+  {
     slug: "samplify",
     name: "Samplify",
     profiles: ["cpp", "web"],
