@@ -59,6 +59,11 @@ export const DEMOS: Record<
     titleKey: "sokoban.title",
     badgeKey: "sokoban.badge",
   },
+  navy: {
+    Component: dynamic(() => import("@/components/navy-demo").then((m) => m.NavyDemo), { ssr: false }),
+    titleKey: "navy.title",
+    badgeKey: "navy.badge",
+  },
   radar: {
     Component: dynamic(() => import("@/components/radar-demo").then((m) => m.RadarDemo), { ssr: false }),
     titleKey: "radar.title",

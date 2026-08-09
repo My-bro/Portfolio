@@ -56,7 +56,8 @@ export interface Project {
     | "bsq"
     | "sokoban"
     | "pushswap"
-    | "radar";
+    | "radar"
+    | "navy";
   /**
    * Produit en ligne. La fiche renvoie alors vers le site plutôt que de
    * chercher à le rejouer : la capture devient cliquable et un bouton

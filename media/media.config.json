@@ -20,6 +20,9 @@
   "my-radar": {
     "visibility": "public"
   },
+  "my-navy": {
+    "visibility": "public"
+  },
   "ray-tracer": {
     "visibility": "public"
   },

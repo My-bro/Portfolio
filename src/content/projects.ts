@@ -378,6 +378,43 @@ export const projects: readonly Project[] = [
   },
 
   {
+    slug: "my-navy",
+    name: "My navy",
+    profiles: ["cpp"],
+    period: "2023",
+    role: {
+      fr: "Projet Epitech · Bataille navale entre deux processus",
+      en: "Epitech project · Battleship between two processes",
+    },
+    tagline: {
+      fr: "Deux processus jouent à la bataille navale sans rien partager : tout passe par des signaux.",
+      en: "Two processes play battleship sharing nothing: everything goes through signals.",
+    },
+    highlights: {
+      fr: [
+        "Aucun canal de communication : chaque coordonnée est encodée en salve de dix SIGUSR1 / SIGUSR2 par caractère, et recomptée à l'arrivée.",
+        "Poignée de main entre les deux processus, puis alternance stricte des tours, pilotée par les mêmes compteurs de signaux.",
+        "Flotte lue dans un fichier de positions, grilles et détection des touches écrites à la main.",
+        "Portage WebAssembly : le protocole de signaux est conservé tel quel, seul kill(2) laisse la place à un canal du navigateur ou au relais du site.",
+      ],
+      en: [
+        "No communication channel: each coordinate is encoded as a burst of ten SIGUSR1/SIGUSR2 per character, and counted back on arrival.",
+        "A handshake between the two processes, then strict turn alternation, driven by those same signal counters.",
+        "Fleet read from a positions file, grids and hit detection written by hand.",
+        "WebAssembly port: the signal protocol is kept as is, only kill(2) gives way to a browser channel or to the site's relay.",
+      ],
+    },
+    stack: ["C", "Signaux POSIX", "Makefile", "WebAssembly"],
+    demo: "navy",
+    links: [
+      {
+        label: "github.com/My-bro/My-navy",
+        href: "https://github.com/My-bro/My-navy.Axel-londas",
+      },
+    ],
+  },
+
+  {
     slug: "sokoban",
     name: "Sokoban",
     profiles: ["cpp"],

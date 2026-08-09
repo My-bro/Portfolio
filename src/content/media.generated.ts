@@ -312,6 +312,43 @@ export const generatedMedia = {
       }
     ]
   },
+  "my-navy": {
+    "visibility": "public",
+    "items": [
+      {
+        "kind": "image",
+        "label": "Partie locale",
+        "poster": "01-partie-locale.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "01-partie-locale.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 2096,
+        "height": 1178,
+        "duration": null,
+        "hasAudio": false
+      },
+      {
+        "kind": "image",
+        "label": "Partie locale clair",
+        "poster": "02-partie-locale-clair.jpg",
+        "preview": [],
+        "sources": [
+          {
+            "file": "02-partie-locale-clair.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "width": 2096,
+        "height": 1178,
+        "duration": null,
+        "hasAudio": false
+      }
+    ]
+  },
   "my-radar": {
     "visibility": "public",
     "items": [

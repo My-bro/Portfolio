@@ -56,6 +56,29 @@ const SCENARIOS = {
       await page.waitForTimeout(400);
     },
   },
+  navy: {
+    card: "My navy",
+    launch: "Lancer la partie",
+    // Deux camps côte à côte : le cadre se prend sur la largeur. Le panneau
+    // étant plus plat qu'un 16/9, la hauteur manquante est prise au-dessus,
+    // sur le titre de la fiche, plutôt qu'en dessous où commence la page.
+    frame: "width",
+    async play(page) {
+      // Quelques échanges pour que les deux grilles portent des touches et
+      // que le journal des salves ne soit pas vide.
+      const shots = [
+        ["C1", 1],
+        ["A1", 3],
+        ["C2", 1],
+        ["B1", 3],
+        ["D4", 1],
+      ];
+      for (const [coord, board] of shots) {
+        await page.locator(`[role=dialog] [aria-label='${coord}']`).nth(board).click();
+        await page.waitForTimeout(500);
+      }
+    },
+  },
   sokoban: {
     card: "Sokoban",
     launch: "Lancer la partie",
@@ -135,7 +158,7 @@ try {
 
 const browser = await chromium.launch();
 const page = await browser.newPage({
-  viewport: { width: 1600, height: 1000 },
+  viewport: scenario.viewport ?? { width: 1600, height: 1000 },
   deviceScaleFactor: 2,
   colorScheme: theme === "light" ? "light" : "dark",
 });
@@ -163,16 +186,30 @@ try {
     .first()
     .boundingBox();
   const target = canvas ?? panel;
-  const height = target.height;
-  const width = Math.min(1600, (height * 16) / 9);
+  // Certaines démos sont plus larges que hautes (deux grilles côte à côte) :
+  // le 16/9 se prend alors sur la largeur, sans quoi le cadrage couperait
+  // la moitié du sujet.
+  const viewportWidth = page.viewportSize().width;
+  const height =
+    scenario.frame === "width"
+      ? (Math.min(viewportWidth, target.width) * 9) / 16
+      : target.height;
+  const width = Math.min(viewportWidth, (height * 16) / 9);
+  // La hauteur manquante est prise au-dessus du panneau, sans jamais
+  // déborder de la fiche : au-delà, c'est la page qui apparaîtrait.
+  const dialog = await page.locator("[role=dialog]").first().boundingBox();
+  const y =
+    scenario.frame === "width"
+      ? Math.max(dialog.y, target.y + target.height - height)
+      : target.y;
   // Plus large que le cadre voulu (un terminal) : on garde son bord gauche,
   // c'est là qu'est le texte. Plus étroit (un canevas carré) : on centre et
   // le vide se répartit des deux côtés.
   const x =
     target.width >= width && scenario.align !== "center"
       ? target.x
-      : Math.max(0, Math.min(1600 - width, target.x + target.width / 2 - width / 2));
-  const clip = { x, y: target.y, width, height };
+      : Math.max(0, Math.min(viewportWidth - width, target.x + target.width / 2 - width / 2));
+  const clip = { x, y, width, height };
 
   await page.screenshot({ path: out, clip });
   console.log(`capturé : ${slug} -> ${out}`);

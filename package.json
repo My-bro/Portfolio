@@ -18,6 +18,7 @@
     "bsq:build": "vendor/bsq/wasm/build.sh \"$PWD/public/bsq\"",
     "sokoban:build": "vendor/sokoban/wasm/build.sh \"$PWD/public/sokoban\"",
     "pushswap:build": "vendor/push-swap/wasm/build.sh \"$PWD/public/pushswap\"",
+    "navy:build": "vendor/my-navy/wasm/build.sh \"$PWD/public/navy\" && cp vendor/my-navy/pos*.txt public/navy/",
     "radar:build": "vendor/my-radar/wasm/pack-assets.sh && vendor/my-radar/wasm/build.sh \"$PWD/public/radar\"",
     "media:sync": "node scripts/media-sync.mjs",
     "media:sync:force": "node scripts/media-sync.mjs --force",

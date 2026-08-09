@@ -143,6 +143,43 @@ const dictionary = {
     "bsq.densityLabel": "Obstacles",
     "bsq.generate": "Générer",
 
+    "navy.title": "Jeu compilé en WebAssembly",
+    "navy.badge": "WebAssembly",
+    "navy.intro":
+      "Le vrai jeu tourne ici, une instance par camp. Les deux processus du jeu natif se parlaient par signaux : la coordonnée part toujours en salve de dix SIGUSR par caractère, encodée et relue par le code du dépôt — seul kill(2) est remplacé.",
+    "navy.launch": "Lancer la partie",
+    "navy.modeLabel": "Partie",
+    "navy.modeLocal": "Locale, deux fenêtres",
+    "navy.modeOnline": "En ligne",
+    "navy.hintLocal":
+      "Les deux camps sont côte à côte : chacun voit sa flotte et ce qu'il sait de l'autre. Clique dans la grille de tir du joueur dont c'est le tour.",
+    "navy.hintOnline":
+      "Crée un salon, donne le code à ton adversaire : le site relaie les coups et rien d'autre. Les salons vivent en mémoire — une heure au plus, cinquante à la fois — et rien n'est écrit nulle part.",
+    "navy.player": "Joueur",
+    "navy.fleet": "ma flotte",
+    "navy.shots": "mes tirs",
+    "navy.yourTurn": "à toi",
+    "navy.theirTurn": "à l'adversaire",
+    "navy.won": "gagné",
+    "navy.lost": "perdu",
+    "navy.restart": "Rejouer",
+    "navy.lobbyIntro":
+      "Ouvre un salon et transmets son code, ou entre celui qu'on t'a donné.",
+    "navy.create": "Créer un salon",
+    "navy.join": "Rejoindre",
+    "navy.or": "ou",
+    "navy.codePlaceholder": "CODE",
+    "navy.code": "Salon",
+    "navy.host": "hôte",
+    "navy.guest": "invité",
+    "navy.me": "moi",
+    "navy.them": "adversaire",
+    "navy.waitingOpponent": "en attente d'un adversaire",
+    "navy.lobbyError":
+      "Salon introuvable ou déjà complet. Les salons vivant en mémoire, un code peut aussi expirer au bout d'une heure.",
+    "navy.noServer":
+      "Cinquante salons sont déjà ouverts, le maximum gardé en mémoire. Réessaie dans un moment — ou joue en local, qui ne dépend de rien.",
+
     "radar.title": "Simulation compilée en WebAssembly",
     "radar.badge": "WebAssembly",
     "radar.intro":
@@ -348,6 +385,42 @@ const dictionary = {
     "bsq.createLabel": "Create",
     "bsq.densityLabel": "Obstacles",
     "bsq.generate": "Generate",
+
+    "navy.title": "Game compiled to WebAssembly",
+    "navy.badge": "WebAssembly",
+    "navy.intro":
+      "The real game runs here, one instance per side. The two processes of the native game talked over signals: a coordinate still leaves as a burst of ten SIGUSR per character, encoded and read back by the repository's own code — only kill(2) is replaced.",
+    "navy.launch": "Start the game",
+    "navy.modeLabel": "Game",
+    "navy.modeLocal": "Local, two windows",
+    "navy.modeOnline": "Online",
+    "navy.hintLocal":
+      "Both sides sit side by side: each shows its fleet and what it knows of the other. Click in the firing grid of whoever's turn it is.",
+    "navy.hintOnline":
+      "Open a lobby and pass the code to your opponent: the site relays moves and nothing else. Lobbies live in memory — one hour at most, fifty at a time — and nothing is written anywhere.",
+    "navy.player": "Player",
+    "navy.fleet": "my fleet",
+    "navy.shots": "my shots",
+    "navy.yourTurn": "your turn",
+    "navy.theirTurn": "their turn",
+    "navy.won": "won",
+    "navy.lost": "lost",
+    "navy.restart": "Play again",
+    "navy.lobbyIntro": "Open a lobby and share its code, or enter the one you were given.",
+    "navy.create": "Create a lobby",
+    "navy.join": "Join",
+    "navy.or": "or",
+    "navy.codePlaceholder": "CODE",
+    "navy.code": "Lobby",
+    "navy.host": "host",
+    "navy.guest": "guest",
+    "navy.me": "me",
+    "navy.them": "opponent",
+    "navy.waitingOpponent": "waiting for an opponent",
+    "navy.lobbyError":
+      "No such lobby, or it is already full. Lobbies live in memory, so a code can also expire after an hour.",
+    "navy.noServer":
+      "Fifty lobbies are already open, the most kept in memory. Try again in a moment — or play locally, which depends on nothing.",
 
     "radar.title": "Simulation compiled to WebAssembly",
     "radar.badge": "WebAssembly",
