@@ -149,7 +149,7 @@ const dictionary = {
       "Le vrai code du radar tourne ici. Écrit en CSFML, il dessine à travers un shim qui redirige la couche graphique vers SDL2 — celui de R-Type et de My RPG, étendu pour les cercles de portée et les boîtes orientées.",
     "radar.launch": "Lancer la simulation",
     "radar.hint":
-      "Chaque avion suit le cap et la vitesse que lui donne le script de vol ; les cercles rouges sont les portées des tours, les boîtes les zones de détection des appareils.",
+      "Chaque avion suit le cap et la vitesse que lui donne le script de vol. Deux appareils qui se croisent hors de portée d'une tour, c'est une collision : sous un cercle rouge, le contrôle aérien les sépare.",
 
     "sokoban.title": "Jeu compilé en WebAssembly",
     "sokoban.badge": "WebAssembly",
@@ -355,7 +355,7 @@ const dictionary = {
       "The radar's own code runs here. Written in CSFML, it draws through a shim that redirects the graphics layer onto SDL2 — the one from R-Type and My RPG, extended for range circles and oriented boxes.",
     "radar.launch": "Run the simulation",
     "radar.hint":
-      "Each aircraft follows the heading and speed given by the flight script; the red circles are tower ranges, the boxes the aircraft detection zones.",
+      "Each aircraft follows the heading and speed given by the flight script. Two aircraft crossing outside any tower's range collide: under a red circle, air traffic control keeps them apart.",
 
     "sokoban.title": "Game compiled to WebAssembly",
     "sokoban.badge": "WebAssembly",

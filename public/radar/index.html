@@ -36,12 +36,36 @@
   #bar { width: min(280px, 70vw); height: 3px; background: #2a2a2a; border-radius: 2px; overflow: hidden; }
   #fill { height: 100%; width: 0; background: #f8633e; transition: width .2s; }
   #err { color: #f8633e; max-width: 32rem; }
+
+  /* Bandeau de règle et alerte de collision : le module n'a aucune police
+     chargée, et du texte dessiné dans un canevas 1920x1080 réduit à la
+     largeur d'une fiche serait illisible. La page les porte donc. */
+  #rule {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding: 8px 12px; text-align: center;
+    color: #b9c6c9; background: linear-gradient(transparent, rgba(0,0,0,.75));
+  }
+  #alert {
+    position: absolute; left: 50%; top: 16px; z-index: 3;
+    transform: translateX(-50%);
+    padding: 6px 14px; border: 1px solid #f8633e; border-radius: 4px;
+    color: #ffd7c8; background: rgba(40, 12, 6, .85);
+    letter-spacing: .08em; text-transform: uppercase;
+    opacity: 0; transition: opacity .25s;
+  }
+  #alert.on { opacity: 1; }
 </style>
 </head>
 <body>
 <div id="stage">
   <canvas id="canvas" width="1920" height="1080" tabindex="0"></canvas>
 </div>
+
+<p id="alert">Collision — hors couverture radar</p>
+<p id="rule">
+  Une collision se produit quand deux avions se croisent hors des tours de
+  contrôle. Sous un cercle rouge, la tour les sépare : le croisement passe.
+</p>
 
 <div id="boot">
   <div>
@@ -54,6 +78,16 @@
 <script type="module">
   const canvas = document.getElementById('canvas');
   const boot = document.getElementById('boot');
+  const alertBox = document.getElementById('alert');
+
+  // Appelée depuis wasm/crash.c au moment où deux avions se percutent.
+  let alertTimer = null;
+  window.onRadarCrash = () => {
+    alertBox.classList.add('on');
+    clearTimeout(alertTimer);
+    alertTimer = setTimeout(() => alertBox.classList.remove('on'), 1600);
+  };
+
   const msg = document.getElementById('msg');
   const fill = document.getElementById('fill');
   const err = document.getElementById('err');
