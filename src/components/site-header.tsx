@@ -10,9 +10,9 @@ import { site } from "@/content/site";
 import type { TranslationKey } from "@/content/i18n";
 
 const NAV: { href: string; key: TranslationKey }[] = [
-  { href: "#projects", key: "nav.projects" },
   { href: "#experience", key: "nav.experience" },
   { href: "#education", key: "nav.education" },
+  { href: "#projects", key: "nav.projects" },
   { href: "#skills", key: "nav.skills" },
   { href: "#contact", key: "nav.contact" },
 ];

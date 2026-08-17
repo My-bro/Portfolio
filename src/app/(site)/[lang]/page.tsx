@@ -9,6 +9,7 @@ import { SkillsSection } from "@/components/skills-section";
 import { ContactSection } from "@/components/contact-section";
 import { Footer } from "@/components/footer";
 import { VisitTracker } from "@/components/visit-tracker";
+import { JumpToProjects } from "@/components/jump-to-projects";
 
 import { site } from "@/content/site";
 import { projects } from "@/content/projects";
@@ -53,13 +54,15 @@ export default async function PortfolioPage({
 
       <main id="top" className="mx-auto max-w-5xl px-5 sm:px-8">
         <Hero />
-        <ProjectsSection />
         <ExperienceSection />
         <EducationSection />
+        <ProjectsSection />
         <SkillsSection />
         <ContactSection />
         <Footer />
       </main>
+
+      <JumpToProjects />
 
       <VisitTracker />
 
