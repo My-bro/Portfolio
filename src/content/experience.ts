@@ -4,30 +4,34 @@ import type { TimelineEntry } from "./types";
  * Expériences professionnelles, communes aux deux profils (comme dans les
  * CV). L'`id` sert aussi de clé média : dépose des visuels dans
  * `media/projects/<id>/` pour rendre une expérience cliquable.
+ *
+ * Elles sont affichées dans l'ordre de ce tableau : le poste en cours
+ * d'abord, puis en remontant le temps par date de fin.
  */
 export const experience: readonly TimelineEntry[] = [
   {
-    id: "sony-csl",
-    period: { fr: "Oct. 2024 — Avr. 2025", en: "Oct. 2024 — Apr. 2025" },
+    id: "junior-conseil-taker",
+    period: { fr: "Jan. 2025 — aujourd'hui", en: "Jan. 2025 — present" },
     title: {
-      fr: "Recherche & Développement",
-      en: "Research & Development",
+      fr: "Développeur freelance",
+      en: "Freelance developer",
     },
-    org: "Sony Computer Science Laboratories",
-    location: { fr: "Paris 5ᵉ", en: "Paris, France" },
+    org: "Junior Conseil Taker",
+    location: {
+      fr: "ESN dirigée par des étudiants d'Epitech",
+      en: "Student-run consultancy at Epitech",
+    },
     points: {
       fr: [
-        "Conception d'un step sequencer générant des percussions par IA (GAN), à partir d'un modèle ONNX développé en interne chez Sony.",
-        "Inférence optimisée sous la seconde grâce à l'accélération matérielle de la Jetson Orin de NVIDIA.",
-        "Boîtier imprimé en 3D, circuit imprimé et soudure d'une matrice de boutons, reliée à un Arduino pilotant la Jetson via USB.",
+        "Missions de développement et de conseil pour des entreprises clientes.",
+        "Participation à des audits et recommandations sur des solutions logicielles adaptées aux besoins des clients.",
       ],
       en: [
-        "Designed a step sequencer that generates percussion with AI (GAN), driven by an ONNX model built in-house at Sony.",
-        "Sub-second inference thanks to hardware acceleration on NVIDIA's Jetson Orin.",
-        "3D-printed enclosure, custom PCB and a hand-soldered button matrix, wired to an Arduino driving the Jetson over USB.",
+        "Development and consulting engagements for client companies.",
+        "Contributed to audits and recommended software solutions matched to each client's needs.",
       ],
     },
-    tags: ["GAN", "ONNX", "Jetson Orin", "Arduino", "Hardware"],
+    tags: ["Freelance", "Audit", "Conseil"],
   },
 
   {
@@ -55,28 +59,27 @@ export const experience: readonly TimelineEntry[] = [
   },
 
   {
-    id: "junior-conseil-taker",
-    period: { fr: "Jan. 2025 — aujourd'hui", en: "Jan. 2025 — present" },
+    id: "sony-csl",
+    period: { fr: "Oct. 2024 — Avr. 2025", en: "Oct. 2024 — Apr. 2025" },
     title: {
-      fr: "Développeur freelance",
-      en: "Freelance developer",
+      fr: "Recherche & Développement",
+      en: "Research & Development",
     },
-    org: "Junior Conseil Taker",
-    location: {
-      fr: "ESN dirigée par des étudiants d'Epitech",
-      en: "Student-run consultancy at Epitech",
-    },
+    org: "Sony Computer Science Laboratories",
+    location: { fr: "Paris 5ᵉ", en: "Paris, France" },
     points: {
       fr: [
-        "Missions de développement et de conseil pour des entreprises clientes.",
-        "Participation à des audits et recommandations sur des solutions logicielles adaptées aux besoins des clients.",
+        "Conception d'un step sequencer générant des percussions par IA (GAN), à partir d'un modèle ONNX développé en interne chez Sony.",
+        "Inférence optimisée sous la seconde grâce à l'accélération matérielle de la Jetson Orin de NVIDIA.",
+        "Boîtier imprimé en 3D, circuit imprimé et soudure d'une matrice de boutons, reliée à un Arduino pilotant la Jetson via USB.",
       ],
       en: [
-        "Development and consulting engagements for client companies.",
-        "Contributed to audits and recommended software solutions matched to each client's needs.",
+        "Designed a step sequencer that generates percussion with AI (GAN), driven by an ONNX model built in-house at Sony.",
+        "Sub-second inference thanks to hardware acceleration on NVIDIA's Jetson Orin.",
+        "3D-printed enclosure, custom PCB and a hand-soldered button matrix, wired to an Arduino driving the Jetson over USB.",
       ],
     },
-    tags: ["Freelance", "Audit", "Conseil"],
+    tags: ["GAN", "ONNX", "Jetson Orin", "Arduino", "Hardware"],
   },
 
   {
