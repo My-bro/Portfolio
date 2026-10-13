@@ -25,14 +25,14 @@ const TOKENS = [
 export type DemoPalette = Record<(typeof TOKENS)[number], string>;
 
 const FALLBACK: DemoPalette = {
-  surface: "#111111",
-  free: "#4a4a4a",
-  wall: "#232323",
-  grid: "#141414",
-  visited: "#7a4020",
-  path: "#e5643a",
-  start: "#f0efee",
-  end: "#e05a4a",
+  surface: "#191c1e",
+  free: "#4e5256",
+  wall: "#23272a",
+  grid: "#131517",
+  visited: "#6b7075",
+  path: "#c4c6c8",
+  start: "#e4e6e8",
+  end: "#969a9e",
 };
 
 function read(): DemoPalette {

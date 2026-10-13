@@ -51,132 +51,146 @@
 }
 
 /* ------------------------------------------------------------------
-   Palette : noir · gris · orange #D23600.
+   Palette : graphite · gris métal.
 
-   L'orange de marque vaut oklch(0.569 0.199 35.2). Il est repris tel
-   quel en mode clair, où il tient le contraste AA sur le fond papier
-   (4,6:1). Sur le noir il tomberait à 4,1:1 : le mode sombre l'éclaircit
-   à L 0.685 pour repasser au-dessus (6,2:1).
+   Pas de teinte de marque : la couleur vient de la matière. Tous les gris
+   partagent la même teinte froide (248), celle des métaux légers — un
+   neutre jamais tout à fait neutre, qui évite le gris d'imprimante sans
+   introduire de couleur.
 
-   Les gris sont très légèrement chauds (teinte ~45) pour que l'orange
-   ne flotte pas sur un neutre froid.
+   Le fond n'est ni noir ni blanc mais gris des deux côtés : #131517 en
+   sombre, #F1F2F4 en clair. C'est ce qui donne leur place aux surfaces —
+   sur un noir profond, une carte ne se distingue plus que par sa bordure.
+
+   Deux repères, pris sur les métaux eux-mêmes :
+     magnésium #C4C6C8 — oklch(0.826 0.004 248), l'accent du mode sombre
+     titane    #4E555C — oklch(0.446 0.015 248), l'accent du mode clair
+
+   Le texte se lit en trois valeurs, pas en trois couleurs : les titres
+   sur `--foreground`, les paragraphes sur ce même ton à 85 %, les dates
+   et les légendes sur `--muted-foreground`, à hauteur de titane. Tout
+   tient le contraste AA sur son fond : 14,6:1 pour les titres en sombre,
+   6,5:1 pour les légendes, 15,3:1 et 5,0:1 en clair.
+
+   Seule couleur qui subsiste : le carmin des erreurs. Ce n'est pas de la
+   décoration, c'est un signal — un message d'échec en gris ne se voit
+   pas.
    ------------------------------------------------------------------ */
 
 :root {
-    /* Fond « papier » plutôt que blanc pur : sur du blanc, l'orange
-       vibre et fatigue. */
-    --background: oklch(0.978 0.005 70);
-    --foreground: oklch(0.205 0.008 45);
-    --card: oklch(0.996 0.003 70);
-    --card-foreground: oklch(0.205 0.008 45);
-    --popover: oklch(0.996 0.003 70);
-    --popover-foreground: oklch(0.205 0.008 45);
+    --background: oklch(0.961 0.003 248);
+    --foreground: oklch(0.225 0.005 248);
+    --card: oklch(0.987 0.002 248);
+    --card-foreground: oklch(0.225 0.005 248);
+    --popover: oklch(0.987 0.002 248);
+    --popover-foreground: oklch(0.225 0.005 248);
 
-    /* #D23600 exactement. */
-    --primary: oklch(0.569 0.199 35.2);
-    --primary-foreground: oklch(0.985 0.006 70);
+    /* Le bouton principal : gris très sombre, le contraste le plus fort
+       de la page — c'est lui qui remplace l'orange comme point d'appui. */
+    --primary: oklch(0.225 0.005 248);
+    --primary-foreground: oklch(0.961 0.003 248);
 
-    --secondary: oklch(0.945 0.006 55);
-    --secondary-foreground: oklch(0.28 0.012 45);
-    --muted: oklch(0.948 0.005 60);
-    --muted-foreground: oklch(0.492 0.013 45);
-    --accent: oklch(0.935 0.024 45);
-    --accent-foreground: oklch(0.34 0.07 38);
-    /* Décalé vers le carmin : à la teinte d'origine (27) une erreur
-       aurait été confondue avec la couleur de marque. */
+    --secondary: oklch(0.936 0.003 248);
+    --secondary-foreground: oklch(0.3 0.006 248);
+    --muted: oklch(0.936 0.003 248);
+    --muted-foreground: oklch(0.515 0.008 248);
+    --accent: oklch(0.912 0.005 248);
+    --accent-foreground: oklch(0.32 0.008 248);
+    /* Carmin : seule entorse au gris, réservée aux erreurs. */
     --destructive: oklch(0.52 0.215 12);
-    --border: oklch(0.9 0.008 55);
-    --input: oklch(0.9 0.008 55);
-    --ring: oklch(0.569 0.199 35.2);
+    --border: oklch(0.9 0.005 248);
+    --input: oklch(0.9 0.005 248);
+    --ring: oklch(0.446 0.015 248);
 
-    --brand: oklch(0.569 0.199 35.2);
-    --brand-soft: oklch(0.68 0.15 38);
+    /* Titane : sur fond clair, l'accent doit être sombre pour exister. */
+    --brand: oklch(0.446 0.015 248);
+    --brand-soft: oklch(0.573 0.01 248);
 
-    --chart-1: oklch(0.569 0.199 35.2);
-    --chart-2: oklch(0.655 0.16 38);
-    --chart-3: oklch(0.735 0.12 42);
-    --chart-4: oklch(0.81 0.08 46);
-    --chart-5: oklch(0.88 0.045 50);
+    --chart-1: oklch(0.225 0.005 248);
+    --chart-2: oklch(0.446 0.015 248);
+    --chart-3: oklch(0.573 0.01 248);
+    --chart-4: oklch(0.72 0.008 248);
+    --chart-5: oklch(0.85 0.005 248);
 
     --radius: 0.5rem;
 
-    --sidebar: oklch(0.962 0.005 65);
-    --sidebar-foreground: oklch(0.205 0.008 45);
-    --sidebar-primary: oklch(0.569 0.199 35.2);
-    --sidebar-primary-foreground: oklch(0.985 0.006 70);
-    --sidebar-accent: oklch(0.935 0.024 45);
-    --sidebar-accent-foreground: oklch(0.34 0.07 38);
-    --sidebar-border: oklch(0.9 0.008 55);
-    --sidebar-ring: oklch(0.569 0.199 35.2);
+    --sidebar: oklch(0.945 0.003 248);
+    --sidebar-foreground: oklch(0.225 0.005 248);
+    --sidebar-primary: oklch(0.225 0.005 248);
+    --sidebar-primary-foreground: oklch(0.961 0.003 248);
+    --sidebar-accent: oklch(0.912 0.005 248);
+    --sidebar-accent-foreground: oklch(0.32 0.008 248);
+    --sidebar-border: oklch(0.9 0.005 248);
+    --sidebar-ring: oklch(0.446 0.015 248);
 
     /* Démos C rendues sur <canvas> : les canevas ne connaissent pas les
        classes Tailwind, ils lisent ces variables au rendu et se
        redessinent au changement de thème (voir src/lib/demo-theme.ts).
-       Même palette que le reste du site — noir · gris · orange — au lieu
-       du bleu/vert/rouge d'origine, qui n'appartenait à rien. */
-    --demo-surface: oklch(0.996 0.003 70);
-    --demo-free: oklch(0.902 0.006 60);
-    --demo-wall: oklch(0.32 0.012 45);
+       Elles sont monochromes comme le reste : ce qui distingue le départ
+       de l'arrivée, c'est l'écart de valeur, pas la teinte. */
+    --demo-surface: oklch(0.987 0.002 248);
+    --demo-free: oklch(0.9 0.005 248);
+    --demo-wall: oklch(0.362 0.009 248);
     /* Les cases sont séparées par un liseré de cette couleur : sans lui,
        une carte dézoomée devient un aplat où le quadrillage disparaît. */
-    --demo-grid: oklch(0.978 0.005 70);
-    --demo-visited: oklch(0.885 0.042 50);
-    --demo-path: oklch(0.569 0.199 35.2);
-    --demo-start: oklch(0.205 0.008 45);
-    --demo-end: oklch(0.52 0.215 12);
+    --demo-grid: oklch(0.961 0.003 248);
+    --demo-visited: oklch(0.787 0.007 248);
+    --demo-path: oklch(0.446 0.015 248);
+    --demo-start: oklch(0.225 0.005 248);
+    --demo-end: oklch(0.573 0.01 248);
 }
 
 .dark {
-    --background: oklch(0.148 0.008 45);
-    --foreground: oklch(0.948 0.006 70);
-    --card: oklch(0.188 0.009 45);
-    --card-foreground: oklch(0.948 0.006 70);
-    --popover: oklch(0.188 0.009 45);
-    --popover-foreground: oklch(0.948 0.006 70);
+    --background: oklch(0.194 0.005 248);
+    --foreground: oklch(0.924 0.003 248);
+    --card: oklch(0.237 0.006 248);
+    --card-foreground: oklch(0.924 0.003 248);
+    --popover: oklch(0.237 0.006 248);
+    --popover-foreground: oklch(0.924 0.003 248);
 
-    /* Même teinte, éclairci pour le fond noir. */
-    --primary: oklch(0.685 0.19 35.2);
-    --primary-foreground: oklch(0.17 0.03 35);
+    --primary: oklch(0.924 0.003 248);
+    --primary-foreground: oklch(0.194 0.005 248);
 
-    --secondary: oklch(0.255 0.01 45);
-    --secondary-foreground: oklch(0.948 0.006 70);
-    --muted: oklch(0.245 0.009 45);
-    --muted-foreground: oklch(0.68 0.014 50);
-    --accent: oklch(0.29 0.035 40);
-    --accent-foreground: oklch(0.86 0.09 40);
+    --secondary: oklch(0.271 0.007 248);
+    --secondary-foreground: oklch(0.924 0.003 248);
+    --muted: oklch(0.271 0.007 248);
+    --muted-foreground: oklch(0.684 0.007 248);
+    --accent: oklch(0.311 0.007 248);
+    --accent-foreground: oklch(0.9 0.004 248);
     --destructive: oklch(0.665 0.2 12);
-    --border: oklch(0.94 0.03 45 / 11%);
-    --input: oklch(0.94 0.03 45 / 15%);
-    --ring: oklch(0.685 0.19 35.2);
+    --border: oklch(0.311 0.007 248);
+    --input: oklch(0.34 0.008 248);
+    --ring: oklch(0.826 0.004 248);
 
-    --brand: oklch(0.685 0.19 35.2);
-    --brand-soft: oklch(0.56 0.16 35);
+    /* Magnésium : sur le graphite, l'accent s'éclaircit au lieu de foncer. */
+    --brand: oklch(0.826 0.004 248);
+    --brand-soft: oklch(0.684 0.007 248);
 
-    --chart-1: oklch(0.685 0.19 35.2);
-    --chart-2: oklch(0.605 0.165 34);
-    --chart-3: oklch(0.525 0.14 33);
-    --chart-4: oklch(0.445 0.11 32);
-    --chart-5: oklch(0.365 0.075 32);
+    --chart-1: oklch(0.924 0.003 248);
+    --chart-2: oklch(0.826 0.004 248);
+    --chart-3: oklch(0.684 0.007 248);
+    --chart-4: oklch(0.52 0.008 248);
+    --chart-5: oklch(0.37 0.007 248);
 
-    --sidebar: oklch(0.188 0.009 45);
-    --sidebar-foreground: oklch(0.948 0.006 70);
-    --sidebar-primary: oklch(0.685 0.19 35.2);
-    --sidebar-primary-foreground: oklch(0.17 0.03 35);
-    --sidebar-accent: oklch(0.29 0.035 40);
-    --sidebar-accent-foreground: oklch(0.86 0.09 40);
-    --sidebar-border: oklch(0.94 0.03 45 / 11%);
-    --sidebar-ring: oklch(0.685 0.19 35.2);
+    --sidebar: oklch(0.237 0.006 248);
+    --sidebar-foreground: oklch(0.924 0.003 248);
+    --sidebar-primary: oklch(0.924 0.003 248);
+    --sidebar-primary-foreground: oklch(0.194 0.005 248);
+    --sidebar-accent: oklch(0.311 0.007 248);
+    --sidebar-accent-foreground: oklch(0.9 0.004 248);
+    --sidebar-border: oklch(0.311 0.007 248);
+    --sidebar-ring: oklch(0.826 0.004 248);
 
     /* En sombre, le rapport s'inverse : les cases libres sont le gris
        clair, les murs se fondent dans le fond. */
-    --demo-surface: oklch(0.168 0.008 45);
-    --demo-free: oklch(0.44 0.011 50);
-    --demo-wall: oklch(0.225 0.009 45);
-    --demo-grid: oklch(0.148 0.008 45);
-    --demo-visited: oklch(0.44 0.048 42);
-    --demo-path: oklch(0.685 0.19 35.2);
-    --demo-start: oklch(0.948 0.006 70);
-    --demo-end: oklch(0.665 0.2 12);
+    --demo-surface: oklch(0.224 0.006 248);
+    --demo-free: oklch(0.436 0.008 248);
+    --demo-wall: oklch(0.27 0.008 248);
+    --demo-grid: oklch(0.194 0.005 248);
+    --demo-visited: oklch(0.543 0.01 248);
+    --demo-path: oklch(0.826 0.004 248);
+    --demo-start: oklch(0.924 0.003 248);
+    --demo-end: oklch(0.684 0.007 248);
 }
 
 @layer base {
@@ -252,7 +266,7 @@
         display: none;
     }
 
-    /* Liseré orange discret sous les titres de section. */
+    /* Liseré métal discret sous les titres de section. */
     .rule-brand {
         background-image: linear-gradient(
             to right,
