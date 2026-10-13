@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <title>AL</title>
-  <rect width="64" height="64" rx="14" fill="#D23600" />
-  <g fill="#FFFFFF">
+  <rect width="64" height="64" rx="14" fill="#C1C2C3" />
+  <g fill="#121314">
     <path d="M9.61 45.44 16.95 18.56H23.54L30.88 45.44H25.47L20.24 25.07L15.02 45.44ZM14.56 39.72 15.93 35.03H24.56L25.92 39.72Z" />
     <path d="M37.28 45.44V18.56H42.66V43.89L38.72 40.59H54.39V45.44Z" />
   </g>
