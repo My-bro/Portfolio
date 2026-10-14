@@ -178,8 +178,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 1990,
-        "height": 1120,
+        "width": 1480,
+        "height": 832,
         "duration": null,
         "hasAudio": false
       },
@@ -194,8 +194,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 1990,
-        "height": 1120,
+        "width": 1480,
+        "height": 832,
         "duration": null,
         "hasAudio": false
       }
@@ -215,8 +215,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 1876,
-        "height": 1056,
+        "width": 1058,
+        "height": 595,
         "duration": null,
         "hasAudio": false
       },
@@ -231,8 +231,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 1876,
-        "height": 1056,
+        "width": 1058,
+        "height": 595,
         "duration": null,
         "hasAudio": false
       }
@@ -252,8 +252,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 2096,
-        "height": 1178,
+        "width": 1484,
+        "height": 835,
         "duration": null,
         "hasAudio": false
       },
@@ -268,8 +268,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 2096,
-        "height": 1178,
+        "width": 1484,
+        "height": 835,
         "duration": null,
         "hasAudio": false
       }
@@ -363,8 +363,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 2096,
-        "height": 1178,
+        "width": 1484,
+        "height": 835,
         "duration": null,
         "hasAudio": false
       },
@@ -379,8 +379,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 2096,
-        "height": 1178,
+        "width": 1484,
+        "height": 835,
         "duration": null,
         "hasAudio": false
       }
@@ -442,8 +442,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 1990,
-        "height": 1120,
+        "width": 1480,
+        "height": 832,
         "duration": null,
         "hasAudio": false
       },
@@ -458,8 +458,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 1990,
-        "height": 1120,
+        "width": 1480,
+        "height": 832,
         "duration": null,
         "hasAudio": false
       }
@@ -558,8 +558,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 1990,
-        "height": 1120,
+        "width": 1480,
+        "height": 832,
         "duration": null,
         "hasAudio": false
       },
@@ -574,8 +574,8 @@ export const generatedMedia = {
             "type": "image/jpeg"
           }
         ],
-        "width": 1990,
-        "height": 1120,
+        "width": 1480,
+        "height": 832,
         "duration": null,
         "hasAudio": false
       }
