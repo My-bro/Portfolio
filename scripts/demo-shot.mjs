@@ -1,237 +1,114 @@
 #!/usr/bin/env node
 /**
- * demo-shot — capture la vignette d'une démo WebAssembly du portfolio.
+ * demo-shot — capture la démo d'un projet telle que le site la joue.
  *
- *   node scripts/demo-shot.mjs <slug> <sortie.png> [--url=http://localhost:3000] [--theme=dark|light]
+ *   node scripts/demo-shot.mjs <url> <projet> <bouton> <sortie.png> [--theme=dark|light] [--wait=<ms>]
  *
- * Les projets C n'ont pas de captures d'écran d'époque : leur seule image
- * fidèle est la démo elle-même, qui tourne déjà dans le site. Plutôt que de
- * dessiner une vignette à la main — qui mentirait dès la première
- * modification de la démo — on joue le scénario et on photographie le
- * résultat. Refaire les vignettes est alors une commande, pas un travail.
+ * Les démos écrites en React dessinent sur un <canvas> avec les tokens
+ * `--demo-*` du thème : leur vignette vieillit donc à chaque changement de
+ * palette. Plutôt que de retoucher l'image, on rejoue la démo et on
+ * photographie le canevas — ce qui montre la démo telle qu'elle est
+ * aujourd'hui, et non telle qu'elle était le jour de la capture.
  *
- * Le cadrage est calculé en 16/9 autour du panneau de démo, format des
- * cartes de projet. L'image sort ensuite par `npm run media:sync` comme
- * n'importe quel autre média.
+ * `<projet>` est le nom affiché sur la carte (« Push-swap ») : c'est la
+ * seule prise dont le script a besoin, parce que c'est le seul libellé que
+ * voit l'utilisateur. `--target` vise un autre élément que le canevas, pour
+ * les démos qui dessinent en DOM (My navy, minilibC).
  *
- * Prérequis :
- *   npm run dev            (dans un autre terminal)
+ * `--wait` règle le moment du déclenchement, et c'est tout l'enjeu : un tri
+ * photographié trop tôt n'a rien trié, un labyrinthe trop tard est déjà
+ * résolu depuis longtemps. La valeur dépend de la démo.
+ *
+ * La capture sort au rapport de la carte, en 2x — comme une capture d'écran
+ * sur un écran Retina — puis passe par `npm run media:sync` comme n'importe
+ * quel média.
+ *
+ * Prérequis, à installer une fois :
  *   npx playwright install chromium
  */
 
 import process from "node:process";
+import { chromium } from "playwright";
 
 const argv = process.argv.slice(2);
-const option = (name, fallback) => {
-  const found = argv.find((a) => a.startsWith(`--${name}=`));
-  return found ? found.slice(name.length + 3) : fallback;
+const opt = (name, fallback) => {
+  const hit = argv.find((a) => a.startsWith(`--${name}=`));
+  return hit ? hit.slice(name.length + 3) : fallback;
 };
-const url = option("url", "http://localhost:3000");
-const theme = option("theme", "dark");
-const [slug, out] = argv.filter((a) => !a.startsWith("--"));
+const theme = opt("theme", "dark");
+// Le rapport des vignettes de cartes.
+const RATIO = 16 / 9;
+const wait = Number(opt("wait", 4000));
+// Hauteur de fenêtre imposée : pour un canevas carré, on l'agrandit au
+// lieu de chercher le 16/9, et c'est le recadrage qui s'en charge ensuite.
+const height = Number(opt("height", 0));
+const target = opt("target", "canvas");
+const [url, project, out] = argv.filter((a) => !a.startsWith("--"));
 
-/**
- * Un scénario par démo : ce qu'il faut lancer pour que la vignette montre
- * le projet en train de faire son travail, plutôt qu'un écran d'accueil.
- */
-const SCENARIOS = {
-  dante: {
-    card: "Dante",
-    launch: "Lancer la résolution",
-    async play(page) {
-      await page.getByRole("button", { name: "Générer" }).click();
-      await waitIdle(page, "Résolution en cours");
-    },
-  },
-  bsq: {
-    card: "BSQ",
-    launch: "Chercher le plus grand carré",
-    async play(page) {
-      await page.getByRole("button", { name: "Générer" }).click();
-      await page.waitForFunction(
-        () => document.body.innerText.includes("Carré trouvé"),
-        null,
-        { timeout: 30_000 },
-      );
-      await page.waitForTimeout(400);
-    },
-  },
-  minilibc: {
-    card: "minilibC",
-    launch: "Exécuter",
-    frame: "width",
-    async play(page) {
-      // Au milieu d'un strstr : les deux pointeurs sont posés sur leurs
-      // chaînes, une instruction est surlignée, les registres ont bougé.
-      await page.getByRole("button", { name: "strstr", exact: true }).click();
-      await page.waitForTimeout(400);
-      const stepButton = page.getByRole("button", { name: "Pas à pas" });
-      for (let i = 0; i < 26; i++) await stepButton.click();
-      await page.waitForTimeout(300);
-    },
-  },
-  navy: {
-    card: "My navy",
-    launch: "Lancer la partie",
-    // Deux camps côte à côte : le cadre se prend sur la largeur. Le panneau
-    // étant plus plat qu'un 16/9, la fenêtre est haute pour que la fiche
-    // dépasse en dessous — le cadre y prend la hauteur qui lui manque,
-    // sur le journal des salves plutôt que sur le titre.
-    frame: "width",
-    viewport: { width: 1600, height: 1400 },
-    async play(page) {
-      // Quelques échanges pour que les deux grilles portent des touches et
-      // que le journal des salves ne soit pas vide.
-      const shots = [
-        ["C1", 1],
-        ["A1", 3],
-        ["C2", 1],
-        ["B1", 3],
-        ["D4", 1],
-      ];
-      for (const [coord, board] of shots) {
-        await page.locator(`[role=dialog] [aria-label='${coord}']`).nth(board).click();
-        await page.waitForTimeout(500);
-      }
-    },
-  },
-  sokoban: {
-    card: "Sokoban",
-    launch: "Lancer la partie",
-    // Le canevas occupe tout le panneau mais la carte est centrée dedans :
-    // rogner depuis son bord gauche couperait la moitié de l'entrepôt.
-    align: "center",
-    async play(page) {
-      // Une partie entamée : le joueur a quitté sa position de départ et
-      // pousse une caisse. Les touches partent sur la fenêtre, comme
-      // depuis un vrai clavier.
-      for (const key of ["ArrowRight", "ArrowRight", "ArrowDown", "ArrowRight"]) {
-        await page.keyboard.press(key);
-        await page.waitForTimeout(250);
-      }
-      await page.waitForTimeout(400);
-    },
-  },
-  pushswap: {
-    card: "Push-swap",
-    launch: "Lancer le tri",
-    async play(page) {
-      await page.getByRole("button", { name: /Inversé/ }).click();
-      // Au milieu du tri : les deux piles portent des barres, ce que ni le
-      // départ ni l'arrivée ne montrent.
-      await page.waitForTimeout(5000);
-    },
-  },
-  minishell: {
-    card: "Minishell",
-    launch: "Lancer le shell",
-    async play(page) {
-      const session = [
-        "ls",
-        "cat projets.txt | sort | head -n 3",
-        "cat notes.txt | sort | uniq",
-        "setenv PROJET minishell",
-        "env | grep PROJET",
-        "cd projets && ls",
-      ];
-      for (const line of session) {
-        await page.getByPlaceholder("tape une commande…").fill(line);
-        await page.keyboard.press("Enter");
-        await page.waitForTimeout(1500);
-      }
-    },
-  },
-};
-
-/** Attend que le texte d'activité (« Résolution en cours ») disparaisse. */
-async function waitIdle(page, busyLabel) {
-  await page.waitForFunction(
-    (label) => !document.body.innerText.includes(label),
-    busyLabel,
-    { timeout: 60_000 },
-  );
-  await page.waitForTimeout(400);
-}
-
-const scenario = SCENARIOS[slug];
-if (!slug || !out || !scenario) {
+if (!url || !project || !out || Number.isNaN(wait)) {
   console.error(
-    `usage : node scripts/demo-shot.mjs <${Object.keys(SCENARIOS).join("|")}> <sortie.png> [--url=…] [--theme=dark|light]`,
-  );
-  process.exit(1);
-}
-
-let chromium;
-try {
-  ({ chromium } = await import("playwright"));
-} catch {
-  console.error(
-    "playwright est introuvable. Installe-le puis relance :\n\n" +
-      "  npm i -D playwright && npx playwright install chromium\n",
+    "usage : node scripts/demo-shot.mjs <url> <projet> <sortie.png> [--theme=dark|light] [--wait=<ms>] [--height=<px>] [--target=<sélecteur>]\n" +
+      'exemple : node scripts/demo-shot.mjs http://localhost:3000/fr "Push-swap" media/projects/push-swap/01-tri-en-cours.png --wait=5000',
   );
   process.exit(1);
 }
 
 const browser = await chromium.launch();
 const page = await browser.newPage({
-  viewport: scenario.viewport ?? { width: 1600, height: 1000 },
+  viewport: { width: 1280, height: 900 },
   deviceScaleFactor: 2,
-  colorScheme: theme === "light" ? "light" : "dark",
 });
 
-try {
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
-  await page.evaluate((mode) => {
-    document.documentElement.classList.toggle("dark", mode === "dark");
-    document.documentElement.classList.toggle("light", mode !== "dark");
-  }, theme);
-  await page.waitForTimeout(800);
+// next-themes lit le thème avant la première peinture : le poser ici évite
+// la bascule claire/sombre au chargement, qui se verrait sur la capture.
+await page.addInitScript((value) => {
+  try {
+    localStorage.setItem("theme", value);
+  } catch {}
+}, theme);
 
-  await page.click(`[aria-label^="${scenario.card} —"]`);
-  await page.getByRole("button", { name: scenario.launch }).click();
-  await scenario.play(page);
+await page.goto(url, { waitUntil: "networkidle" });
 
-  // Cadrage 16/9 centré sur le panneau de démo : c'est le format des
-  // cartes, et rogner soi-même vaut mieux que laisser le CSS trancher.
-  // Le canevas quand il y en a un — il porte tout le sujet et laisse
-  // moins de vide autour que le panneau, plus large que lui.
-  const canvas = await page.locator("[role=dialog] canvas").first().boundingBox()
-    .catch(() => null);
-  const panel = await page
-    .locator("[role=dialog] .rounded-lg.border")
-    .first()
-    .boundingBox();
-  const target = canvas ?? panel;
-  // Certaines démos sont plus larges que hautes (deux grilles côte à côte) :
-  // le 16/9 se prend alors sur la largeur, sans quoi le cadrage couperait
-  // la moitié du sujet.
-  const viewportWidth = page.viewportSize().width;
-  const height =
-    scenario.frame === "width"
-      ? (Math.min(viewportWidth, target.width) * 9) / 16
-      : target.height;
-  const width = Math.min(viewportWidth, (height * 16) / 9);
-  // La hauteur manquante est prise sous le panneau, sans jamais déborder
-  // de la fiche : au-delà, c'est la page qui apparaîtrait.
-  const dialog = await page.locator("[role=dialog]").first().boundingBox();
-  const y =
-    scenario.frame === "width"
-      ? Math.max(
-          dialog.y,
-          Math.min(target.y, dialog.y + dialog.height - height),
-        )
-      : target.y;
-  // Plus large que le cadre voulu (un terminal) : on garde son bord gauche,
-  // c'est là qu'est le texte. Plus étroit (un canevas carré) : on centre et
-  // le vide se répartit des deux côtés.
-  const x =
-    target.width >= width && scenario.align !== "center"
-      ? target.x
-      : Math.max(0, Math.min(viewportWidth - width, target.x + target.width / 2 - width / 2));
-  const clip = { x, y, width, height };
+// Les cartes portent « <nom> — Ouvrir » en nom accessible, et la fiche
+// s'ouvre dans une boîte de dialogue.
+await page.getByRole("button", { name: new RegExp(`^${project} — `) }).click();
+const dialog = page.getByRole("dialog");
+await dialog.waitFor({ state: "visible" });
 
-  await page.screenshot({ path: out, clip });
-  console.log(`capturé : ${slug} -> ${out}`);
-} finally {
-  await browser.close();
+// Les démos légères démarrent seules ; les lourdes gardent leur écran de
+// lancement, qu'il faut donc franchir quand il est là.
+const launch = dialog.getByRole("button", { name: /^(Lancer|Chercher|Ex\u00e9cuter|Run|Start|Find)/ }).first();
+if (await launch.count()) await launch.click();
+
+const canvas = dialog.locator(target).first();
+await canvas.waitFor({ state: "visible" });
+
+/**
+ * Les cartes affichent leurs médias en 16/9 et recadrent le reste : une
+ * capture au mauvais rapport perdrait le haut et le bas de la scène. La
+ * hauteur du canevas se déduisant de celle de la fenêtre, on ajuste la
+ * seconde jusqu'à ce que la première tombe juste — deux passes suffisent,
+ * la relation étant linéaire.
+ */
+let viewport = page.viewportSize();
+if (height) {
+  viewport = { ...viewport, height };
+  await page.setViewportSize(viewport);
+  await page.waitForTimeout(250);
 }
+for (let pass = 0; pass < (height ? 0 : 4); pass++) {
+  const box = await canvas.boundingBox();
+  const target = box.width / RATIO;
+  if (Math.abs(box.height - target) < 2) break;
+  viewport = { ...viewport, height: Math.round(viewport.height + target - box.height) };
+  await page.setViewportSize(viewport);
+  await page.waitForTimeout(250);
+}
+
+await page.waitForTimeout(wait);
+await canvas.screenshot({ path: out });
+
+const box = await canvas.boundingBox();
+console.log(`  ${project.padEnd(12)} ${theme.padEnd(5)} ${out}  (${Math.round(box.width)}x${Math.round(box.height)} css)`);
+
+await browser.close();
