@@ -15,11 +15,27 @@ import {
 import { trackProjectOpen } from "@/lib/analytics";
 import { usePrefs } from "@/lib/prefs";
 import { projects } from "@/content/projects";
-import type { Project } from "@/content/types";
+import type { Lang, Project } from "@/content/types";
 
-/** « Tek 1 », ou « Tek 4 — 5 » pour ce qui a duré deux ans. */
-function tekLabel(project: Project): string {
-  return project.tekEnd ? `Tek ${project.tek} — ${project.tekEnd}` : `Tek ${project.tek}`;
+/**
+ * « 1ʳᵉ année », ou « 4ᵉ — 5ᵉ année » pour ce qui a duré deux ans.
+ *
+ * Le modèle garde le vocabulaire d'Epitech — `tek` est l'année d'études —
+ * mais il ne sort pas d'ici : « Tek 3 » ne dit rien à un recruteur, alors
+ * qu'un rang d'année se lit partout.
+ */
+function yearLabel(project: Project, lang: Lang): string {
+  const rank = (year: number) =>
+    lang === "fr"
+      ? year === 1
+        ? "1ʳᵉ"
+        : `${year}ᵉ`
+      : `${year}${["th", "st", "nd", "rd"][year] ?? "th"}`;
+  const unit = lang === "fr" ? "année" : "year";
+
+  return project.tekEnd
+    ? `${rank(project.tek)} — ${rank(project.tekEnd)} ${unit}`
+    : `${rank(project.tek)} ${unit}`;
 }
 
 /** Les années civiles d'un groupe, dédoublonnées : « 2023 · 2024 ». */
@@ -69,11 +85,11 @@ export function ProjectsSection() {
     () =>
       groups.map(({ tek, items }) => ({
         tek,
-        label: tekLabel(items[0]),
+        label: yearLabel(items[0], lang),
         years: years(items),
         count: items.length,
       })),
-    [groups],
+    [groups, lang],
   );
 
   const activeTek = useActiveTek(groups.map((g) => g.tek));
@@ -123,7 +139,7 @@ export function ProjectsSection() {
           {groups.map(({ tek, items }) => (
             <div key={tek} className="scroll-mt-40 space-y-4" id={`tek-${tek}`}>
               <div className="flex items-baseline gap-3">
-                <h3 className="font-mono text-sm text-brand">{tekLabel(items[0])}</h3>
+                <h3 className="font-mono text-sm text-brand">{yearLabel(items[0], lang)}</h3>
                 <span className="h-px flex-1 bg-border" />
                 <span className="font-mono text-xs text-muted-foreground">
                   {years(items)}
