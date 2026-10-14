@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Play, RotateCcw, Shuffle } from "lucide-react";
+import { RotateCcw, Shuffle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { usePrefs } from "@/lib/prefs";
@@ -60,7 +60,10 @@ function parseEvents(output: string): { events: Event[]; solved: boolean } {
 export function DanteDemo() {
   const { t } = usePrefs();
   const palette = useDemoPalette();
-  const [started, setStarted] = useState(false);
+  // La démo se lance d'elle-même : son module pèse moins de 130 Ko, et
+  // demander un second clic après celui qui ouvre la fiche ne protégeait
+  // rien. Les jeux Emscripten, eux, gardent leur clic — ils pèsent des Mo.
+  const [started] = useState(true);
   const [mapKey, setMapKey] = useState<MapKey>("small");
   const [size, setSize] = useState(31);
   const [kind, setKind] = useState<Kind>("imperfect");
@@ -259,21 +262,12 @@ export function DanteDemo() {
 
   return (
     <div className="space-y-3">
+      <p className="text-sm text-pretty text-muted-foreground">
+        {t("dante.intro")}
+      </p>
       <div className="relative mx-auto w-full overflow-hidden rounded-lg border bg-card">
         <div className="flex h-[60vh] max-h-[560px] min-h-[360px] w-full items-center justify-center p-4">
-          {started ? (
-            <canvas ref={canvasRef} className="max-h-full max-w-full rounded" />
-          ) : (
-            <div className="flex flex-col items-center justify-center gap-3 px-6 text-center">
-              <p className="max-w-sm text-sm text-balance text-muted-foreground">
-                {t("dante.intro")}
-              </p>
-              <Button onClick={() => setStarted(true)}>
-                <Play className="size-4 fill-current" />
-                {t("dante.launch")}
-              </Button>
-            </div>
-          )}
+          <canvas ref={canvasRef} className="max-h-full max-w-full rounded" />
         </div>
       </div>
 

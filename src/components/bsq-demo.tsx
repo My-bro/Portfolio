@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Play, RotateCcw, Shuffle } from "lucide-react";
+import { RotateCcw, Shuffle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { usePrefs } from "@/lib/prefs";
@@ -56,7 +56,10 @@ function parseGrid(output: string): string[][] {
 export function BsqDemo() {
   const { t, lang } = usePrefs();
   const palette = useDemoPalette();
-  const [started, setStarted] = useState(false);
+  // La démo se lance d'elle-même : son module pèse moins de 130 Ko, et
+  // demander un second clic après celui qui ouvre la fiche ne protégeait
+  // rien. Les jeux Emscripten, eux, gardent leur clic — ils pèsent des Mo.
+  const [started] = useState(true);
   const [mapKey, setMapKey] = useState<MapKey>("sparse");
   const [size, setSize] = useState(48);
   const [density, setDensity] = useState(0.2);
@@ -235,10 +238,12 @@ export function BsqDemo() {
 
   return (
     <div className="space-y-3">
+      <p className="text-sm text-pretty text-muted-foreground">
+        {t("bsq.intro")}
+      </p>
       <div className="relative mx-auto w-full overflow-hidden rounded-lg border bg-card">
         <div className="relative h-[60vh] max-h-[560px] min-h-[360px] w-full">
-          {started ? (
-            <canvas
+          <canvas
               ref={canvasRef}
               className="size-full cursor-grab touch-none active:cursor-grabbing"
               onPointerDown={onPointerDown}
@@ -246,17 +251,6 @@ export function BsqDemo() {
               onPointerUp={endDrag}
               onPointerLeave={endDrag}
             />
-          ) : (
-            <div className="flex size-full flex-col items-center justify-center gap-3 px-6 text-center">
-              <p className="max-w-sm text-sm text-balance text-muted-foreground">
-                {t("bsq.intro")}
-              </p>
-              <Button onClick={() => setStarted(true)}>
-                <Play className="size-4 fill-current" />
-                {t("bsq.launch")}
-              </Button>
-            </div>
-          )}
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Play, RotateCcw } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { NavyBoard, parseBoard } from "@/components/navy-board";
@@ -37,30 +37,20 @@ function describeTrain(train: string): string {
  */
 export function NavyDemo() {
   const { t, lang } = usePrefs();
-  const [started, setStarted] = useState(false);
+  // La démo se lance d'elle-même : son module pèse moins de 130 Ko, et
+  // demander un second clic après celui qui ouvre la fiche ne protégeait
+  // rien. Les jeux Emscripten, eux, gardent leur clic — ils pèsent des Mo.
+  const [started] = useState(true);
   const [mode, setMode] = useState<Mode>("local");
 
   return (
     <div className="space-y-3">
+      <p className="text-sm text-pretty text-muted-foreground">
+        {t("navy.intro")}
+      </p>
       <div className="relative mx-auto w-full overflow-hidden rounded-lg border bg-card">
         <div className="min-h-[360px] w-full p-4">
-          {started ? (
-            mode === "local" ? (
-              <LocalGame />
-            ) : (
-              <OnlineGame />
-            )
-          ) : (
-            <div className="flex min-h-[328px] flex-col items-center justify-center gap-3 px-6 text-center">
-              <p className="max-w-md text-sm text-balance text-muted-foreground">
-                {t("navy.intro")}
-              </p>
-              <Button onClick={() => setStarted(true)}>
-                <Play className="size-4 fill-current" />
-                {t("navy.launch")}
-              </Button>
-            </div>
-          )}
+          {mode === "local" ? <LocalGame /> : <OnlineGame />}
         </div>
       </div>
 

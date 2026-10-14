@@ -59,7 +59,10 @@ function apply(op: string, a: number[], b: number[]) {
 export function PushSwapDemo() {
   const { t, lang } = usePrefs();
   const palette = useDemoPalette();
-  const [started, setStarted] = useState(false);
+  // La démo se lance d'elle-même : son module pèse moins de 130 Ko, et
+  // demander un second clic après celui qui ouvre la fiche ne protégeait
+  // rien. Les jeux Emscripten, eux, gardent leur clic — ils pèsent des Mo.
+  const [started] = useState(true);
   const [presetKey, setPresetKey] = useState<PresetKey>("shuffled");
   const [size, setSize] = useState(40);
   const [running, setRunning] = useState(false);
@@ -292,21 +295,12 @@ export function PushSwapDemo() {
 
   return (
     <div className="space-y-3">
+      <p className="text-sm text-pretty text-muted-foreground">
+        {t("pushswap.intro")}
+      </p>
       <div className="relative mx-auto w-full overflow-hidden rounded-lg border bg-card">
         <div className="relative h-[60vh] max-h-[560px] min-h-[360px] w-full">
-          {started ? (
-            <canvas ref={canvasRef} className="size-full" />
-          ) : (
-            <div className="flex size-full flex-col items-center justify-center gap-3 px-6 text-center">
-              <p className="max-w-sm text-sm text-balance text-muted-foreground">
-                {t("pushswap.intro")}
-              </p>
-              <Button onClick={() => setStarted(true)}>
-                <Play className="size-4 fill-current" />
-                {t("pushswap.launch")}
-              </Button>
-            </div>
-          )}
+          <canvas ref={canvasRef} className="size-full" />
         </div>
       </div>
 
