@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Play, TerminalSquare } from "lucide-react";
+import { TerminalSquare } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { usePrefs } from "@/lib/prefs";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +39,10 @@ function trimTrailingPrompt(output: string): string {
  */
 export function MinishellDemo() {
   const { t } = usePrefs();
-  const [started, setStarted] = useState(false);
+  // La démo se lance d'elle-même : son module pèse moins de 130 Ko, et
+  // demander un second clic après celui qui ouvre la fiche ne protégeait
+  // rien. Les jeux Emscripten, eux, gardent leur clic — ils pèsent des Mo.
+  const [started] = useState(true);
   const [ready, setReady] = useState(false);
   const [running, setRunning] = useState(false);
   const [history, setHistory] = useState<string[]>([]);
@@ -95,10 +97,12 @@ export function MinishellDemo() {
 
   return (
     <div className="space-y-3">
+      <p className="text-sm text-pretty text-muted-foreground">
+        {t("minishell.intro")}
+      </p>
       <div className="relative mx-auto w-full overflow-hidden rounded-lg border bg-card">
         <div className="flex h-[60vh] max-h-[560px] min-h-[360px] w-full flex-col">
-          {started ? (
-            <>
+          <>
               <div
                 ref={logRef}
                 className="flex-1 overflow-y-auto p-4 font-mono text-sm whitespace-pre-wrap text-foreground/85"
@@ -125,17 +129,6 @@ export function MinishellDemo() {
                 />
               </form>
             </>
-          ) : (
-            <div className="flex size-full flex-col items-center justify-center gap-3 px-6 text-center">
-              <p className="max-w-sm text-sm text-balance text-muted-foreground">
-                {t("minishell.intro")}
-              </p>
-              <Button onClick={() => setStarted(true)}>
-                <Play className="size-4 fill-current" />
-                {t("minishell.launch")}
-              </Button>
-            </div>
-          )}
         </div>
       </div>
 

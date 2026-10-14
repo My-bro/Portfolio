@@ -88,7 +88,10 @@ function snapshot(state: MachineState): MachineState {
  */
 export function MinilibcDemo() {
   const { t } = usePrefs();
-  const [started, setStarted] = useState(false);
+  // La démo se lance d'elle-même : son module pèse moins de 130 Ko, et
+  // demander un second clic après celui qui ouvre la fiche ne protégeait
+  // rien. Les jeux Emscripten, eux, gardent leur clic — ils pèsent des Mo.
+  const [started] = useState(true);
   const [caseKey, setCaseKey] = useState(CASES[0].key);
   const [source, setSource] = useState<string | null>(null);
   // Remettre à zéro, c'est repartir d'une machine neuve : le compteur
@@ -148,21 +151,6 @@ export function MinilibcDemo() {
     };
   }, [playing, advance]);
 
-  if (!started) {
-    return (
-      <div className="space-y-3">
-        <div className="flex min-h-[360px] flex-col items-center justify-center gap-3 rounded-lg border bg-card px-6 text-center">
-          <p className="max-w-md text-sm text-balance text-muted-foreground">
-            {t("minilibc.intro")}
-          </p>
-          <Button onClick={() => setStarted(true)}>
-            <Play className="size-4 fill-current" />
-            {t("minilibc.launch")}
-          </Button>
-        </div>
-      </div>
-    );
-  }
 
   const done = state?.done ?? false;
   const expected = entry.expect(entry.args.map((a) => a.value));
@@ -170,6 +158,9 @@ export function MinilibcDemo() {
 
   return (
     <div className="space-y-3">
+      <p className="text-sm text-pretty text-muted-foreground">
+        {t("minilibc.intro")}
+      </p>
       <div className="rounded-lg border bg-card p-3">
         <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <div className="space-y-3">
