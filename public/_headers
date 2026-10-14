@@ -1,8 +1,13 @@
 # En-têtes appliqués par Cloudflare Workers Assets.
 
-# Médias transcodés : noms stables, contenu qui change rarement.
+# Médias transcodés : leur nom est stable, donc une image refaite garde son
+# URL. Une semaine de cache laissait alors l'ancienne version à qui l'avait
+# déjà vue — ce qui s'est vu au passage en gris, les vignettes des démos
+# restant orange côté visiteur. Une heure suffit à épargner les
+# rechargements d'une même visite, et `stale-while-revalidate` sert
+# l'ancienne pendant qu'il va chercher la nouvelle, donc sans attente.
 /m/*
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 # Bundles Next : le nom contient déjà un hash de contenu.
 /_next/static/*
